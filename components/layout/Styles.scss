@@ -2,6 +2,7 @@ body {
    background-color: #c5c5c5;
    overflow-x: hidden;
    overflow-y: hidden;
+   scroll-behavior: smooth;
 }
 
 *::-webkit-scrollbar {
@@ -211,9 +212,10 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
                }
   
                .blocoBorda {
-                  margin-left: 43px;
+                   display: inline-flex;
                   .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
                      height: 24px;
+                     width: 100px;
                   }
 
                   [type="color"] {
@@ -228,6 +230,10 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
                      svg {
                         height: 37px;
                      }
+                  }
+
+                  .MuiFormControl-root.MuiFormControl-fullWidth.css-q8hpuo-MuiFormControl-root {
+                     width: 10px;
                   }
                }
 

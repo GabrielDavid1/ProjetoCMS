@@ -12,9 +12,10 @@ interface Config {
   fontSize?: string;
   fontColor?: string;
 
+  pxBorder?: string;
   typeBorder?: string;
   colorBorder?: string;
-  
+  borderRadius?:string;
   boxShadow?: string;
 
   positionX?: string;

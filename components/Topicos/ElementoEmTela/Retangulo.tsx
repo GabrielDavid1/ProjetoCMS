@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from "react";
 
 import Estilizacao from './Estilos';
 import { useList } from '../../../contexts/useTopicos';
+import { useConfig } from '../../../contexts/useConfig';
 
 let Draggable = require('react-draggable');
 
@@ -15,9 +16,10 @@ interface Config {
   fontSize?: string;
   fontColor?: string;
 
+  pxBorder?: string;
   typeBorder?: string;
   colorBorder?: string;
-  
+  borderRadius?:string;
   boxShadow?: string;
 
   positionX?: string;
@@ -39,13 +41,10 @@ export default function Retangulo({ id, config }: List) {
   const [estado, setEstado] = useState(false);
   const [visibilidade, setVisibilidade] = useState(false);
 
-  const { list, setList,
-          setIdTotal, setSelected, 
-          setToggleLateral 
-        } = useList();
+  const { list, setList, setToggleLateral } = useList();
+  const { setIdTotal, configuracoes, setConfiguracoes } = useConfig(); 
 
   const trocarLateral = (parametro: number) => {
-     setSelected([id]);
     if (parametro === 2) {
         setIdTotal(id);
         setToggleLateral(false);
@@ -192,18 +191,18 @@ export default function Retangulo({ id, config }: List) {
       resizerBottom.removeEventListener("mousedown", onMouseDownBottomResize);
       resizerLeft.removeEventListener("mousedown", onMouseDownLeftResize);
       setEstado(false);
-      setList({...list});
+      setConfiguracoes([...configuracoes]);
     };
   }, []);
-
 
   useEffect(() => {
     const resizeableEle2 = ref.current;
     if (config) {
       resizeableEle2.style.width = `${config.width}`;
       resizeableEle2.style.height = `${config.height}`;
+      resizeableEle2.style.borderRadius = `${config.borderRadius}`;
     }
-  }, [list]);
+  }, [configuracoes]);
 
   return (
     <Draggable disabled={estado}>
@@ -216,6 +215,9 @@ export default function Retangulo({ id, config }: List) {
       bgColor={config?.bgColor}
       width={config?.width}
       height={config?.height}
+      border={config?.pxBorder+' '+config?.typeBorder+' '+config?.colorBorder}
+      boxShadow={config?.boxShadow}
+      borderRadius={config?.borderRadius}
     >
       {
        visibilidade ? 

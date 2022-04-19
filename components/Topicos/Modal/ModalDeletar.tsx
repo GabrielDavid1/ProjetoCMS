@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 /* Contextos */
 import { useList } from '../../../contexts/useTopicos';
 import { useModal } from '../../../contexts/useModal';
+import { useConfig } from '../../../contexts/useConfig';
 
 import Button from '@mui/material/Button';
 
@@ -27,9 +28,11 @@ export const ModalDeletar = (() => {
             nomeSelecionado,
             removerDaLista,
           } = useList();
-    
+    const { removerConfigs } = useConfig();
+
     const plataforma = () => {
         removerDaLista(idTotal,list[0]);
+        removerConfigs(idTotal);
         handleClose2();
     }
 

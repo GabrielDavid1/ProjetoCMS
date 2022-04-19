@@ -8,28 +8,29 @@ interface Props {
     
     fontSize?: string;
     fontColor?: string;
-  
-    typeBorder?: string;
-    colorBorder?: string;
-    
+
+    border?: string;
+    borderRadius?: string;
     boxShadow?: string;
   
     positionX?: string;
     positionY?: string;
 }
 
-const Estilizacao = styled.div<Props>`
-background: ${(p) => p.bgColor};
-position: absolute;
-width: ${(p) => p.width};
-height: ${(p) => p.height};
-border-radius: 3px;
-display: flex;
-justify-content: center;
-align-items: center;
-min-width: 15px;
-min-height: 15px;
-border-radius: 10px;
+const SeletorPequeno = styled.div<Props>`
+      background: ${(p) => p.bgColor};
+      position: absolute;
+      width: ${(p) => p.width};
+      height: ${(p) => p.height};
+      border: ${(p) => p.border};
+      box-shadow: ${(p) => p.boxShadow};
+      border-radius: ${(p) => p.borderRadius};
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 15px;
+      min-height: 15px;
+      border-radius: 10px;
 `;
 
-export default Estilizacao;
+export default SeletorPequeno;

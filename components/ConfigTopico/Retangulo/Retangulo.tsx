@@ -16,7 +16,6 @@ import FormControl from '@mui/material/FormControl';
 import { ChromePicker } from 'react-color';
 
 import { useConfig } from '../../../contexts/useConfig';
-import { useList } from '../../../contexts/useTopicos';
 
 const marks = [
     {
@@ -50,9 +49,10 @@ interface Config {
   fontSize?: string;
   fontColor?: string;
 
+  pxBorder?: string;
   typeBorder?: string;
   colorBorder?: string;
-  
+  borderRadius?: string;
   boxShadow?: string;
 
   positionX?: string;
@@ -61,8 +61,12 @@ interface Config {
 
 export function Retangulo () {
     let valorEstatico = 0;
-    const [age, setAge] = useState('100%');
-    const [borda, setBorda] = useState([
+    const [shadow, setShadow] = useState('1');
+    const [border, setBorder] = useState('1');
+    
+    const [borderRadius, setBorderRadius] = useState('1');
+
+    const [campos, setCampos] = useState([
         {
           id: '1',
           status: false,
@@ -81,34 +85,99 @@ export function Retangulo () {
     ]);
 
     const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
-
-    const { idTotal, list, setList, selected } = useList();
-    const { buscarConfigs } = useConfig();
+    const { idTotal, buscarConfigs, configuracoes, setConfiguracoes } = useConfig();
 
     let elementoGuardado:any = buscarConfigs(idTotal);
 
     const [propriedades, setPropriedades] = useState<Config>({
       width: elementoGuardado.width,
       height: elementoGuardado.height,
-      bgColor: elementoGuardado.bgColor
+      bgColor: elementoGuardado.bgColor,
+      pxBorder: elementoGuardado.pxBorder,
+      typeBorder: elementoGuardado.typeBorder,
+      colorBorder: elementoGuardado.colorBorder,
+      boxShadow: elementoGuardado.boxShadow,
+      borderRadius: elementoGuardado.borderRadius,
     });
 
     const handleChange = (event: SelectChangeEvent) => {
       event.preventDefault();
-      setAge(event.target.value as string);
+      setBorder(event.target.value as string);
+      setPropriedades({...propriedades, pxBorder: event.target.value as string+'px'});
+      elementoGuardado.pxBorder = event.target.value as string+'px';  
+      setConfiguracoes([...configuracoes]); 
+    };
+
+    const handleChange2 = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      event.preventDefault();
+      setPropriedades({...propriedades, typeBorder: event.target.value});
+      elementoGuardado.typeBorder = event.target.value;  
+      setConfiguracoes([...configuracoes]); 
     };
   
+    const handleChange3 = (event: SelectChangeEvent) => {
+      event.preventDefault();
+      setShadow(event.target.value as string);
+      elementoGuardado.boxShadow = '1px 1px '+event.target.value as string+'px';  
+      setConfiguracoes([...configuracoes]); 
+    };
+
+    const handleChange4 = (event: SelectChangeEvent) => {
+      event.preventDefault();
+      setBorderRadius(event.target.value as string);
+      elementoGuardado.borderRadius = event.target.value as string+'px';  
+      setConfiguracoes([...configuracoes]); 
+    };
+
     function add (id:string, parametro:boolean) {
-      const ElementoAtualizar = [...borda];
+      const ElementoAtualizar = [...campos];
       const Elemento = ElementoAtualizar.find(Element => Element.id === id);
       if (Elemento) {
           Elemento.status = parametro;
           Elemento.path = (parametro === false) ? 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' : 'M19 13H5v-2h14v2z';
-          setBorda(ElementoAtualizar);
+          setCampos(ElementoAtualizar);
+          toggleProps(id, parametro);
       }
     }
 
-    function mudarPropriedades (event = {} as React.ChangeEvent<HTMLInputElement>, tipo: string, cor = '#fff' ) {
+    function toggleProps (id: string, parametro:boolean) {
+        switch (id) {
+          case '1':
+            if ( parametro === false ) {
+              setPropriedades({...propriedades, pxBorder: 'none', typeBorder: '', colorBorder: ''});
+              elementoGuardado.pxBorder = 'none'; 
+              elementoGuardado.typeBorder = ''; 
+              elementoGuardado.colorBorder = ''; 
+            } else {
+              setPropriedades({...propriedades, pxBorder: '1px', typeBorder: 'solid', colorBorder: 'black'});
+              elementoGuardado.pxBorder = '1px'; 
+              elementoGuardado.typeBorder = 'solid'; 
+              elementoGuardado.colorBorder = 'black'; 
+            }
+            setConfiguracoes([...configuracoes]); 
+          break;
+          case '2':
+            if ( parametro === false ) {
+              elementoGuardado.boxShadow = '0px 0px 0px'; 
+            } else {
+              elementoGuardado.boxShadow = '1px 1px 1px'; 
+            }
+            setConfiguracoes([...configuracoes]); 
+          break;
+          case '3':
+            if ( parametro === false ) {
+              elementoGuardado.borderRadius = '0px'; 
+            } else {
+              elementoGuardado.borderRadius = '1px'; 
+            }
+            setConfiguracoes([...configuracoes]); 
+          break;
+        }
+    }
+    
+
+    function mudarPropriedades (event = {} as React.ChangeEvent<HTMLInputElement>, tipo: string, cor = '#fff', pixels = '0px') {
+  
         switch ( tipo ) {
             case 'width': 
               setPropriedades({...propriedades, width: event.target.value});
@@ -122,8 +191,12 @@ export function Retangulo () {
               setPropriedades({...propriedades, bgColor: cor});
               elementoGuardado.bgColor = cor;            
             break;
+            case 'colorBorder':
+              setPropriedades({...propriedades, colorBorder: event.target.value});
+              elementoGuardado.colorBorder = event.target.value;            
+            break;
         }
-        setList({...list});
+        setConfiguracoes([...configuracoes]);
         event.preventDefault();
     }
 
@@ -132,7 +205,6 @@ export function Retangulo () {
     }
 
     function valueLabelFormat(valor: number) {
-      console.log(valor);
         valorEstatico = valor;
         return marks.findIndex((mark) => mark.value === valor) + 1;
     }
@@ -144,7 +216,7 @@ export function Retangulo () {
                         });
         elementoGuardado.width =  valorEstatico+'%';  
         elementoGuardado.height =  valorEstatico+'%'; 
-        setList({...list});
+        setConfiguracoes([...configuracoes]);
     }
 
     useEffect(() => {
@@ -154,7 +226,10 @@ export function Retangulo () {
     
     return (
         <>
-        <ChromePicker color={propriedades.bgColor} onChange={(updatedColor, e) => mudarPropriedades(e, 'bgColor', updatedColor.hex)} />
+        <ChromePicker 
+           color={propriedades.bgColor} 
+           onChange={(updatedColor, e) => mudarPropriedades(e, 'bgColor', updatedColor.hex)} 
+        />
         <Divider />
         <div className="areaConfig">
           <ul>
@@ -162,9 +237,9 @@ export function Retangulo () {
             <li>
               <p> Propriedades: </p>
               <div className="blocoPropriedades">
-                  Largura: <input value={propriedades.width} onChange={(e) => mudarPropriedades(e, 'width')} />
+                  Largura: <input value={propriedades.width} onChange={(e) => mudarPropriedades(e, 'width')}   />
                   &ensp;
-                  Altura:  <input value={propriedades.height} onChange={(e) => mudarPropriedades(e, 'height')}   />
+                  Altura:  <input value={propriedades.height} onChange={(e) => mudarPropriedades(e, 'height')} />
                   <Box sx={{ width: 255, padding: 1 }}>
                     <Slider
                       ref={ref}
@@ -189,29 +264,47 @@ export function Retangulo () {
                   bgcolor: 'white',
                   color: 'white',
                 }, width:"10px"}}
-                onClick={() => add(borda[0].id,!borda[0].status)}
+                onClick={() => add(campos[0].id,!campos[0].status)}
               >
-                <ButtonTopic name="add" path={borda[0].path}  />
+                <ButtonTopic name="add" path={campos[0].path}  />
               </Button>
               
-              {borda[0].status &&  
+              {campos[0].status &&  
                 (
                   <div className="blocoBorda">
 
-                    <input type="color" />
+                    <input
+                       type="color" 
+                       value={propriedades.colorBorder} 
+                       onChange={(e) => mudarPropriedades(e, 'colorBorder')} 
+                    />
                     &ensp;  &ensp; &ensp;  
-
-                    <FormControl sx={{width:"97px"}}>
-                      <NativeSelect
-                        defaultValue={30}
-                        inputProps={{
-                          name: 'age',
-                          id: 'uncontrolled-native',
-                        }}
+                    
+                    <FormControl fullWidth>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={border}
+                        autoWidth
+                        sx={{width: "70px", height:"35px"}}
+                        onChange={handleChange}
                       >
-                        <option value={10}>Tracejado</option>
-                        <option value={20}>Duplo</option>
-                        <option value={30}>Normal</option>
+                        <MenuItem value={1}>1px</MenuItem>
+                        <MenuItem value={2}>2px</MenuItem>
+                        <MenuItem value={3}>3px</MenuItem>
+                        <MenuItem value={4}>4px</MenuItem>
+                        <MenuItem value={5}>5px</MenuItem>
+                      </Select>
+                    </FormControl>
+
+                    <FormControl sx={{width:"100px", marginLeft: "90px"}}>
+                      <NativeSelect
+                        value={propriedades.typeBorder}
+                        onChange={handleChange2}
+                      >
+                        <option value="dashed">Tracejado</option>
+                        <option value="double">Duplo</option>
+                        <option value="solid">Normal</option>
                       </NativeSelect>
                     </FormControl>
                     &ensp;  &ensp;  &ensp; 
@@ -228,28 +321,27 @@ export function Retangulo () {
                   bgcolor: 'white',
                   color: 'white',
                 }, width:"10px"}}
-                onClick={() => add(borda[1].id,!borda[1].status)}
+                onClick={() => add(campos[1].id,!campos[1].status)}
               >
-                <ButtonTopic name="add" path={borda[1].path}  />
+                <ButtonTopic name="add" path={campos[1].path}  />
               </Button>
 
-              {borda[1].status ? 
+              {campos[1].status ? 
                   (       
                   <FormControl fullWidth>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={age}
-    
+                      value={shadow}
                       sx={{width: "115px", height:"50px"}}
-                      onChange={handleChange}
+                      onChange={handleChange3}
                       inputProps={{ 'aria-label': 'Without label' }}
                     >
-                      <MenuItem value="0%">0%</MenuItem>
-                      <MenuItem value="10%">10%</MenuItem>
-                      <MenuItem value="50%">50%</MenuItem>
-                      <MenuItem value="80%">80%</MenuItem>
-                      <MenuItem value="100%">100%</MenuItem>
+                      <MenuItem value={1}>1px</MenuItem>
+                      <MenuItem value={2}>2px</MenuItem>
+                      <MenuItem value={3}>3px</MenuItem>
+                      <MenuItem value={4}>4px</MenuItem>
+                      <MenuItem value={5}>5px</MenuItem>
                     </Select>
                   </FormControl>
                   ) 
@@ -259,25 +351,38 @@ export function Retangulo () {
             </li>
             {/* Toda a área da configuração do posicionamento*/}
             <li> 
-              <b>Posicionamento</b> 
+              <b>Modificar Borda</b> 
 
               <Button 
                 sx={{':hover': {
                   bgcolor: 'white',
                   color: 'white',
                 }, width:"10px"}}
-                onClick={() => add(borda[2].id,!borda[2].status)}
+                onClick={() => add(campos[2].id,!campos[2].status)}
               >
-                <ButtonTopic name="add" path={borda[2].path}  />
+                <ButtonTopic name="add" path={campos[2].path}  />
               </Button>
 
               {
-                borda[2].status ? 
+                campos[2].status ? 
                 (                   
                 <div className="blocoPropriedades">
-                    Posi X: <input />
-                    &ensp; &ensp;
-                    Posi Y:  <input />
+                  <FormControl fullWidth>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={borderRadius}
+                      sx={{width: "115px", height:"50px"}}
+                      onChange={handleChange4}
+                      inputProps={{ 'aria-label': 'Without label' }}
+                    >
+                      <MenuItem value={5}>5px</MenuItem>
+                      <MenuItem value={10}>10px</MenuItem>
+                      <MenuItem value={20}>20px</MenuItem>
+                      <MenuItem value={50}>50px</MenuItem>
+                      <MenuItem value={100}>100px</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 ) 
                 :

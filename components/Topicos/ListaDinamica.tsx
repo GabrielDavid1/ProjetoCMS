@@ -55,11 +55,12 @@ export function ListaDinamica () {
     
     const handleSelect = (event: React.SyntheticEvent, nodeIds: string[]) => {
         let idBuscado = nodeIds+'';
-    
-        if( selected[0] !== idBuscado && adicionaGrupo === false ){ 
-            setSelected(nodeIds);
-        }else {
-            setSelected([idTotal]); 
+        if (idBuscado !== 'root') {
+            if( selected[0] !== idBuscado && adicionaGrupo === false ) { 
+                setSelected(nodeIds);
+            } else {
+                setSelected([idTotal]); 
+            }
         }
     };
 
@@ -95,11 +96,10 @@ export function ListaDinamica () {
     }
 
     const plataforma = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:RenderTree) => {
-        console.log(list);
         let copiaExpanded = expanded;
         setNomeSelecionado(nodes.name);
 
-        if (adicionaGrupo && id !== selected[0]) {
+        if (adicionaGrupo && id !== selected[0] && id !== 'root') {
             addNoGrupo(id, copiaGrupo[0], nodes);
         } else {
             setIdTotal(id);

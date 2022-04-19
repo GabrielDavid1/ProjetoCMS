@@ -139,7 +139,7 @@ export function ListProvider({ children }: Props) {
   
   const [tamanho, setTamanho] = React.useState(0);
   
-  const { removerConfigs } = useConfig();
+  const { configuracoes, setConfiguracoes } = useConfig();
 
   const removerDaLista = ( id: string, nodes:List ) => {
     let copiaExpanded = expanded;
@@ -150,7 +150,6 @@ export function ListProvider({ children }: Props) {
       ? nodes.children.map((node) => removerDaLista(id, node))
       : null  
     } else {
-      removerConfigs(id);
       nodes.children.splice(index, 1);
       setList({...list});
     }
@@ -158,21 +157,19 @@ export function ListProvider({ children }: Props) {
   }
 
   function renomearElemento ( id: string, nodes:List, name: string ) {
-
     let copiaExpanded = expanded;
     let index = nodes.children.findIndex(elemento => elemento.id === id);
 
     if (index === -1) {
       Array.isArray(nodes.children)
-      ? nodes.children.map((node) => renomearElemento(id, node, name))
-      : null  
+        ? nodes.children.map((node) => renomearElemento(id, node, name))
+        : null  
     } else {
       nodes.children[index].name = name;
       setList({...list});
       setNomeSelecionado(name);
       setExpanded(copiaExpanded);
     }
-
   }
 
   /********************* Botões Inferiores *******************/
@@ -180,6 +177,9 @@ export function ListProvider({ children }: Props) {
     if (selected.length > 0) {
         list[0].children = [];
         setList({...list});
+        if (configuracoes.length > 0) {
+            setConfiguracoes([]);
+        }
         setSelected([]);
     }
   }

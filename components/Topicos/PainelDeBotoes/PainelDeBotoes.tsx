@@ -87,25 +87,6 @@ const BootstrapTooltip = styled(({ className, ...props }: TooltipProps) => (
     },
 }));
 
-interface Config {
-  width?: string;
-  height?: string;
-
-  bgColor?: string;
-  
-  fontSize?: string;
-  fontColor?: string;
-
-  typeBorder?: string;
-  colorBorder?: string;
-  
-  boxShadow?: string;
-
-  positionX?: string;
-  positionY?: string;
-}
-
-/* Tipagem */
 interface RenderTree {
     id: string;
     name: string;
@@ -136,6 +117,11 @@ export function PainelDeBotoes () {
                     width: "150px",
                     height: "150px",
                     bgColor: "orange",
+                    pxBorder: "1px",
+                    typeBorder: "solid",
+                    colorBorder: "orange",
+                    boxShadow: "0px 0px 0px",
+                    borderRadius: "0px",
                 }
             });
             setConfiguracoes([...configuracoes]);
@@ -171,6 +157,11 @@ export function PainelDeBotoes () {
                     width: "150px",
                     height: "150px",
                     bgColor: "orange",
+                    pxBorder: "1px",
+                    typeBorder: "solid",
+                    colorBorder: "orange",
+                    boxShadow: "0px 0px 0px",
+                    borderRadius: "0px",
                 }
             });
             setConfiguracoes([...configuracoes]);
