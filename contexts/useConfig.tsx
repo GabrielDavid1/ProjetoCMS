@@ -1,27 +1,11 @@
+/* React */
 import React from "react";
 
 /* Contexto */ 
 import { useList } from './useTopicos';
 
-interface Config {
-    width?: string;
-    height?: string;
-  
-    bgColor?: string;
-    
-    fontSize?: string;
-    fontColor?: string;
-  
-    pxBorder?: string;
-    typeBorder?: string;
-    colorBorder?: string;
-    borderRadius?: string;
-    boxShadow?: string;
-  
-    positionX?: string;
-    positionY?: string;
-}
-
+/* Tipagem */
+import { Config } from '../Importacoes/Tipagens/Tipagem';
 interface PropsConfig {
     id: string,
     type: string, 

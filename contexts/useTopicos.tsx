@@ -1,13 +1,11 @@
+/* React */
 import React from "react";
 
+/* Contexto */
 import { useConfig } from './useConfig';
 
-interface List {
-  id: string;
-  name: string;
-  children: List[]
-}
-
+/* Tipagem */
+import { List } from '../Importacoes/Tipagens/Tipagem';
 interface ListContextValue {
   idTotal: string;
 

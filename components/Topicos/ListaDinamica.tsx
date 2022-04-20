@@ -1,6 +1,6 @@
 /* Contexto */
 import { useList } from '../../contexts/useTopicos';
-import { useConfig } from '../../contexts/useConfig';
+
 /* Icones para Elemento */
 import TreeView from '@mui/lab/TreeView';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -11,29 +11,13 @@ import TreeItem from '@mui/lab/TreeItem';
 import { ContextMenuTrigger } from "react-contextmenu";
 import { MenuContexto } from './MenuDeContexto/MenuContexto';
 
-interface Config {
-    width?: string;
-    height?: string;
-  
-    bgColor?: string;
-    
-    fontSize?: string;
-    fontColor?: string;
-  
-    typeBorder?: string;
-    colorBorder?: string;
-    
-    boxShadow?: string;
-  
-    positionX?: string;
-    positionY?: string;
-}
-
-interface RenderTree {
+/* Tipagens */
+import { Config } from '../../Importacoes/Tipagens/Tipagem';
+interface List {
     id: string;
     name: string;
     config?: Config;
-    children: RenderTree[];
+    children: List[];
 }
 
 export function ListaDinamica () {
@@ -48,7 +32,6 @@ export function ListaDinamica () {
          expanded, setExpanded
     } = useList();
 
-    const { configuracoes } = useConfig();
     const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
         setExpanded(nodeIds);
     };
@@ -66,7 +49,6 @@ export function ListaDinamica () {
 
     const handleExpandClick = (id: string)  =>  {
         let index = expanded.findIndex(elemento => elemento === id);
-    
         if (index !== -1) {
             expanded.splice(index, 1);
             setExpanded({...expanded}); 
@@ -76,7 +58,7 @@ export function ListaDinamica () {
         }
     };
 
-    const addNoGrupo = ( id:string, nodes:RenderTree, elemento:RenderTree ) => {
+    const addNoGrupo = ( id:string, nodes:List, elemento:List ) => {
         let copiaExpanded = expanded;
         let grupoEstatico:string[] = [];
     
@@ -95,7 +77,7 @@ export function ListaDinamica () {
         setExpanded(copiaExpanded);
     }
 
-    const plataforma = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:RenderTree) => {
+    const plataforma = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) => {
         let copiaExpanded = expanded;
         setNomeSelecionado(nodes.name);
 
@@ -114,7 +96,7 @@ export function ListaDinamica () {
         setExpanded(copiaExpanded);
     }
     
-    const renderTree = (nodes:RenderTree) => (      
+    const renderTree = (nodes:List) => (      
         (nodes !== undefined) ? (    
         <TreeItem onClick={(e) => plataforma(e, nodes.id, nodes)} key={nodes.id} nodeId={nodes.id} label={nodes.name}>
             {Array.isArray(nodes.children)

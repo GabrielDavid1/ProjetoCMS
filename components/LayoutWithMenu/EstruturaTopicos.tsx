@@ -1,7 +1,7 @@
-/*****************************  Hooks do React  **********************************/
+/* React */
 import { useCallback } from 'react';
 
-/*****************************  Importação de Contexto  **********************************/
+/* Contexto */
 import { useList } from '../../contexts/useTopicos';
 
 /*****************************  Importação de Componentes  ******************************/
@@ -18,14 +18,12 @@ export function EstruturaTopicos () {
           selected, expanded
         } = useList();
 
-/*****************************  Sub-Componentes *************************************/
   const Arvore = useCallback(() => {
     return (
       <ListaDinamica />
     )
   } , [list, expanded, copiaGrupo, nomeSelecionado, selected]); 
 
-/*****************************  Estrutura lateral  **********************************/
   const TopicosConfig = () => {
       return (
         <>
@@ -43,7 +41,7 @@ export function EstruturaTopicos () {
         </>
       )
   }
-/*****************************  Estrutura de Componentes  **********************************/
+
   return (
       <> 
         <ModalDeletar />

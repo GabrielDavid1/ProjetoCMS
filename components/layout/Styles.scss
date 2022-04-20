@@ -40,40 +40,73 @@ main.makeStyles-content-9 {
 
          .resizer {
             position: absolute;
-            background-image: linear-gradient( to right, #1976d2 50%, #1976d2, #306ba5, #6b839b );
+            background-image: linear-gradient(to right, #1976d2 50%, #1976d2, #306ba5);
           }
           
           .resizer-r {
             cursor: col-resize;
+            height: 20px;
+            right: -8px;
+            top: 58px;
+            width: 20px;
+            z-index:10;
+          }
+          
+          .resizer-t {
+            cursor: row-resize;
+            height: 20px;
+            left: 63px;
+            top: -10px;
+            width: 20px;
+            z-index:10;
+          }
+          
+          .resizer-b {
+            cursor: row-resize;
+            height: 20px;
+            left: 58px;
+            bottom: -10px;
+            width: 20px;
+            z-index:10;
+          }
+          
+          .resizer-l {
+            cursor: col-resize;
+            height: 20px;
+            left: -8px;
+            top: 59px;
+            width: 20px;
+            z-index:10;
+          }
+
+          .resizer-rd {
             height: 100%;
             right: 0;
             top: 0;
             width: 4px;
           }
           
-          .resizer-t {
-            cursor: row-resize;
+          .resizer-td {
             height: 4px;
             left: 0;
             top: 0;
             width: 100%;
           }
           
-          .resizer-b {
-            cursor: row-resize;
+          .resizer-bd {
             height: 4px;
             left: 0;
             bottom: 0;
             width: 100%;
           }
           
-          .resizer-l {
-            cursor: col-resize;
+          .resizer-ld {
             height: 100%;
             left: 0;
             top: 0;
             width: 4px;
           }
+          
       }
 
   }

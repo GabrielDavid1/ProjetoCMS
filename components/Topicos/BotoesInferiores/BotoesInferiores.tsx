@@ -1,14 +1,14 @@
+/* Contexto */
 import { useList  } from '../../../contexts/useTopicos';
 
+/* Componente material-ui */
 import Button from '@mui/material/Button';
 
 export function BotoesInferiores () {
-    const {          
-        list, setList, 
-        tamanho, setTamanho,
-        deletarTudo,
-        onToggleMarcarTudo,
-    } = useList();
+    const { 
+           list, setList, tamanho, setTamanho,
+           deletarTudo, onToggleMarcarTudo,
+          } = useList();
 
     const addGrupo = ( ) => {
         let id = String(tamanho+1);

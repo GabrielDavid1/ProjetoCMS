@@ -1,69 +1,33 @@
-import Divider from '@material-ui/core/Divider';
-
-import Button from '@mui/material/Button';
-
-import { ButtonTopic } from '../../Topicos/Button';
-
-import NativeSelect from '@mui/material/NativeSelect';
-
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
+/* React */
 import React, { useEffect, useRef, useState } from 'react';
 
+/* Componentes Framework Material-UI */
+import Divider from '@material-ui/core/Divider';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import NativeSelect from '@mui/material/NativeSelect';
 import MenuItem from '@mui/material/MenuItem';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
+/* Componente Framework react color */
 import { ChromePicker } from 'react-color';
 
+/* Componente Botão personalizado */
+import { ButtonTopic } from '../../Topicos/Button';
+
+/* Contexto */
 import { useConfig } from '../../../contexts/useConfig';
 
-const marks = [
-    {
-      value: 0,
-      label: '0%',
-    },
-    {
-      value: 30,
-      label: '30%',
-    },
-    {
-      value: 50,
-      label: '50%',
-    },
-    {
-      value: 75,
-      label: '75%',
-    },
-    {
-      value: 100,
-      label: '100%',
-    },
-];
-
-interface Config {
-  width?: string;
-  height?: string;
-
-  bgColor?: string;
-  
-  fontSize?: string;
-  fontColor?: string;
-
-  pxBorder?: string;
-  typeBorder?: string;
-  colorBorder?: string;
-  borderRadius?: string;
-  boxShadow?: string;
-
-  positionX?: string;
-  positionY?: string;
-}
+/* Tipagens e Variaveis */
+import { Config } from '../../../Importacoes/Tipagens/Tipagem';
+import { marks } from '../../../Importacoes/Variaveis/Variaveis';
 
 export function Retangulo () {
     let valorEstatico = 0;
     const [shadow, setShadow] = useState('1');
     const [border, setBorder] = useState('1');
-    
     const [borderRadius, setBorderRadius] = useState('1');
 
     const [campos, setCampos] = useState([
@@ -129,17 +93,6 @@ export function Retangulo () {
       setConfiguracoes([...configuracoes]); 
     };
 
-    function add (id:string, parametro:boolean) {
-      const ElementoAtualizar = [...campos];
-      const Elemento = ElementoAtualizar.find(Element => Element.id === id);
-      if (Elemento) {
-          Elemento.status = parametro;
-          Elemento.path = (parametro === false) ? 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' : 'M19 13H5v-2h14v2z';
-          setCampos(ElementoAtualizar);
-          toggleProps(id, parametro);
-      }
-    }
-
     function toggleProps (id: string, parametro:boolean) {
         switch (id) {
           case '1':
@@ -174,10 +127,19 @@ export function Retangulo () {
           break;
         }
     }
-    
+
+    function add (id:string, parametro:boolean) {
+      const ElementoAtualizar = [...campos];
+      const Elemento = ElementoAtualizar.find(Element => Element.id === id);
+      if (Elemento) {
+          Elemento.status = parametro;
+          Elemento.path = (parametro === false) ? 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' : 'M19 13H5v-2h14v2z';
+          setCampos(ElementoAtualizar);
+          toggleProps(id, parametro);
+      }
+    }
 
     function mudarPropriedades (event = {} as React.ChangeEvent<HTMLInputElement>, tipo: string, cor = '#fff', pixels = '0px') {
-  
         switch ( tipo ) {
             case 'width': 
               setPropriedades({...propriedades, width: event.target.value});

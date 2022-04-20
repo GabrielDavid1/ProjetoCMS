@@ -1,3 +1,4 @@
+/* Componente */
 import { Retangulo } from "./Retangulo/Retangulo";
 
 export function EstruturaConfig () {

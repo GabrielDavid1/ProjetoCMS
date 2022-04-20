@@ -1,26 +1,16 @@
+/* Componentes Framework Material-UI */
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 /* Contextos */
 import { useList } from '../../../contexts/useTopicos';
 import { useModal } from '../../../contexts/useModal';
 import { useConfig } from '../../../contexts/useConfig';
 
-import Button from '@mui/material/Button';
-
-/* Estilização do Modal Deletar */
-const styleDeletar = {
-    position: 'absolute' as 'absolute',
-    top: '40%',
-    left: '91.1%',
-    transform: 'translate(-50%, -50%)',
-    width: 280,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+/* Variaveis Padrão */
+import { styleDeletar } from '../../../Importacoes/Variaveis/Variaveis';
 
 export const ModalDeletar = (() => {
     const { open2, handleClose2 } = useModal();

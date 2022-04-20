@@ -1,43 +1,41 @@
-/* Contexto */ 
 import { memo } from 'react';
+
+/* Contexto */ 
 import { useConfig } from '../../contexts/useConfig';
-import Retangulo from '../Topicos/ElementoEmTela/Retangulo';
+import { useList } from '../../contexts/useTopicos';
 
-interface Config {
-  width?: string;
-  height?: string;
+/*  Componentes */
+import { Retangulo } from '../Topicos/ElementoEmTela/Retangulo/Retangulo';
 
-  bgColor?: string;
-  
-  fontSize?: string;
-  fontColor?: string;
-
-  pxBorder?: string;
-  typeBorder?: string;
-  colorBorder?: string;
-  borderRadius?:string;
-  boxShadow?: string;
-
-  positionX?: string;
-  positionY?: string;
-}
+/* Tipagens */
+import { Config } from '../../Importacoes/Tipagens/Tipagem';
 
 export default function Teste() { 
-  const { configuracoes } = useConfig();
+  const { setToggleLateral } = useList();
+  const { setIdTotal, configuracoes } = useConfig(); 
 
   const ElementoTopico = ( id:string, type: string, config = {} as Config) => {
     switch (type) {
       case 'Retangulo':
-        return(<><Retangulo id={id} config={config} /></>)
+        return(<> 
+             <Retangulo id={id} config={config} />
+        </>)
       case 'Text':
         return (<> texto kkkk </>)     
       default:
         return null; 
     }
+  } 
+
+  const trocarLateral = (parametro: number) => {
+    if (parametro === 2) {
+        setIdTotal('0');
+        setToggleLateral(false);
+    }
   }
 
   return (
-    <div className="container">
+    <div className="container" onClick={(e) => trocarLateral(e.detail)}>
         {configuracoes.map((listaItem, index) => (
           <div key={index}>
             { 

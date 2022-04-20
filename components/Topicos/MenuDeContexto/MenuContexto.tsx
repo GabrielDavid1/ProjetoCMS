@@ -11,14 +11,13 @@ interface tipagemProps {
     grupo: boolean;
 }
 
-interface RenderTree {
+interface List {
     id: string;
     name: string;
-    children: RenderTree[];
+    children: List[];
   }
 
 export const MenuContexto = (( {grupo} : tipagemProps) => {
-    /* Variaveis */
     const {
         idTotal, 
         adicionaGrupo, copiaGrupo,
@@ -29,7 +28,7 @@ export const MenuContexto = (( {grupo} : tipagemProps) => {
     const { handleOpen, handleOpen2 } = useModal();
 
     /* impede ações nos elementos filhos do grupo escolhido */
-    const filhosDoGrupo = ( nodes:RenderTree ) => {
+    const filhosDoGrupo = ( nodes:List ) => {
         nodes.children.map((node) => { 
         if(node.children.length > 0) {
             let index = expanded.findIndex(elemento => elemento === node.id);
@@ -50,7 +49,6 @@ export const MenuContexto = (( {grupo} : tipagemProps) => {
         setExpanded(copiaExpanded);
     }
 
-    /*********************  Render *************************/
     return (
       <> 
         <ContextMenu id="contextmenu">

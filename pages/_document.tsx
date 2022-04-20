@@ -11,9 +11,9 @@ import theme from '../lib/theme';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
-    // Resolution order
+    // Ordem de resolução
     //
-    // On the server:
+    // No lado servidor:
     // 1. app.getInitialProps
     // 2. page.getInitialProps
     // 3. document.getInitialProps
@@ -21,32 +21,30 @@ class MyDocument extends Document {
     // 5. page.render
     // 6. document.render
     //
-    // On the server with error:
+    // No salo servidor com erro:
     // 1. document.getInitialProps
     // 2. app.render
     // 3. page.render
     // 4. document.render
     //
-    // On the client
+    // No lado cliente
     // 1. app.getInitialProps
     // 2. page.getInitialProps
     // 3. app.render
     // 4. page.render
 
-    // Render app and page and get the context of the page with collected side effects.
+    // Renderiza app + pagina e pega o cotexto da pagina com as alterações feitas pelo componente
     const sheets = new ServerStyleSheets();
     const originalRenderPage = ctx.renderPage;
 
     ctx.renderPage = () =>
       originalRenderPage({
         enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-      });
+    });
 
     const initialProps = await Document.getInitialProps(ctx);
-
     return {
       ...initialProps,
-      // Styles fragment is rendered after the app and page rendering finish.
       styles: [
         ...React.Children.toArray(initialProps.styles),
         sheets.getStyleElement(),
@@ -58,7 +56,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          {/* PWA primary color */}
+          {/* PWA cor primária */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link
             rel="stylesheet"

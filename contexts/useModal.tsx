@@ -1,8 +1,5 @@
+/* React */
 import React from "react";
-
-/* State */
-import { useState } from 'react';
-
   interface ModalContextValue {
     open: boolean;
     open2: boolean;
