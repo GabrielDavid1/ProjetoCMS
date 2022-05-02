@@ -46,7 +46,7 @@ import React from "react";
 
     return (
       <ModalContext.Provider 
-          value={{ 
+          value={{
                   open, setOpen, 
                   open2, setOpen2,
                   handleOpen, handleClose,

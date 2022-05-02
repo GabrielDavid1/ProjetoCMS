@@ -12,11 +12,12 @@ const SeletorPequeno = styled.div<Config>`
       border: ${(p) => p.border};
       box-shadow: ${(p) => p.boxShadow};
       border-radius: ${(p) => p.borderRadius};
+      opacity: ${(p) => p.opacity};
+      z-index: ${(p) => p.zIndex};
+      transform: ${(p) => p.transform};
       display: flex;
       justify-content: center;
       align-items: center;
-      min-width: 15px;
-      min-height: 15px;
 `;
 
 export default SeletorPequeno;

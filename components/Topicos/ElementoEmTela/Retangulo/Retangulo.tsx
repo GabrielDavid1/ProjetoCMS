@@ -2,26 +2,35 @@
 import React, { useRef, useEffect, useState } from "react";
 
 /* Componentes */
-import { useConfig } from '../../../../contexts/useConfig';
 import { Elemento } from './Elemento';
 
-/* Tipagens */
-import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
+/* Contexto */
+import { useConfig } from '../../../../contexts/useConfig';
 
+/* Tipagens e Variaveis */
+import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
+import { propriedadeEstilo } from '../../../../Importacoes/Variaveis/Variaveis';
 interface PropsComponentes {
   id: string;
   config?: Config;
 }
 
 export const Retangulo = ({ id, config }: PropsComponentes) => {
+  const refPrincipal = useRef<HTMLDivElement>({} as HTMLDivElement);
   const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refLeft = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refTop = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refRight = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refBottom = useRef<HTMLDivElement>({} as HTMLDivElement);
 
-  const {configuracoes, setConfiguracoes } = useConfig(); 
+  const { configuracoes } = useConfig();
+
   const [estado, setEstado] = useState(false);
+  
+  const [estadoTransform, setEstadoTransform] = useState('');  
+
+  const [estadoWH, setEstadoWH] = useState({width: '150px', 
+                                            height: '150px'});                                         
 
   useEffect(() => {
     const resizeableEle = ref.current;
@@ -30,9 +39,6 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
     let height = parseInt(styles.height, 10);
     let x = 0;
     let y = 0;
-
-    resizeableEle.style.top = "350px";
-    resizeableEle.style.left = "650px";
 
     refTop.current.style.left = 'auto';
     refBottom.current.style.left = 'auto';
@@ -52,9 +58,8 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
       document.removeEventListener("mousemove", onMouseMoveRightResize);
       setEstado(false);
       let w = String(width)+'px';
-      if (config !== undefined) {
-          config.width = w;
-      }
+      estadoWH.width = w;
+      setEstadoWH({...estadoWH});
     };
 
     const onMouseDownRightResize = (event: { clientX: number; }) => {
@@ -79,9 +84,8 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
       document.removeEventListener("mousemove", onMouseMoveTopResize);
       setEstado(false);
       let h = String(height)+'px';
-      if (config !== undefined) {
-          config.height = h;
-      }
+      estadoWH.height = h;
+      setEstadoWH({...estadoWH});
     };
 
     const onMouseDownTopResize = (event: { clientY: number; }) => {
@@ -105,11 +109,10 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
 
     const onMouseUpBottomResize = (event: any) => {
       document.removeEventListener("mousemove", onMouseMoveBottomResize);
-      setEstado(false);
       let h = String(height)+'px';
-      if (config !== undefined) {
-          config.height = h;
-      }
+      estadoWH.height = h;
+      setEstadoWH({...estadoWH});
+      setEstado(false);
     };
 
     const onMouseDownBottomResize = (event: { clientY: number; }) => {
@@ -135,9 +138,8 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
       document.removeEventListener("mousemove", onMouseMoveLeftResize);
       setEstado(false);
       let w = String(width)+'px';
-      if (config !== undefined) {
-          config.width = w;
-      }
+      estadoWH.width = w;
+      setEstadoWH({...estadoWH});
     };
 
     const onMouseDownLeftResize = (event: { clientX: number; }) => {
@@ -164,12 +166,16 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
       resizerTop.removeEventListener("mousedown", onMouseDownTopResize);
       resizerBottom.removeEventListener("mousedown", onMouseDownBottomResize);
       resizerLeft.removeEventListener("mousedown", onMouseDownLeftResize);
-      setEstado(false);
-      setConfiguracoes([...configuracoes]);
+      setEstado(false); 
     };
+    
   }, []);
 
   useEffect(() => {
+    if (config?.width !== undefined && config?.height !== undefined) {
+      setEstadoWH({...estadoWH,  width: config?.width, height: config?.height});
+    } 
+
     const resizeableEle2 = ref.current;
     if (config) {
       resizeableEle2.style.width = `${config.width}`;
@@ -177,17 +183,33 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
       resizeableEle2.style.borderRadius = `${config.borderRadius}`;
     }
   }, [configuracoes]);
+  
+  function pegarTransform () {
+      const styles = window.getComputedStyle(ref.current);
+      setEstadoTransform(styles.transform);
+  }
 
   return (
-    <Elemento 
-      id={id} 
-      ref={ref} 
-      refLeft={refLeft} 
-      refTop={refTop}
-      refRight={refRight}
-      refBottom={refBottom}
-      config={config}
-      estado={estado}
-    />
+    <div 
+      ref={refPrincipal}
+      onKeyPress={(e) => console.log(e.key)}
+      onMouseUp={pegarTransform}
+      style={{transform: propriedadeEstilo.retangulo.transform}} 
+      tabIndex={10}
+    > 
+      <Elemento 
+        id={id} 
+        width={estadoWH.width}
+        height={estadoWH.height}
+        ref={ref} 
+        refLeft={refLeft} 
+        refTop={refTop}
+        refRight={refRight}
+        refBottom={refBottom}
+        config={config}
+        estado={estado}
+        estadoTransform={estadoTransform}
+      />
+    </div>
   );
 }

@@ -10,7 +10,6 @@ import {RiDeleteBin6Line} from 'react-icons/ri'
 interface tipagemProps {
     grupo: boolean;
 }
-
 interface List {
     id: string;
     name: string;

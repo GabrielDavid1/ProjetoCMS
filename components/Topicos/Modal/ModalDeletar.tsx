@@ -18,12 +18,13 @@ export const ModalDeletar = (() => {
             nomeSelecionado,
             removerDaLista,
           } = useList();
-    const { removerConfigs } = useConfig();
+    const { removerConfigs, setIdTotal } = useConfig();
 
     const plataforma = () => {
-        removerDaLista(idTotal,list[0]);
-        removerConfigs(idTotal);
-        handleClose2();
+          removerDaLista(idTotal,list[0]);
+          removerConfigs(idTotal);
+          handleClose2();
+          setIdTotal('');
     }
 
     return (
@@ -36,7 +37,7 @@ export const ModalDeletar = (() => {
         >
           <Box sx={styleDeletar}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-               {"Tem certeza que deseja deletar o elemento: "+nomeSelecionado+"?"}
+               "Tem certeza que deseja deletar este elemento ?"
             </Typography>
             <Button variant="contained" style={{ backgroundColor:'white', color:'#1976d2', marginLeft:'10%', marginTop:'10%'}} onClick={() => plataforma()}>Sim</Button>
             <Button variant="contained" style={{ backgroundColor:'white', color:'#1976d2', marginLeft:'1%', marginTop:'10%'}} onClick={() => handleClose2()}>Não</Button>

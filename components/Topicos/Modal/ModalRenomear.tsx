@@ -12,7 +12,6 @@ import { styleRenomear } from '../../../Importacoes/Variaveis/Variaveis';
 
 export const ModalRenomear = (() => {
     let nomeEstatico = '';
-
     const { open, setOpen, handleOpen } = useModal();
     const { idTotal, list, renomearElemento } = useList();
 
@@ -22,7 +21,8 @@ export const ModalRenomear = (() => {
 
     const handleSubmit = (Event: React.FormEvent<HTMLFormElement>) => {
         setOpen(false);
-        renomearElemento(idTotal, list[0], nomeEstatico);
+        if (nomeEstatico !== '' && nomeEstatico !== ' ') 
+            renomearElemento(idTotal, list[0], nomeEstatico);
         Event.preventDefault();
     }
 

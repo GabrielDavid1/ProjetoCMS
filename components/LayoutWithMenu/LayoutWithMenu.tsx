@@ -13,15 +13,14 @@ import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import PeopleIcon from '@material-ui/icons/People';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import { useTheme } from '@material-ui/core/styles';
 
 /* Componente clsx*/
 import clsx from 'clsx';
 
 /* Componentes React e Next*/
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 /* Componentes */
@@ -34,6 +33,9 @@ import { useList } from '../../contexts/useTopicos';
 
 /* Funções */
 import { useStyles } from '../../Importacoes/Funcoes/Funcoes';
+import { ToggleBotao } from './ToggleBotao';
+
+import { Principal2 } from './Principal2';
 
 export default function LayoutWithMenuComponent() {
   const classes = useStyles();
@@ -45,8 +47,8 @@ export default function LayoutWithMenuComponent() {
 
   // menu
   const menu: Array<{ name: string; to: string; icon?: ReactNode }> = [
-    { name: 'Dashboard', to: '/', icon: <DashboardIcon /> },
-    { name: 'Contatos', to: '/customers', icon: <PeopleIcon /> },
+    { name: 'Dashboard', to: '/', icon: <DashboardCustomizeIcon /> },
+
   ];
 
   const openConfigure = (status:boolean) => {
@@ -82,7 +84,7 @@ export default function LayoutWithMenuComponent() {
           </IconButton>
 
           <Typography variant="h6" noWrap>
-            Application name
+            Nome do Projeto
           </Typography>
 
           {/*Profile Área */}
@@ -92,7 +94,6 @@ export default function LayoutWithMenuComponent() {
             </Link>  
              <Avatar alt="Gabriel David" /> 
           </div>
-
         </Toolbar>
       </AppBar>
         
@@ -132,17 +133,17 @@ export default function LayoutWithMenuComponent() {
 
       <main className={clsx(classes.content, {
           [classes.contentShift]: open,
-      })} > 
+      })}> 
         <div className={classes.drawerHeader} />
         <Conteudo />
       </main>
   
       <div className="makeStyles-appBar-3"> 
         <div className="config">
-          <div className="testando">
-              c
-          </div>
-              {toggleLateral ? <EstruturaConfig /> : <EstruturaTopicos /> }
+          <ToggleBotao />
+          { toggleLateral.principal && <EstruturaTopicos /> }
+          { toggleLateral.configs   && <EstruturaConfig />  }
+          { toggleLateral.eventos   && <> </> }
         </div>
       </div>
     </div>

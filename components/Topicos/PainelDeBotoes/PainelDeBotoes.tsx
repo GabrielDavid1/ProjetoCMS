@@ -14,43 +14,27 @@ import { ButtonTopic } from '../Button';
 import { BootstrapTooltip } from './BootstrapTooltip';
 
 export function PainelDeBotoes () {
-    const { list, setList, 
-            tamanho, setTamanho, 
+    const { idTotal, list, setList, 
+            tamanho, setTamanho, setSelected,
             adicionaGrupo, copiaGrupo 
           } = useList();
-    const { configuracoes, setConfiguracoes } = useConfig();
+    const { addConfig } = useConfig();
 
     const addElementoSolo = (name: string, type:string) => {
-        let id = tamanho+1;
-        list[0].children.push({
-          id: String(id),
-          name: name,
-          children: [],
-        });
-        setList({...list});
+      let id = tamanho+1;
+      list[0].children.push({
+        id: String(id),
+        name: name,
+        children: [],
+      });
+      setList({...list});
+      addConfig(String(id), type, '0');
+      setTamanho(id);
 
-        if (type !== "off") {
-            configuracoes.push({
-                id: String(id),
-                type: type,
-                config: {
-                    width: "150px",
-                    height: "150px",
-                    bgColor: "orange",
-                    pxBorder: "1px",
-                    typeBorder: "solid",
-                    colorBorder: "transparent",
-                    boxShadow: "0px 0px 0px",
-                    borderRadius: "0px",
-                }
-            });
-            setConfiguracoes([...configuracoes]);
-        }
-
-        setTamanho(id);
+      if (adicionaGrupo === false) setSelected([]);
     }
 
-    const addElementoSoloNoGrupo = ( nome: string, nodes:List, type:string )  =>  {
+    const addElementoSoloNoGrupo = ( nome: string, nodes:List, type:string ) => {
       let grupoEstatico:string[] = [];
       let id = tamanho+1;
   
@@ -68,26 +52,10 @@ export function PainelDeBotoes () {
             children: [],
           });
           setList({...list});
-  
-          if (type !== "off") {
-            configuracoes.push({
-                id: String(id),
-                type: type,
-                config: {
-                    width: "150px",
-                    height: "150px",
-                    bgColor: "orange",
-                    pxBorder: "1px",
-                    typeBorder: "solid",
-                    colorBorder: "transparent",
-                    boxShadow: "0px 0px 0px",
-                    borderRadius: "0px",
-                }
-            });
-            setConfiguracoes([...configuracoes]);
-          }
+          addConfig(String(id), type, idTotal);
+          setTamanho(id);
       }
-      setTamanho(id);
+      if (adicionaGrupo === false) setSelected([]);
     }
 
     const plataformaElemento = ( nome: string, nodes:List, type: string ) => {
@@ -99,18 +67,18 @@ export function PainelDeBotoes () {
     }
 
     return (
-        <>
-        {ButtonList.map(({ name, path, type }, index) => {
-            return (
-                <div key={index}>
-                <BootstrapTooltip key={index} title={name}>
-                    <Button onClick={() => plataformaElemento(name, copiaGrupo[0], type) } variant="contained" >
-                        <ButtonTopic name={name} path={path}  />
-                    </Button>
-                </BootstrapTooltip>
-                </div>
-            )
-        })}
-        </>
+      <>
+      {ButtonList.map(({ name, path, type }, index) => {
+          return (
+              <div key={index}>
+              <BootstrapTooltip key={index} title={name}>
+                  <Button onClick={() => plataformaElemento(name, copiaGrupo[0], type) } variant="contained" >
+                      <ButtonTopic name={name} path={path}  />
+                  </Button>
+              </BootstrapTooltip>
+              </div>
+          )
+      })}
+      </>
     )
 }

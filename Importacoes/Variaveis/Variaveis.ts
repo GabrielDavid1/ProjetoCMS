@@ -68,49 +68,238 @@ export const ButtonList = [
     type: "Input",
     path: "M21 3.01H3c-1.1 0-2 .9-2 2V9h2V4.99h18v14.03H3V15H1v4.01c0 1.1.9 1.98 2 1.98h18c1.1 0 2-.88 2-1.98v-14c0-1.11-.9-2-2-2zM11 16l4-4-4-4v3H1v2h10v3z"
 	},
-	{ id: '4',
-		name: "Check Box",
-    type: "Check Box",
-    path: "M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-	},	
-  { id: '5',
-		name: "Text Área",
-    type: "Text Área",
+
+  { id: '4',
+		name: "TextArea",
+    type: "TextArea",
     path: "M9.93 13.5h4.14L12 7.98zM20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-4.05 16.5-1.14-3H9.17l-1.12 3H5.96l5.11-13h1.86l5.11 13h-2.09z"
 	},
+  { id: '5',
+		name: "Tabela",
+    type: "Tabela",
+    path: "M19 7H9c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm0 2v2H9V9h10zm-6 6v-2h2v2h-2zm2 2v2h-2v-2h2zm-4-2H9v-2h2v2zm6-2h2v2h-2v-2zm-8 4h2v2H9v-2zm8 2v-2h2v2h-2zM6 17H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2v1h-2V5H5v10h1v2z"
+	},
   { id: '6',
-		name: "Divisor",
-    type: "Divisor",
-    path: "M8 19h3v4h2v-4h3l-4-4-4 4zm8-14h-3V1h-2v4H8l4 4 4-4zM4 11v2h16v-2H4z"
-	},
-  { id: '7',
-		name: "Calendário",
-    type: "Calendário",
-    path: "M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"
-	},
-  { id: '8',
-		name: "Graficos",
-    type: "Graficos",
+		name: "Grafico",
+    type: "Grafico",
     path: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
 	},
-  { id: '9',
-		name: "Link",
-    type: "Link",
-    path: "M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"
+  { id: '7',
+		name: "Botao",
+    type: "Botao",
+    path: "M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2z"
 	},
-  { id: '10',
+  { id: '8',
 		name: "Imagem",
     type: "Imagem",
     path: "M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"
 	},
-  { id: '11',
-		name: "Opções",
-    type: "Opções",
-    path: "M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"
-	},
-  { id: '12',
-		name: "Api",
-    type: "off",
-    path: "M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"
-	},
 ]
+
+/* icones de seção de configuração */
+export const icones = {
+  engrenagem: 'M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z',
+  casa: 'M11.67 3.87 9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z'
+}
+
+/* Variaveis para estilização dos elementos */
+export const propriedadeEstilo = {
+    retangulo: 
+    {
+      tipo:'Retangulo',
+      multiSelect: false,
+      width: "150px",
+      height: "150px",
+      top: "350px",
+      left: "400px",
+      bgColor: "orange",
+      pxBorder: "1px",
+      typeBorder: "3",
+      colorBorder: "#rrggbb",
+      boxShadow: "0px 0px 0px", 
+      borderRadius: "0px",
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(560px, 249px)",
+    },
+
+    text: 
+    {
+      tipo:'Text',
+      multiSelect: false,
+      display: "none",
+      bgColor: "black",
+      fontSize: "5rem",
+      fontFamily: "Arial",
+      textAlign: "none",
+      marginBlockStart: "none",
+      marginBlockEnd: "none",
+      marginInlineStart: "none",
+      marginInlineEnd: "none",
+      fontWeight: "none",
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(570px, 250px)",
+      webkitTextStroke: "none",
+    },
+    
+    input: 
+    {
+      tipo:'Input',
+      multiSelect: false,
+      width: '150px',
+      height: '30px',
+      bgColor: 'red',
+      fontSize: "20px",
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(590px, 300px)",
+    },
+
+    tabela: 
+    {
+      tipo:'Tabela',
+      multiSelect: false,
+      width: 'auto',
+      height: 'auto',
+      bgColor: 'none',
+      fontSize: "20px",
+      rows: [
+        {
+          name: 'comida',
+          calories: 159,
+          fat: 6.0, 
+          carbs: 24,
+          protein: 4.0
+         },
+         {
+           name: 'Ice cream sandwich',
+           calories: 237,
+           fat: 9.0, 
+           carbs: 37,
+           protein: 4.3
+          },
+          {
+           name: 'Eclair',
+           calories: 262,
+           fat: 16.0, 
+           carbs: 24,
+           protein: 6.0
+          },        
+      ],
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(380px, 249px)",
+    },
+
+    botao: 
+    {
+      tipo:'Botao',
+      multiSelect: false,
+      modeloBotao: 'none',
+      botaoTitulo: 'Botao',
+      width: '100px',
+      height: '65px',
+      top: '0px',
+      left: '0px',
+      fontSize: '1rem',
+      fontColor: '#1976d2',
+      bgColor: 'white',
+      svgColor: 'rgba(0, 0, 0, 0.26)',
+      borderRadius: "0px",
+      pxBorder: "1px",
+      typeBorder: "solid",
+      colorBorder: "#rrggbb",
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(620px, 249px)",
+    },
+
+    grafico: {
+      tipo:'Grafico',
+      multiSelect: false,
+      width: '280px',
+      height: '235px',
+      options: {
+        chart: {
+          toolbar: {
+            show: false,
+          },
+          zoom: {
+             enabled: false,
+          },
+          foreColor: 'blue',
+        },
+        grid: {
+          show: true,
+        },
+        
+        dataLabels: {
+          enabled: false,
+        },
+        
+        tooltip: {
+          enabled: false,
+        },
+      
+        xaxis: {
+          type: 'datetime',
+          axisBorder: {
+            color: 'blue'
+          },
+          axisTicks: {
+            color: 'blue'
+          },
+          categories: [ 
+            '2021-03-18T00:00:00.000Z',
+            '2021-03-19T00:00:00.000Z',
+            '2021-03-20T00:00:00.000Z',
+            '2021-03-21T00:00:00.000Z',
+            '2021-03-22T00:00:00.000Z',
+            '2021-03-23T00:00:00.000Z',
+            '2021-03-24T00:00:00.000Z',
+          ],
+        },
+        fill: {
+          opacity: 0.3,
+          type: 'gradient',
+          gradient: {
+             shade: 'dark',
+             opacityFrom: 0.7,
+             opacityTo: 0.7
+          }   
+       },
+      },
+      series: [ 
+        { name: 'serie1', data:[31,120,18,28,61,18,189] }
+      ],
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(550px, 249px)",
+    },
+    
+    textArea: {
+      tipo:'TextArea',
+      multiSelect: false,
+      bgColor: 'white',
+      width: '250px',
+      height: '100px',
+      fontSize: "1rem",
+      fontColor: 'black',
+      textoArea: '',
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(1px, -59px)",
+    },
+
+    imagem: {
+      tipo:'Imagem',
+      multiSelect: false,
+      width: 'auto',
+      height: 'auto',
+      statusImagem: false,
+      opacity: "1",
+      zIndex: "1",
+      transform: "translate(595px, 250px)",
+    },
+}

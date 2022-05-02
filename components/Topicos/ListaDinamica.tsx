@@ -1,5 +1,6 @@
 /* Contexto */
 import { useList } from '../../contexts/useTopicos';
+import { useConfig } from '../../contexts/useConfig';
 
 /* Icones para Elemento */
 import TreeView from '@mui/lab/TreeView';
@@ -31,6 +32,7 @@ export function ListaDinamica () {
          selected, setSelected,
          expanded, setExpanded
     } = useList();
+    const { addConfigNoGrupo, setarIdConfig } = useConfig();
 
     const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
         setExpanded(nodeIds);
@@ -79,11 +81,12 @@ export function ListaDinamica () {
 
     const plataforma = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) => {
         let copiaExpanded = expanded;
-        setNomeSelecionado(nodes.name);
-
+        setNomeSelecionado(nodes.id);
         if (adicionaGrupo && id !== selected[0] && id !== 'root') {
             addNoGrupo(id, copiaGrupo[0], nodes);
-        } else {
+            addConfigNoGrupo(id, idTotal);
+            setExpanded(copiaExpanded);
+        } else if(id !== 'root') {
             setIdTotal(id);
             setCopiaGrupo([nodes]);
             if (nodes.children.length > 0) {
@@ -91,9 +94,10 @@ export function ListaDinamica () {
                 handleExpandClick(id);
             } else {
                 setGrupo(false);
+                setarIdConfig(id);
             }
+            setExpanded(copiaExpanded);
         } 
-        setExpanded(copiaExpanded);
     }
     
     const renderTree = (nodes:List) => (      

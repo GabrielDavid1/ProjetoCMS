@@ -17,37 +17,54 @@ import DivElemento from './DivElemento';
 
 interface Props {
     id: string;
+    width: string;
+    height: string;
     refLeft:React.MutableRefObject<HTMLDivElement>;
     refTop:React.MutableRefObject<HTMLDivElement>; 
     refRight:React.MutableRefObject<HTMLDivElement>;
     refBottom:React.MutableRefObject<HTMLDivElement>; 
     config?: Config;
-    children?: React.ReactNode;
     estado: boolean;
+    estadoTransform: string;
 }
 
-export const Elemento = forwardRef<HTMLDivElement, Props>(( { 
+export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
    id, 
+   width,
+   height,
    refLeft, 
    refTop, 
    refRight, 
    refBottom,
    config,
-   children,
-   estado
+   estado,
+   estadoTransform,
 }, ref ) => {
-  const { setIdTotal } = useConfig();
-  const { setToggleLateral } = useList();
+  const { ativarToggleLateral, adicionaGrupo } = useList();
+  const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
 
   const [visibilidade, setVisibilidade] = useState(false);
 
+  function addElementoNoGrupo () {
+      if (adicionaGrupo === false) {
+          ativarToggleLateral("configs");
+      }
+  }
+
   const trocarLateral = (parametro: number) => {
     if (parametro === 2) {
+        setIdTotal('');
+        ativarToggleLateral('principal');
+    } else if(parametro === 1 && config !== undefined) {
         setIdTotal(id);
-        setToggleLateral(false);
-    } else {
-        setIdTotal(id);
-        setToggleLateral(true);
+        addElementoNoGrupo();
+        setConfiguracoes(
+          configuracoes.map(el => (el.id === id && el.config !== undefined
+              ? {...el, config: 
+                {...el.config, width:width, height:height, transform:estadoTransform}}
+              : el
+          ))
+        ) 
     }
   }
 
@@ -65,8 +82,10 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( {
         border={config?.pxBorder+' '+config?.typeBorder+' '+config?.colorBorder}
         boxShadow={config?.boxShadow}
         borderRadius={config?.borderRadius}
+        opacity={config?.opacity}
+        zIndex={config?.zIndex}
+        transform={config?.transform}
       >
-        {children}
         <SelectElemento
             visibilidade={visibilidade}
             refLeft={refLeft} 

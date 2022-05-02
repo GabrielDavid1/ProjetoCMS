@@ -5,8 +5,7 @@ import { useList  } from '../../../contexts/useTopicos';
 import Button from '@mui/material/Button';
 
 export function BotoesInferiores () {
-    const { 
-           list, setList, tamanho, setTamanho,
+    const {list, setList, tamanho, setTamanho,
            deletarTudo, onToggleMarcarTudo,
           } = useList();
 

@@ -1,6 +1,10 @@
 /* Componente Framework Material-UI */
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
+/* Contexto e Variaveis */
+import { useList } from '../../contexts/useTopicos';
+import { List } from '../Tipagens/Tipagem';
+
 const drawerWidth = 240;
 
 export const useStyles = makeStyles((theme: Theme) =>

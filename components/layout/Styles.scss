@@ -6,11 +6,16 @@ body {
 }
 
 *::-webkit-scrollbar {
-   width: 10px;
+   width: 0px;
 }
 
 .MuiDrawer-paper {
    overflow-x: hidden;
+}
+
+header.MuiPaper-root.MuiAppBar-root.MuiAppBar-positionFixed.MuiAppBar-colorPrimary.makeStyles-appBar-2.mui-fixed.MuiPaper-elevation4.MuiAppBar-colorPrimary {
+   color: black;
+   background-color: white;
 }
 
 .makeStyles-appBarShift-33 {
@@ -27,10 +32,35 @@ main.makeStyles-content-9 {
    background-color: #c5c5c5;
 
    .container {
-      background: white;
+      background: #c5c5c5;
       height: 93%;
       border-radius: 2px;
       margin-left: 80px;
+   
+       input {
+         background-color: #f2f2f2;
+         padding: 3px;
+         border: 1px solid #1976d2;
+         color: #333;       
+       }
+
+       input:focus {
+         box-shadow: 1px #1976d2;
+         outline: 0;
+       }
+
+       #imagem {
+         button {
+            width: 114px;
+            padding: 10px;
+            border: 1px solid #1976d2;
+            border-radius: 2px;
+            height: 40px;
+            color: #1976d2;
+            font-weight: 700;
+            font-size: 18px;
+         }
+      }
 
       .resizeable {
 
@@ -171,24 +201,33 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
    width: 300px;
    background: white;
    border-left: 1px solid rgba(0, 0, 0, 0.12);
-   margin-top: 65px;
+   margin-top: 62px;
    height: 48rem;
    padding-top: 1px;
    margin-left: -1px;
    border-bottom: 2px solid #e0e0e0;
    max-height: 49rem;
+   transition: 0.5s;
    overflow-y: auto;
    overflow-x: hidden;
 
-   .testando {
-      padding: 5px;
-      text-align: right;
-      margin-right: 17px;
+   .bloco {
+      margin-left: 16px;
+      width: 271px;
+
+      .especifico {
+         position: absolute;
+         top: 80px;
+         z-index: 0;
+      }
    }
 
    .conteudo {
-      margin-top: -30px;
-
+      .blocoTopo {
+         border-top: 2px solid #e0e0e0;
+         padding-top: 10px;
+      }
+      
       .chrome-picker {
          min-width: 275px;
          margin-left: 4%;
@@ -220,8 +259,78 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
                   padding: 12px;
                   border-bottom: 2px solid #e0e0e0;
 
+                  .blocoLinhas {
+                     display: flex;
+                     flex-direction: column;
+                     margin-top: -15px;
+                     input {
+                        width: 272px;
+                        height: 30px;
+                     }
+                  }
+
                   .blocoPropriedades {
                      margin-left: 10px;
+                     .blocoPropriedades-item {
+                        display: flex;
+                        gap: 6px;
+
+                        input {
+                           height: 20px;
+                        }
+                     }
+                  }
+
+                  .botoesValor {
+                     display: flex;
+                     margin-top: 8px;
+                     margin-left: -10.8rem;
+                     button {
+                        width: 114px;
+                        padding: 10px;
+                        border: 1px solid #1976d2;
+                        border-radius: 2px;
+                        height: 30px;
+                        color: #1976d2;
+                        font-weight: 700;
+                        font-size: 12px;
+                     }
+                  }
+
+                  .botaoImagem {
+                     display: flex;
+                     margin-top: 8px;
+                     margin-left: -0.3rem;
+                     button {
+                        width: 114px;
+                        padding: 10px;
+                        border: 1px solid #1976d2;
+                        border-radius: 2px;
+                        height: 30px;
+                        color: #1976d2;
+                        font-weight: 700;
+                        font-size: 12px;
+                     }                    
+                  }
+
+                  .controleBotoes {
+                     .MuiBox-root.css-if4l1g {
+                       button:nth-child(1){
+                           margin-left: 0rem;
+                       }
+                       button:nth-child(2){
+                         margin-left: 0rem;
+                       }
+                       button:nth-child(3){
+                         margin-left: 0rem;
+                       }
+                       button:nth-child(4){
+                        margin-left: 0rem;
+                       }
+                       button:nth-child(5){
+                        margin-left: 0rem;
+                       }                       
+                     }
                   }
 
                   p {
@@ -234,7 +343,43 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
                }
             }
 
+            li.camada {
+               display: inline-flex;
+               input {
+                  margin-top:18px;
+                  width: 20px;
+                  height: 20px;
+               }  
+            }
+
             li:nth-child(n + 2) {
+               .corrige {
+                 margin-top: -25px;
+                 button {
+                   margin-left: 14.7rem;
+                 }
+               }
+
+               button.botaoEspecifico {
+                  margin-left: 7.3rem;
+               }
+
+               .botaoSolo {
+                  display: flex;
+                  margin-top: 8px;
+                  margin-left: -10.6rem;
+                  button {
+                     width: 114px;
+                     padding: 10px;
+                     border: 1px solid #1976d2;
+                     border-radius: 2px;
+                     height: 30px;
+                     color: #1976d2;
+                     font-weight: 700;
+                     font-size: 12px;
+                  }
+               }
+
                opacity: 0.8;
                b, p {
                   font-weight: 400;
@@ -270,20 +415,54 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
                   }
                }
 
+               .blocoTextArea {
+                  .controleFonteBotao {
+                     display: inline-flex;
+                     width: 200px;
+                     position: absolute;
+                     top: 31.2em;
+                     [type="color"] {
+                        width: 20%;
+                        margin: 2px;
+                        height: 40px;
+                        border: none;
+                     }
+                  }
+               }
+
             }
 
             li:nth-child(3) {
+               .blocoBorda {
+                  display: list-item;
+                  .controleFonteBotao {
+                     display: table-header-group;
+                     input[type=color] {
+                        height: 30px;
+                        width: 40px;
+                     }
+                     input {
+                        width: 120px;
+                        height: 30px;
+                        float: left;
+                     }
+                  } 
+               }
+               .tracejado {
+                  margin-top: -25px;
+                  button {
+                     margin-left: 14.7rem;
+                  }
+               }
                button {
                   margin-left: 7.5rem;
                }
-            }
 
-            li:nth-child(4) {
-               button {
-                  margin-left: 7.4rem;
+               .blocoSombra {
+                  display: inline-flex;
                }
             }
-
+            
             li:nth-child(3) {
                button {
                   margin-left: 7.5rem;
@@ -294,8 +473,25 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
               }
             }
 
+            li:nth-child(4) {
+               button {
+                  margin-left: 7.4rem;
+               }
+            }
+
             li:nth-child(n + 2):hover {
                opacity: 1;
+
+               .corrige {
+                  button {
+                    margin-left: 14.7rem;
+                  }
+               }
+
+               button.botaoEspecifico {
+                  margin-left: 7.3rem;
+               }
+
                b, p {
                   font-weight: 400;
                   color: black;
@@ -341,6 +537,17 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
 
             li:nth-child(n + 2):focus-within {
                opacity: 1;
+
+               .corrige {
+                  button {
+                    margin-left: 14.7rem;
+                  }
+               }
+
+               button.botaoEspecifico {
+                  margin-left: 7.3rem;
+               }
+
                b, p {
                   font-weight: 400;
                   color: black;
@@ -484,7 +691,7 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
    }
 
    .todo::-webkit-scrollbar {
-      width: 12px;   
+      width: 1px;   
    }
    
    .todo::-webkit-scrollbar-track {
@@ -494,7 +701,7 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
    .todo::-webkit-scrollbar-thumb {
       background-color: white;    /* color of the scroll thumb */
       border-radius: 20px;       /* roundness of the scroll thumb */
-      border: 3px solid rgb(140, 143, 238); /* creates padding around scroll thumb */
+      border: 1px solid rgb(140, 143, 238); /* creates padding around scroll thumb */
    }
 
    nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root {
@@ -548,13 +755,14 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
    
    .topics {      
       width: 300px;
-      height: 179px;
+      height: 115px;
+      margin-top: 12px;
       border-bottom: 2px solid #e0e0e0;
 
       .opcoes {
-         margin-top: 33.5rem;
-         margin-left: 10px;
          margin-left: 7px;
+         position: absolute;
+         bottom: 9px;
 
          button {
             padding: 10px;

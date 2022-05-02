@@ -7,7 +7,7 @@ interface IconsProps {
 
 export function ButtonTopic ({ name, path }:IconsProps) {
     const ButtonType = createSvgIcon(
-        <path d={path} />,
+        <path d={path}/>,
         name,
     );
     return (

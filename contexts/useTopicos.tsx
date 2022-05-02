@@ -6,12 +6,19 @@ import { useConfig } from './useConfig';
 
 /* Tipagem */
 import { List } from '../Importacoes/Tipagens/Tipagem';
+
+type lateral = {
+  principal: boolean;
+  configs: boolean;
+  eventos: boolean;
+}
+
 interface ListContextValue {
   idTotal: string;
 
   list: List[];
 
-  toggleLateral: boolean;
+  toggleLateral: lateral;
 
   nomeAlterado: string;
   nomeSelecionado: string;
@@ -29,17 +36,18 @@ interface ListContextValue {
 
   setIdTotal: (data: string) => void;
 
-  setToggleLateral: (data: boolean) => void;
-
   setList: (data: List[]) => void;
   removerDaLista: ( id: string, nodes:List ) => void;
   renomearElemento: ( id: string, nodes:List, nome:string ) => void;
+  buscarElemento: ( id: string, nodes:List ) => void;
 
   setNomeSelecionado: (data: string) => void;
   
   setGrupo: (data: boolean) => void;
   setCopiaGrupo: (data: List[]) => void;
   setAdicionaGrupo: (data: boolean) => void;
+
+  ativarToggleLateral: ( tipo: string ) => void;
 
   setSelected: (data: string[]) => void;
   setSelectedAll: (data: boolean) => void;
@@ -50,7 +58,6 @@ interface ListContextValue {
 
   setTamanho: (data: number) => void;
 }
-
 interface Props {
   children: React.ReactNode;
 }
@@ -72,7 +79,11 @@ const listInitial: ListContextValue = {
     }
   ],
 
-  toggleLateral: false,
+  toggleLateral: {
+    principal: true,
+    configs: false,
+    eventos: false,
+  },
 
   nomeAlterado: '',
   nomeSelecionado: '',
@@ -93,17 +104,18 @@ const listInitial: ListContextValue = {
 
   setIdTotal: data => {},
 
-  setToggleLateral: data => {},
-
   setList: data => {},
   removerDaLista: data => {},
   renomearElemento: data => {},
+  buscarElemento: data => {},
 
   setNomeSelecionado: data => {},
 
   setGrupo: data => {},
   setCopiaGrupo: data => {},
   setAdicionaGrupo: data => {},
+
+  ativarToggleLateral: data => {},
 
   setSelected: data => {},
   setSelectedAll: data => {},
@@ -120,36 +132,33 @@ const ListContext = React.createContext<ListContextValue>(listInitial);
 export function ListProvider({ children }: Props) {
   let nomeAlterado = '';
   const [idTotal, setIdTotal] = React.useState<string>(listInitial.idTotal);
-  
   const [nomeSelecionado, setNomeSelecionado] = React.useState('');
-
   const [list, setList] = React.useState<List[]>([listInitial.list[0]]);
   const [toggleLateral, setToggleLateral] = React.useState(listInitial.toggleLateral);
-
   const [copiaGrupo, setCopiaGrupo] = React.useState<List[]>([]);
   const [adicionaGrupo, setAdicionaGrupo] = React.useState(false);
-  
   const [grupo, setGrupo] = React.useState(false);
-  
   const [selected, setSelected] = React.useState<string[]>([]);
   const [selectedAll, setSelectedAll] = React.useState(listInitial.selectedAll);
   const [expanded, setExpanded] = React.useState<string[]>([listInitial.expanded[0]]);
-  
   const [tamanho, setTamanho] = React.useState(0);
-  
-  const { configuracoes, setConfiguracoes } = useConfig();
 
+  const { configuracoes, removerDeGrupo, removerTudo } = useConfig();
+
+  /********************* Lista de Tópicos *******************/
   const removerDaLista = ( id: string, nodes:List ) => {
     let copiaExpanded = expanded;
     let index = nodes.children.findIndex(elemento => elemento.id === id);
 
     if (index === -1) {
-      Array.isArray(nodes.children)
-      ? nodes.children.map((node) => removerDaLista(id, node))
-      : null  
+        Array.isArray(nodes.children)
+          ? nodes.children.map((node) => removerDaLista(id, node))
+          : null  
     } else {
-      nodes.children.splice(index, 1);
-      setList({...list});
+        removerDeGrupo(nodes.children[index].id, nodes.children[index].children.length);
+        delete nodes.children[index];
+        nodes.children.splice(index, 1);
+        setList({...list});
     }
     setExpanded(copiaExpanded);
   }
@@ -159,14 +168,26 @@ export function ListProvider({ children }: Props) {
     let index = nodes.children.findIndex(elemento => elemento.id === id);
 
     if (index === -1) {
-      Array.isArray(nodes.children)
-        ? nodes.children.map((node) => renomearElemento(id, node, name))
-        : null  
+        Array.isArray(nodes.children)
+          ? nodes.children.map((node) => renomearElemento(id, node, name))
+          : null  
     } else {
-      nodes.children[index].name = name;
-      setList({...list});
-      setNomeSelecionado(name);
-      setExpanded(copiaExpanded);
+        nodes.children[index].name = name;
+        setList({...list});
+        setNomeSelecionado(name);
+        setExpanded(copiaExpanded);
+    }
+  }
+
+  function buscarElemento ( id: string, nodes:List) {
+    let index = nodes.children.findIndex(elemento => elemento.id === id);
+
+    if (index === -1) {
+        Array.isArray(nodes.children)
+          ? nodes.children.map((node) => buscarElemento(id, node))
+          : null  
+    } else {
+        return nodes.children[index]
     }
   }
 
@@ -176,8 +197,9 @@ export function ListProvider({ children }: Props) {
         list[0].children = [];
         setList({...list});
         if (configuracoes.length > 0) {
-            setConfiguracoes([]);
+            removerTudo();
         }
+        setAdicionaGrupo(false);
         setSelected([]);
     }
   }
@@ -189,6 +211,7 @@ export function ListProvider({ children }: Props) {
           grupoEstatico.push(node.id);      
       })
       setSelected(grupoEstatico);  
+      setAdicionaGrupo(false);
   }
 
   function onToggleMarcarTudo () {
@@ -201,6 +224,30 @@ export function ListProvider({ children }: Props) {
       }
   }
 
+  /********************* Área Lateral *******************/
+  function ativarToggleLateral ( tipo: string ) {
+      switch (tipo) {
+        case 'principal':
+          toggleLateral.principal = true;
+          toggleLateral.configs = false;
+          toggleLateral.eventos = false;
+          setToggleLateral({...toggleLateral});
+        break;
+        case 'configs':
+          toggleLateral.principal = false;
+          toggleLateral.configs = true;
+          toggleLateral.eventos = false;
+          setToggleLateral({...toggleLateral});
+        break;
+        case 'eventos':
+          toggleLateral.principal = false;
+          toggleLateral.configs = false;
+          toggleLateral.eventos = true;
+          setToggleLateral({...toggleLateral});
+        break;
+      }
+  }
+
   return (
     <ListContext.Provider 
       value={{
@@ -208,7 +255,7 @@ export function ListProvider({ children }: Props) {
         idTotal, setIdTotal,
         nomeSelecionado, setNomeSelecionado,
         list, setList, removerDaLista,
-        toggleLateral, setToggleLateral,
+        toggleLateral,ativarToggleLateral,
         tamanho, setTamanho,
         copiaGrupo, setCopiaGrupo,
         adicionaGrupo, setAdicionaGrupo, 
@@ -217,7 +264,8 @@ export function ListProvider({ children }: Props) {
         selectedAll, setSelectedAll,
         marcarTudo, deletarTudo, 
         onToggleMarcarTudo,
-        expanded, setExpanded
+        expanded, setExpanded,
+        buscarElemento
       }}
     >
       {children}
@@ -233,7 +281,7 @@ export function useList() {
       idTotal, setIdTotal,
       nomeSelecionado, setNomeSelecionado,
       list, setList,  removerDaLista,
-      toggleLateral, setToggleLateral,
+      toggleLateral,ativarToggleLateral,
       tamanho, setTamanho,
       copiaGrupo, setCopiaGrupo,
       adicionaGrupo, setAdicionaGrupo, 
@@ -242,7 +290,8 @@ export function useList() {
       selectedAll, setSelectedAll,
       marcarTudo, deletarTudo, 
       onToggleMarcarTudo,
-      expanded, setExpanded
+      expanded, setExpanded,
+      buscarElemento
     } = context;
     
     return { 
@@ -250,7 +299,7 @@ export function useList() {
       idTotal, setIdTotal,
       nomeSelecionado, setNomeSelecionado,
       list, setList,  removerDaLista,
-      toggleLateral, setToggleLateral,
+      toggleLateral,ativarToggleLateral,
       tamanho, setTamanho,
       copiaGrupo, setCopiaGrupo,
       adicionaGrupo, setAdicionaGrupo, 
@@ -259,6 +308,7 @@ export function useList() {
       selectedAll, setSelectedAll,
       marcarTudo, deletarTudo, 
       onToggleMarcarTudo,
-      expanded, setExpanded
+      expanded, setExpanded, 
+      buscarElemento
     };
 }

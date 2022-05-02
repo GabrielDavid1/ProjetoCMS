@@ -1,12 +1,11 @@
 /* React */
 import React from "react";
-
 interface Props {
     visibilidade: boolean;
     refLeft:React.MutableRefObject<HTMLDivElement>;
     refTop:React.MutableRefObject<HTMLDivElement>; 
     refRight:React.MutableRefObject<HTMLDivElement>;
-    refBottom:React.MutableRefObject<HTMLDivElement>; 
+    refBottom:React.MutableRefObject<HTMLDivElement>;
 }
 
 export function SelectElemento ({
@@ -16,10 +15,10 @@ export function SelectElemento ({
    refRight,
    refBottom
 }: Props) {
-    return (
+   return (
        <>
         {
-         visibilidade ? 
+         (visibilidade)  ? 
          (<>
             <div ref={refLeft} className="resizer resizer-l"></div>
             <div ref={refTop} className="resizer resizer-t"></div>
