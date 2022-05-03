@@ -9,14 +9,13 @@ import { useConfig } from '../../../../contexts/useConfig';
 
 /* Tipagens e Variaveis */
 import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
-import { propriedadeEstilo } from '../../../../Importacoes/Variaveis/Variaveis';
+
 interface PropsComponentes {
   id: string;
   config?: Config;
 }
 
 export const Retangulo = ({ id, config }: PropsComponentes) => {
-  const refPrincipal = useRef<HTMLDivElement>({} as HTMLDivElement);
   const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refLeft = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refTop = useRef<HTMLDivElement>({} as HTMLDivElement);
@@ -26,8 +25,6 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
   const { configuracoes } = useConfig();
 
   const [estado, setEstado] = useState(false);
-  
-  const [estadoTransform, setEstadoTransform] = useState('');  
 
   const [estadoWH, setEstadoWH] = useState({width: '150px', 
                                             height: '150px'});                                         
@@ -184,19 +181,7 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
     }
   }, [configuracoes]);
   
-  function pegarTransform () {
-      const styles = window.getComputedStyle(ref.current);
-      setEstadoTransform(styles.transform);
-  }
-
   return (
-    <div 
-      ref={refPrincipal}
-      onKeyPress={(e) => console.log(e.key)}
-      onMouseUp={pegarTransform}
-      style={{transform: propriedadeEstilo.retangulo.transform}} 
-      tabIndex={10}
-    > 
       <Elemento 
         id={id} 
         width={estadoWH.width}
@@ -208,8 +193,6 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
         refBottom={refBottom}
         config={config}
         estado={estado}
-        estadoTransform={estadoTransform}
       />
-    </div>
   );
 }

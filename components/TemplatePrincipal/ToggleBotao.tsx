@@ -5,9 +5,10 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import KeyboardCommandKeyIcon from '@mui/icons-material/KeyboardCommandKey';
 import CottageIcon from '@mui/icons-material/Cottage';
 
-/* Contexto */ 
+/* Contextos */ 
 import { useList } from '../../contexts/useTopicos';
 import { useConfig } from '../../contexts/useConfig';
+import { useCache } from '../../contexts/useCache';
 
 /* Variaveis */
 import { useEffect, useState } from 'react';
@@ -18,7 +19,10 @@ export function ToggleBotao () {
             toggleLateral, ativarToggleLateral ,
             adicionaGrupo, buscarElemento
           } = useList();
-    const { idTotal, configuracoes } = useConfig();
+    const { idTotal,  retornarQuantidade } = useConfig();
+    const { nomePagina } = useCache();
+
+
     const [value, setValue] = useState(0);
 
     function voltar () {
@@ -53,7 +57,7 @@ export function ToggleBotao () {
           icon={<SettingsIcon />} 
           aria-label="configurações"
           onClick={() => ativarToggleLateral('configs')} 
-          disabled={(configuracoes.length > 1) ? false : true}
+          disabled={(retornarQuantidade(nomePagina) > 0) ? false : true}
         />
         <Tab 
           icon={<KeyboardCommandKeyIcon />}

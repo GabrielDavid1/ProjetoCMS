@@ -31,7 +31,6 @@ interface Props {
     config?: Config;
     children?: React.ReactNode;
     estado: boolean;
-    estadoTransform: string;
 }
 
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
@@ -44,7 +43,6 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    refBottom,
    config,
    estado,
-   estadoTransform
 }, ref ) => {
   const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
@@ -67,15 +65,30 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
         setConfiguracoes(
           configuracoes.map(el => (el.id === id && el.config !== undefined
               ? {...el, config: 
-                {...el.config, width:width, height:height, transform:estadoTransform}}
+                {...el.config, width:width, height:height}}
               : el
           ))
         ) 
     }
   }
 
+  function setarTransform (e:any, ui:any) {
+    setConfiguracoes(
+      configuracoes.map(el => (el.id === id && el.config !== undefined
+          ? {...el, config: 
+            {...el.config, x: ui.lastX, y: ui.lastY}}
+          : el
+      ))
+    )
+  }
+
   return (
-    <Draggable disabled={estado}>   
+    <Draggable
+      disabled={estado} 
+      onStop={setarTransform}
+      defaultPosition={{x: config?.x, y: config?.y}}
+    >  
+     <div>
       <DivElemento 
         ref={ref} 
         className="resizeable" 
@@ -132,6 +145,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
             refBottom={refBottom}
         />
       </DivElemento>
+     </div>
     </Draggable>
   )
 });

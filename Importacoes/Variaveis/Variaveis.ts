@@ -110,8 +110,8 @@ export const propriedadeEstilo = {
       multiSelect: false,
       width: "150px",
       height: "150px",
-      top: "350px",
-      left: "400px",
+      x: 560,
+      y: 249,
       bgColor: "orange",
       pxBorder: "1px",
       typeBorder: "3",
@@ -120,7 +120,6 @@ export const propriedadeEstilo = {
       borderRadius: "0px",
       opacity: "1",
       zIndex: "1",
-      transform: "translate(560px, 249px)",
     },
 
     text: 
@@ -128,6 +127,8 @@ export const propriedadeEstilo = {
       tipo:'Text',
       multiSelect: false,
       display: "none",
+      x: 570,
+      y: 250,
       bgColor: "black",
       fontSize: "5rem",
       fontFamily: "Arial",
@@ -139,21 +140,22 @@ export const propriedadeEstilo = {
       fontWeight: "none",
       opacity: "1",
       zIndex: "1",
-      transform: "translate(570px, 250px)",
       webkitTextStroke: "none",
     },
     
     input: 
     {
       tipo:'Input',
+      tipoCache: 'padrao',
       multiSelect: false,
       width: '150px',
       height: '30px',
+      x: 580,
+      y: 300,
       bgColor: 'red',
       fontSize: "20px",
       opacity: "1",
       zIndex: "1",
-      transform: "translate(590px, 300px)",
     },
 
     tabela: 
@@ -162,6 +164,8 @@ export const propriedadeEstilo = {
       multiSelect: false,
       width: 'auto',
       height: 'auto',
+      x: 380,
+      y: 249,
       bgColor: 'none',
       fontSize: "20px",
       rows: [
@@ -189,7 +193,6 @@ export const propriedadeEstilo = {
       ],
       opacity: "1",
       zIndex: "1",
-      transform: "translate(380px, 249px)",
     },
 
     botao: 
@@ -202,6 +205,8 @@ export const propriedadeEstilo = {
       height: '65px',
       top: '0px',
       left: '0px',
+      x: 620,
+      y: 249,
       fontSize: '1rem',
       fontColor: '#1976d2',
       bgColor: 'white',
@@ -212,7 +217,6 @@ export const propriedadeEstilo = {
       colorBorder: "#rrggbb",
       opacity: "1",
       zIndex: "1",
-      transform: "translate(620px, 249px)",
     },
 
     grafico: {
@@ -220,6 +224,8 @@ export const propriedadeEstilo = {
       multiSelect: false,
       width: '280px',
       height: '235px',
+      x: 550,
+      y: 249,
       options: {
         chart: {
           toolbar: {
@@ -275,7 +281,6 @@ export const propriedadeEstilo = {
       ],
       opacity: "1",
       zIndex: "1",
-      transform: "translate(550px, 249px)",
     },
     
     textArea: {
@@ -284,12 +289,13 @@ export const propriedadeEstilo = {
       bgColor: 'white',
       width: '250px',
       height: '100px',
+      x: 527,
+      y: 297,
       fontSize: "1rem",
       fontColor: 'black',
       textoArea: '',
       opacity: "1",
       zIndex: "1",
-      transform: "translate(1px, -59px)",
     },
 
     imagem: {
@@ -297,9 +303,10 @@ export const propriedadeEstilo = {
       multiSelect: false,
       width: 'auto',
       height: 'auto',
+      x: 595,
+      y: 250,
       statusImagem: false,
       opacity: "1",
       zIndex: "1",
-      transform: "translate(595px, 250px)",
     },
 }

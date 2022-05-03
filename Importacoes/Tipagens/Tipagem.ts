@@ -1,11 +1,14 @@
 export interface List {
     id: string;
     name: string;
+    tipoCache: string;
     children: List[]
 }
 import { ApexOptions } from 'apexcharts';
 export interface Config {
     tipo?: string;
+
+    tipoCache?: string;
 
     multiSelect?: boolean;
 
@@ -19,6 +22,9 @@ export interface Config {
 
     top?: string;
     left?: string;
+    
+    x?: number;
+    y?: number;
   
     bgColor?: string;
     

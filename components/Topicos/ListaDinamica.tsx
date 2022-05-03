@@ -1,6 +1,7 @@
-/* Contexto */
+/* Contextos */
 import { useList } from '../../contexts/useTopicos';
 import { useConfig } from '../../contexts/useConfig';
+import { useCache } from '../../contexts/useCache';
 
 /* Icones para Elemento */
 import TreeView from '@mui/lab/TreeView';
@@ -17,11 +18,16 @@ import { Config } from '../../Importacoes/Tipagens/Tipagem';
 interface List {
     id: string;
     name: string;
+    tipoCache: string,
     config?: Config;
     children: List[];
 }
 
-export function ListaDinamica () {
+type Props = {
+    nomePagina: string;
+}
+
+export function ListaDinamica ({ nomePagina }:Props) {
     const {
          list, setList, removerDaLista,
          setIdTotal, idTotal,
@@ -101,13 +107,13 @@ export function ListaDinamica () {
     }
     
     const renderTree = (nodes:List) => (      
-        (nodes !== undefined) ? (    
+        ((nodes !== undefined && nodes.tipoCache === nomePagina) || nodes.id === 'root') ? (    
         <TreeItem onClick={(e) => plataforma(e, nodes.id, nodes)} key={nodes.id} nodeId={nodes.id} label={nodes.name}>
             {Array.isArray(nodes.children)
             ? nodes.children.map((node) => renderTree(node)) 
             : null}
         </TreeItem>
-        ) : ( <> </> )
+        ) : ( <div key={nodes.id}> </div> )
     );
     
     return (

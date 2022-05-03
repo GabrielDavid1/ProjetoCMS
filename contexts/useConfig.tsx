@@ -4,9 +4,11 @@ import React from "react";
 /* Tipagem e Variaveis*/
 import { Config } from '../Importacoes/Tipagens/Tipagem';
 import { propriedadeEstilo } from '../Importacoes/Variaveis/Variaveis';
+
 interface PropsConfig {
     id: string,
     type: string, 
+    tipoCache?: string;
     idGrupo: string,
     config?: Config;
 }
@@ -25,8 +27,10 @@ interface ModalContextValue {
     setConfiguracoes: (data: PropsConfig[]) => void;
 
     buscarConfigs: (id:string) => void;
-    addConfig: (id:string, type:string, idGrupo:string) => void;
+    addConfig: (id:string, type:string, idGrupo:string, nomePagina: string) => void;
     addConfigNoGrupo: (id:string, text:string) => void;
+
+    retornarQuantidade: (id:string) => number;
 
     setarIdConfig: (id:string) => void;
 
@@ -70,6 +74,7 @@ const listInitial: ModalContextValue = {
 
     addConfig:  data => {},
     addConfigNoGrupo:  data => {},
+    retornarQuantidade:  data => 0,
 
     setarIdConfig:  data => {},
 
@@ -93,6 +98,14 @@ export function ConfigProvider({ children }: Props) {
            return configuracoes[index].config;           
         }
     }
+
+    const retornarQuantidade = (tipo:string) => { 
+        let tamanho = 0;
+        let grupoEstatico:string[] = [];
+        configuracoes.map(elemento => (elemento.tipoCache === tipo) && grupoEstatico.push(elemento.type));
+        grupoEstatico.map(elemento => (elemento !== 'padrao') && tamanho++); 
+        return tamanho;
+    }   
 
     const removerDeGrupo = (idGrupo:string, tamanho: number) => { 
         let grupoEstatico:string[] = [];
@@ -125,11 +138,12 @@ export function ConfigProvider({ children }: Props) {
         }
     }
 
-    const addConfig = ( id:string, type:string, idGrupo = '0' as string) => {
+    const addConfig = ( id:string, type:string, idGrupo = '0' as string, nomePagina: string ) => {
         if (type !== "off") {
             let dado = ({
                 id: String(id),
                 type: type,
+                tipoCache: nomePagina,
                 idGrupo: idGrupo,
                 config: filtrarTipos(type)
             });
@@ -163,7 +177,7 @@ export function ConfigProvider({ children }: Props) {
                 idTotal, setIdTotal, addConfig, addConfigNoGrupo,
                 configuracoes, buscarConfigs, LargAlt, setLargAlt,
                 setConfiguracoes, removerConfigs, removerTudo,
-                removerDeGrupo, setarIdConfig,
+                removerDeGrupo, setarIdConfig,retornarQuantidade
             }} 
         >
         {children}
@@ -177,12 +191,12 @@ export function useConfig() {
            idTotal, setIdTotal, addConfig, addConfigNoGrupo,
            configuracoes, buscarConfigs, LargAlt, setLargAlt,
            setConfiguracoes, removerConfigs, removerTudo,
-           removerDeGrupo,setarIdConfig,
+           removerDeGrupo,setarIdConfig,retornarQuantidade
           } = context;
     return {  
         idTotal, setIdTotal, addConfig, addConfigNoGrupo,
         configuracoes, buscarConfigs, LargAlt, setLargAlt,
         setConfiguracoes, removerConfigs, removerTudo,
-        removerDeGrupo, setarIdConfig,
+        removerDeGrupo, setarIdConfig,retornarQuantidade
     };
 }

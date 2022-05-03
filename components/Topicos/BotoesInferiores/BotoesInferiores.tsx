@@ -1,12 +1,18 @@
-/* Contexto */
+/* Contextos */
 import { useList  } from '../../../contexts/useTopicos';
+import { useCache  } from '../../../contexts/useCache';
 
 /* Componente material-ui */
 import Button from '@mui/material/Button';
 
-export function BotoesInferiores () {
-    const {list, setList, tamanho, setTamanho,
-           deletarTudo, onToggleMarcarTudo,
+type Props = {
+    nomePagina: string;
+}
+  
+export function BotoesInferiores ({ nomePagina }:Props) {
+    const {list, setList, 
+           tamanho, setTamanho,
+           deletarTudo, onToggleMarcarTudo
           } = useList();
 
     const addGrupo = ( ) => {
@@ -14,11 +20,13 @@ export function BotoesInferiores () {
         list[0].children.push({
             id: id,
             name: 'Novo Grupo',
+            tipoCache: nomePagina,
             children: [{
-            id: String(tamanho+2),
-            name: '',
-            children: [],
-          }],
+                id: String(tamanho+2),
+                tipoCache: nomePagina,
+                name: '',
+                children: [],
+            }],
         });
         setList({...list});
         setTamanho(tamanho+2);
@@ -26,7 +34,8 @@ export function BotoesInferiores () {
     
     const plataformaBotoes = (id: number) => {
         if(id === 1) addGrupo();  
-        if(id === 2) deletarTudo(); 
+        if(id === 2) deletarTudo(nomePagina); 
+
     }
 
     return (

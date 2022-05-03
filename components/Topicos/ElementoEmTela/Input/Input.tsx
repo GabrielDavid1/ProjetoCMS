@@ -180,30 +180,20 @@ export const Input = ({ id, config }: PropsComponentes) => {
     }
   }, [configuracoes]);
   
-  function pegarTransform () {
-    const styles = window.getComputedStyle(ref.current);
-    setEstadoTransform(styles.transform);
-  }
 
   return (
-    <div 
-      ref={refPrincipal}
-      onMouseUp={pegarTransform}
-      style={{transform: propriedadeEstilo.input.transform}} 
-    > 
-     <Elemento 
-        id={id} 
-        width={estadoWH.width}
-        height={estadoWH.height}
-        ref={ref} 
-        refLeft={refLeft} 
-        refTop={refTop}
-        refRight={refRight}
-        refBottom={refBottom}
-        config={config}
-        estado={estado}
-        estadoTransform={estadoTransform}
-     />
-    </div>
+    <Elemento 
+      id={id} 
+      width={estadoWH.width}
+      height={estadoWH.height}
+      ref={ref} 
+      refLeft={refLeft} 
+      refTop={refTop}
+      refRight={refRight}
+      refBottom={refBottom}
+      config={config}
+      estado={estado}
+      estadoTransform={estadoTransform}
+    />
   );
 }

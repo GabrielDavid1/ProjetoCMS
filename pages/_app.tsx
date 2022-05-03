@@ -11,12 +11,14 @@ import theme from '../lib/theme';
 import { ListProvider } from '../contexts/useTopicos';
 import { ModalProvider } from '../contexts/useModal';
 import { ConfigProvider } from '../contexts/useConfig';
+import { CacheProvider } from '../contexts/useCache';
 
 /* Estilos */
-import '../styles/globals.css';
-import '../components/layout/Styles.scss';
+import '../styles/globals.scss';
+
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   return (
     <>
       <Head>
@@ -26,6 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         ></meta>
       </Head>
+      <CacheProvider>
         <ConfigProvider>
           <ListProvider>
           <ModalProvider>
@@ -36,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </ModalProvider>
           </ListProvider>
         </ConfigProvider>
+      </CacheProvider>
     </>
   );
 }

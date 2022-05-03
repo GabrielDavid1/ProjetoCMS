@@ -1,7 +1,7 @@
 /* React */
 import React from "react";
 
-/* Contexto */
+/* Contextos */
 import { useConfig } from './useConfig';
 
 /* Tipagem */
@@ -51,7 +51,7 @@ interface ListContextValue {
 
   setSelected: (data: string[]) => void;
   setSelectedAll: (data: boolean) => void;
-  deletarTudo: () => void;
+  deletarTudo: (nomePagina: string) => void;
   marcarTudo: () => void;
   onToggleMarcarTudo: () => void;
   setExpanded: (data: string[]) => void;
@@ -69,9 +69,11 @@ const listInitial: ListContextValue = {
     {
       id: 'root',
       name: "Sua árvore de tópicos adicionados",
+      tipoCache: "padrao",
       children: [
         {
           id: '0.9',
+          tipoCache: "padrao",
           name: '',
           children: [],
         }, 
@@ -91,6 +93,7 @@ const listInitial: ListContextValue = {
   grupo: false,
   copiaGrupo: [{
     id: '0',
+    tipoCache: "padrao",
     name: "",
     children: []
   }],
@@ -143,7 +146,7 @@ export function ListProvider({ children }: Props) {
   const [expanded, setExpanded] = React.useState<string[]>([listInitial.expanded[0]]);
   const [tamanho, setTamanho] = React.useState(0);
 
-  const { configuracoes, removerDeGrupo, removerTudo } = useConfig();
+  const { configuracoes, removerDeGrupo, removerConfigs } = useConfig();
 
   /********************* Lista de Tópicos *******************/
   const removerDaLista = ( id: string, nodes:List ) => {
@@ -192,13 +195,15 @@ export function ListProvider({ children }: Props) {
   }
 
   /********************* Botões Inferiores *******************/
-  function deletarTudo () {
+  function deletarTudo (nomePagina: string) {
     if (selected.length > 0) {
-        list[0].children = [];
-        setList({...list});
-        if (configuracoes.length > 0) {
-            removerTudo();
-        }
+        let grupoEstatico:string[] = [];
+        list[0].children.map(elemento => elemento.tipoCache === nomePagina && grupoEstatico.push(elemento.id) );
+        grupoEstatico.map(elemento => removerDaLista(elemento, list[0])); 
+      
+        configuracoes.map(elemento => elemento.tipoCache === nomePagina && grupoEstatico.push(elemento.id) );
+        grupoEstatico.map(elemento => removerConfigs(elemento)); 
+
         setAdicionaGrupo(false);
         setSelected([]);
     }

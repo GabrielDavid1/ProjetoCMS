@@ -29,13 +29,13 @@ export const MenuContexto = (( {grupo} : tipagemProps) => {
     /* impede ações nos elementos filhos do grupo escolhido */
     const filhosDoGrupo = ( nodes:List ) => {
         nodes.children.map((node) => { 
-        if(node.children.length > 0) {
-            let index = expanded.findIndex(elemento => elemento === node.id);
+          if(node.children.length > 0) {
+             let index = expanded.findIndex(elemento => elemento === node.id);
 
-            if(index !== -1 && node.id !== idTotal){
-            expanded.splice(index, 1);
-            setExpanded({...expanded}); 
-            }
+             if(index !== -1 && node.id !== idTotal){
+               expanded.splice(index, 1);
+               setExpanded({...expanded}); 
+             }
         }
         });
     }

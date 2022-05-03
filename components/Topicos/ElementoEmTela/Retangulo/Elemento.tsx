@@ -25,7 +25,6 @@ interface Props {
     refBottom:React.MutableRefObject<HTMLDivElement>; 
     config?: Config;
     estado: boolean;
-    estadoTransform: string;
 }
 
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
@@ -38,11 +37,9 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    refBottom,
    config,
    estado,
-   estadoTransform,
 }, ref ) => {
-  const { ativarToggleLateral, adicionaGrupo } = useList();
+  const { list, ativarToggleLateral, adicionaGrupo } = useList();
   const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
-
   const [visibilidade, setVisibilidade] = useState(false);
 
   function addElementoNoGrupo () {
@@ -61,39 +58,55 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
         setConfiguracoes(
           configuracoes.map(el => (el.id === id && el.config !== undefined
               ? {...el, config: 
-                {...el.config, width:width, height:height, transform:estadoTransform}}
+                {...el.config, width:width, height:height}}
               : el
           ))
         ) 
     }
   }
 
+  function setarTransform (e:any, ui:any) {
+    setConfiguracoes(
+      configuracoes.map(el => (el.id === id && el.config !== undefined
+          ? {...el, config: 
+            {...el.config, x: ui.lastX, y: ui.lastY}}
+          : el
+      ))
+    )
+  }
+
   return (
-    <Draggable disabled={estado}>   
-      <DivElemento 
-        ref={ref} 
-        className="resizeable" 
-        onMouseOver={() => setVisibilidade(true)} 
-        onMouseOut={() => setVisibilidade(false)}
-        onClick={(e) => trocarLateral(e.detail)}
-        bgColor={config?.bgColor}
-        width={config?.width}
-        height={config?.height}
-        border={config?.pxBorder+' '+config?.typeBorder+' '+config?.colorBorder}
-        boxShadow={config?.boxShadow}
-        borderRadius={config?.borderRadius}
-        opacity={config?.opacity}
-        zIndex={config?.zIndex}
-        transform={config?.transform}
-      >
-        <SelectElemento
-            visibilidade={visibilidade}
-            refLeft={refLeft} 
-            refTop={refTop}
-            refRight={refRight}
-            refBottom={refBottom}
-        />
-      </DivElemento>
+    <Draggable
+      disabled={estado} 
+      onStop={setarTransform}
+      defaultPosition={{x: config?.x, y: config?.y}}
+    >   
+      <div> 
+        <DivElemento 
+          ref={ref} 
+          className="resizeable" 
+          onMouseOver={() => setVisibilidade(true)} 
+          onMouseOut={() => setVisibilidade(false)}
+          onClick={(e) => trocarLateral(e.detail)}
+          bgColor={config?.bgColor}
+          width={config?.width}
+          height={config?.height}
+          border={config?.pxBorder+' '+config?.typeBorder+' '+config?.colorBorder}
+          boxShadow={config?.boxShadow}
+          borderRadius={config?.borderRadius}
+          opacity={config?.opacity}
+          zIndex={config?.zIndex}
+          transform={"translate(0px, 0px)"}
+        >
+          <SelectElemento
+              visibilidade={visibilidade}
+              refLeft={refLeft} 
+              refTop={refTop}
+              refRight={refRight}
+              refBottom={refBottom}
+          />
+        </DivElemento>
+      </div>
     </Draggable>
   )
 });

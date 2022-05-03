@@ -15,7 +15,6 @@ interface PropsComponentes {
 }
 
 export const Grafico = ({ id, config }: PropsComponentes) => {
-  const refPrincipal = useRef<HTMLDivElement>({} as HTMLDivElement);
   const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refLeft = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refTop = useRef<HTMLDivElement>({} as HTMLDivElement);
@@ -24,10 +23,9 @@ export const Grafico = ({ id, config }: PropsComponentes) => {
 
   const { configuracoes } = useConfig(); 
   
-  const [estadoWH, setEstadoWH] = useState({width: '150px', 
-                                            height: '150px'});
-  const [estadoTransform, setEstadoTransform] = useState('');                                        
   const [estado, setEstado] = useState(false);
+  const [estadoWH, setEstadoWH] = useState({width: '150px', 
+                                            height: '150px'});                                    
 
   useEffect(() => {
     const resizeableEle = ref.current;
@@ -181,17 +179,7 @@ export const Grafico = ({ id, config }: PropsComponentes) => {
     }
   }, [configuracoes]);
   
-  function pegarTransform () {
-    const styles = window.getComputedStyle(ref.current);
-    setEstadoTransform(styles.transform);
-  }
-
   return (
-    <div 
-      ref={refPrincipal}
-      onMouseUp={pegarTransform}
-      style={{transform: propriedadeEstilo.grafico.transform}} 
-    > 
     <Elemento 
       id={id} 
       width={estadoWH.width}
@@ -203,8 +191,6 @@ export const Grafico = ({ id, config }: PropsComponentes) => {
       refBottom={refBottom}
       config={config}
       estado={estado}
-      estadoTransform={estadoTransform}
     />
-    </div>
   );
 }

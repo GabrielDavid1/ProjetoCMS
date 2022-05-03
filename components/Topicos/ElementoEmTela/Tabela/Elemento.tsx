@@ -19,13 +19,11 @@ import EstruturaTabela from './EstruturaTabela';
 interface Props {
     id: string;
     config?: Config;
-    estadoTransform: string;
 }
 
 export const Elemento = forwardRef<HTMLDivElement,  Props>(({ 
    id, 
    config,
-   estadoTransform,
 }, ref ) => {
   const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
@@ -43,18 +41,25 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(({
     } else if(parametro === 1 && config !== undefined) {
         setIdTotal(id);
         addElementoNoGrupo();
-        setConfiguracoes(
-          configuracoes.map(el => (el.id === id && el.config !== undefined
-              ? {...el, config: 
-                {...el.config, transform:estadoTransform}}
-              : el
-          ))
-        ) 
     }
   }
 
+  function setarTransform (e:any, ui:any) {
+    setConfiguracoes(
+      configuracoes.map(el => (el.id === id && el.config !== undefined
+          ? {...el, config: 
+            {...el.config, x: ui.lastX, y: ui.lastY}}
+          : el
+      ))
+    )
+  }
+
   return (
-  <Draggable>  
+  <Draggable
+    onStop={setarTransform}
+    defaultPosition={{x: config?.x, y: config?.y}}
+  >  
+    <div>
       <DivElemento 
         ref={ref}
         className="resizeable" 
@@ -68,6 +73,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(({
            rows={config?.rows}
         />
       </DivElemento>
-    </Draggable>
+    </div>
+  </Draggable>
   )
 });

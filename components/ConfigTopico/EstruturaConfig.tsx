@@ -1,3 +1,4 @@
+/* React */
 import { memo } from 'react';
 
 /* Componente */
@@ -9,30 +10,40 @@ import { Botao } from "./Botao/Botao";
 import { Grafico } from "./Grafico/Grafico";
 import { TextArea } from "./TextArea/TextArea";
 import { Imagem } from "./Imagem/Imagem";
+
 /* Contexto */ 
 import { useConfig } from '../../contexts/useConfig';
+import { useCache } from '../../contexts/useCache';
 
-export function BaseEstrutura () {
+function BaseEstrutura () {
    const { idTotal, buscarConfigs } = useConfig();
 
-   let elementoGuardado:any = buscarConfigs(idTotal);
+   let elementoGuardado:any = buscarConfigs(idTotal);  
 
    const plataformaRenderizacao = (tipo: string) => {
+      if (elementoGuardado) {
         switch (tipo) {
-            case 'Retangulo': return <Retangulo />;
-            case 'Text': return <Text />;
-            case 'Input': return <Input />;
-            case 'Tabela': return <Tabela />;
-            case 'Botao': return <Botao />;
-            case 'Grafico': return <Grafico />;
-            case 'TextArea': return <TextArea />;
-            case 'Imagem': return <Imagem />;
+          case 'Retangulo': return <Retangulo />;
+          case 'Text': return  <Text />; 
+          case 'Input': return <Input />; 
+          case 'Tabela': return <Tabela />; 
+          case 'Botao': return <Botao />; 
+          case 'Grafico': return <Grafico />;
+          case 'TextArea': return <TextArea />; 
+          case 'Imagem': return <Imagem />;
+          default: 
+          return (
+            <div className="mensagemVazia"> 
+                <h1> Selecione algum elemento em tela... </h1> 
+            </div>
+          )
         }
+      }
    }
 
    return (
         <div className="conteudo">
-            {plataformaRenderizacao(elementoGuardado.tipo)}
+            {elementoGuardado !== undefined && plataformaRenderizacao(elementoGuardado.tipo)}
         </div>
     )
 }

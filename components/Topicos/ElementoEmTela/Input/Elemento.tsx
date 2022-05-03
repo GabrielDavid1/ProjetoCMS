@@ -18,7 +18,6 @@ let Draggable = require('react-draggable');
 /* Divs */
 import DivElemento from './DivElemento';
 
-
 interface Props {
     id: string;
     width: string;
@@ -66,15 +65,30 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
         setConfiguracoes(
           configuracoes.map(el => (el.id === id && el.config !== undefined
               ? {...el, config: 
-                {...el.config, width:width, height:height, transform:estadoTransform}}
+                {...el.config, width:width, height:height}}
               : el
           ))
         ) 
     }
   }
 
+  function setarTransform (e:any, ui:any) {
+    setConfiguracoes(
+      configuracoes.map(el => (el.id === id && el.config !== undefined
+          ? {...el, config: 
+            {...el.config, x: ui.lastX, y: ui.lastY}}
+          : el
+      ))
+    )
+  }  
+
   return (
-    <Draggable disabled={estado}>   
+    <Draggable
+      disabled={estado} 
+      onStop={setarTransform}
+      defaultPosition={{x: config?.x, y: config?.y}}
+    >     
+     <div>
       <DivElemento 
         ref={ref} 
         className="resizeable" 
@@ -99,6 +113,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
             refBottom={refBottom}
         />
       </DivElemento>
+      </div>
     </Draggable>
   )
 });

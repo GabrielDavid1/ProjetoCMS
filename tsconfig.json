@@ -24,7 +24,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.JS"
-, "components/layout/LayoutWithMenu/gridBox.js", "components/layout/LayoutWithMenu/gridBox.js", "components/layout/vanilla.js", "public/teste.js", "components/layout/LayoutWithMenu/teste.js", "components/layout/Topics/Eventos.tsx", "components/LayoutWithMenu/Principal.tsx"  ],
+, "components/layout/LayoutWithMenu/gridBox.js", "components/layout/LayoutWithMenu/gridBox.js", "components/layout/vanilla.js", "public/teste.js", "components/layout/LayoutWithMenu/teste.js", "components/layout/Topics/Eventos.tsx", "components/TemplatePrincipal/Principal.tsx"  ],
   "exclude": [
     "node_modules"
   ]

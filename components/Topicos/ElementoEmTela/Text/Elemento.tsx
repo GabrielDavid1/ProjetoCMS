@@ -16,10 +16,9 @@ import { InputTexto } from './InputTexto';
 interface Props {
     id: string;
     config?: Config;
-    estadoTransform: string;
 }
 
-export const Elemento = forwardRef<HTMLDivElement, Props>(( {id, config, estadoTransform}, ref ) => {
+export const Elemento = forwardRef<HTMLDivElement, Props>(( { id, config }, ref ) => {
   const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
 
@@ -36,17 +35,25 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( {id, config, estadoT
     } else {
         setIdTotal(id);
         addElementoNoGrupo();
-        setConfiguracoes(
-            configuracoes.map(el => (el.id === id && el.config !== undefined
-                ? {...el, config: {...el.config, transform:estadoTransform}}
-                : el
-            ))
-        ) 
     }
   }
 
+  function setarTransform (e:any, ui:any) {
+    setConfiguracoes(
+      configuracoes.map(el => (el.id === id && el.config !== undefined
+          ? {...el, config: 
+            {...el.config, x: ui.lastX, y: ui.lastY}}
+          : el
+      ))
+    )
+  }
+
   return (
-  <Draggable>   
+  <Draggable
+    onStop={setarTransform}
+    defaultPosition={{x: config?.x, y: config?.y}}
+  >  
+    <div>
       <DivElemento 
           className="resizeable"  
           ref={ref} 
@@ -55,6 +62,7 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( {id, config, estadoT
       >
        <InputTexto config={config} />
       </DivElemento>
+    </div>
     </Draggable>
   )
 });
