@@ -249,7 +249,7 @@ export default function LayoutWithMenuComponent(props:any) {
       })}> 
         <div className={classes.drawerHeader} />
      {/*   <ConteudoElementos paginaAtual={props.pagina} /> */}
-        <ConteudoEventos />
+        <ConteudoEventos nomePagina={props.pagina} />
       </main>
   
       <div className="makeStyles-appBar-3"> 

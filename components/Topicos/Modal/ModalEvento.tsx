@@ -3,7 +3,6 @@ import * as React from 'react';
 
 /* Componente Framework Material-UI */
 import Button from '@mui/material/Button';
-
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
@@ -13,6 +12,15 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepContent from '@mui/material/StepContent';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
+/* Variaveis */
+import { steps } from '../../../Importacoes/Variaveis/Variaveis';
 
 /* Componente */
 
@@ -32,49 +40,41 @@ const style = {
 };
 
 type propriedade = {
-    nomeDaPagina: string;
+    nomePagina: string;
+    statusModal: boolean;
+    setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const listaDeIdIcones = ['1','2','3','4','5','6','7','8','9','10'];
 
-export default function ModalConfig({nomeDaPagina}: propriedade) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export default function ModalEvento({nomePagina, statusModal, setStatusModal }: propriedade) {
+  const handleClose = () => setStatusModal(false);
+
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) {
+        setActiveStep(0);
+        handleClose();
+    } 
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
 
   const { configPagina, setConfigPagina } = useCache();
 
-  const [valor, setValor] = React.useState('1');
-  const [titulo, setTitulo] = React.useState(nomeDaPagina);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setValor(event.target.value as string);
-  };
-
-  const tituloChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    setTitulo(event.target.value as string);
-  };  
-
-  function salvar () {
-    let id = '0';
-    switch (nomeDaPagina) {
-        case 'segundaPagina':  id = '2'; break;
-        case 'terceiraPagina': id = '3'; break;
-        default: id = '1'; break;
-    }
-    setConfigPagina(
-      configPagina.map(el => (el.identificador === id
-          ? {...el, nomePagina:titulo, iconeId:valor} : el
-      ))
-    );
-    setOpen(false)
-  }
-  
   return (
       <Modal
+        id="modal-evento"
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
-        open={open}
+        open={statusModal}
         onClose={handleClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -83,44 +83,44 @@ export default function ModalConfig({nomeDaPagina}: propriedade) {
         }}
         sx={{ width: '800px'  }}
       >
-        <Fade in={open}>
+        <Fade in={statusModal}>
           <Box sx={style}>
-            <h1 style={{ textAlign:'left' }}> Configurações </h1>
-            <TextField
-                id="outlined-uncontrolled"
-                label="Nome da Página"
-                onChange={(e) => tituloChange(e)}
-                style={{ marginBottom: '20px' }}
-            />
-            <FormControl fullWidth>
-                <InputLabel
-                   id="demo-simple-select-label"
-                   style={{ marginBottom: '20px' }}
+           <Stepper activeStep={activeStep} orientation="vertical">
+            {steps.map((step, index) => (
+              <Step key={step.label}>
+                <StepLabel
+                  optional={
+                    index === 2 ? (
+                      <Typography variant="caption">última etapa</Typography>
+                    ) : null
+                  }
                 >
-                   Icone da Página
-                </InputLabel> 
-                <Select
-                  className="controleIconesModal"
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={valor}
-                  label="Icone da Página"
-                  onChange={handleChange}
-                  style={{width:'99%', 
-                          height: '60px', 
-                          textAlign:'center', 
-                          marginBottom: '10px'}}
-                >
-                { listaDeIdIcones.map((item, index) => { 
-                    return (
-                        <MenuItem key={item} value={item}>
-                          
-                        </MenuItem>
-                    )
-                })}
-                </Select>
-            </FormControl>
-            <Button onClick={salvar}> SALVAR </Button>
+                  {step.label}
+                </StepLabel>
+                <StepContent>
+                  <Typography> kkk </Typography>
+                  <Box sx={{ mb: 2 }}>
+                    <div>
+                      <Button
+                        variant="contained"
+                        onClick={handleNext}
+                        sx={{ mt: 1, mr: 1 }}
+                      >
+                        {index === steps.length - 1 ? 'Finalizar' : 'Continuar'}
+                      </Button>
+                      <Button
+                        disabled={index === 0}
+                        onClick={handleBack}
+                        sx={{ mt: 1, mr: 1 }}
+                      >
+                        Voltar
+                      </Button>
+                    </div>
+                  </Box>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
           </Box>
         </Fade>
       </Modal>

@@ -102,6 +102,28 @@ export const icones = {
   casa: 'M11.67 3.87 9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z'
 }
 
+/* Variaeis para passo a passo de configuração de eventos */
+export const steps = [
+  {
+    label: 'Selecione o tipo de evento',
+    description: `For each ad campaign that you create, you can control how much
+              you're willing to spend on clicks and conversions, which networks
+              and geographical locations you want your ads to show on, and more.`,
+  },
+  {
+    label: 'Create an ad group',
+    description:
+      'An ad group contains one or more ads which target a shared set of keywords.',
+  },
+  {
+    label: 'Create an ad',
+    description: `Try out different ad text to see what brings in the most customers,
+              and learn how to enhance your ads using features like ad extensions.
+              If you run into any problems with your ads, find out how to tell if
+              they're running and how to resolve approval issues.`,
+  },
+];
+
 /* Variaveis para estilização dos elementos */
 export const propriedadeEstilo = {
     retangulo: 

@@ -87,7 +87,6 @@ export function ListaDinamica ({ nomePagina }:Props) {
     }
 
     const plataforma = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) => {
-        console.log(nodes);
         let copiaExpanded = expanded;
         setNomeSelecionado(nodes.id);
         if (adicionaGrupo && id !== selected[0] && id !== 'root') {
