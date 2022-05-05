@@ -1,6 +1,6 @@
 /* React e React Flow */
 import React from "react";
-import { Node, Edge } from 'react-flow-renderer';
+import { Node, Edge, useNodesState, useEdgesState } from 'react-flow-renderer';
 
 interface ModalContextValue {
     initialNodes: Node[],
@@ -30,8 +30,8 @@ const listInitial: ModalContextValue = {
 const EventContext = React.createContext<ModalContextValue>(listInitial);
 
 export function EventProvider({ children }: Props) {
-    const [ initialNodes, setInitialNodes ]  = React.useState<Node[]>(listInitial.initialNodes);
-    const [ initialEdges, setInitialEdges ]  = React.useState<Edge[]>(listInitial.initialEdges);
+    const [ initialNodes, setInitialNodes ]  = useNodesState(listInitial.initialNodes);
+    const [ initialEdges, setInitialEdges ]  = useEdgesState(listInitial.initialEdges);
     const [ quantidadeEventos, setQuantidadeEventos ]  = React.useState<number>(listInitial.quantidadeEventos);
 
     return (

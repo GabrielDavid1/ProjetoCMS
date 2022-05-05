@@ -7,11 +7,6 @@ import Button from '@mui/material/Button';
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import Tooltip from '@mui/material/Tooltip';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,7 +15,6 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 /* Componente */
-import ListaIcones from '../../TemplatePrincipal/ListaIcones'
 
 /* Contexto */
 import { useCache } from '../../../contexts/useCache';
@@ -77,15 +71,6 @@ export default function ModalConfig({nomeDaPagina}: propriedade) {
   }
   
   return (
-    <div>
-      <Tooltip style={{fontSize: '5rem'}} title="Configurações" placement="right-start">
-         <ListItem  onClick={handleOpen} button component="a">
-            <ListItemIcon>
-                <ManageAccountsIcon />
-            </ListItemIcon>
-            <ListItemText primary="" />
-         </ListItem>
-      </Tooltip>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -129,7 +114,7 @@ export default function ModalConfig({nomeDaPagina}: propriedade) {
                 { listaDeIdIcones.map((item, index) => { 
                     return (
                         <MenuItem key={item} value={item}>
-                           <ListaIcones parametro={item} />
+                          
                         </MenuItem>
                     )
                 })}
@@ -139,6 +124,5 @@ export default function ModalConfig({nomeDaPagina}: propriedade) {
           </Box>
         </Fade>
       </Modal>
-    </div>
   );
 }

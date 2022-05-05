@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect } from 'react';
-import ReactFlow, { useNodesState, useEdgesState, addEdge, Background } from 'react-flow-renderer';
+import ReactFlow, {  addEdge, Background, useNodesState, useEdgesState } from 'react-flow-renderer';
 
 import { useEvent } from '../../contexts/useEvent';
 
 const ConteudoEventos = () => {
-  const { initialNodes } = useEvent();
+  const { initialNodes, setInitialNodes, initialEdges, setInitialEdges } = useEvent();
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   
   const defaultEdgeOptions = { animated: true, style: { stroke: 'red' } };
 
@@ -15,7 +15,19 @@ const ConteudoEventos = () => {
 
   useEffect(() => {
      setNodes(initialNodes);
-  }, [initialNodes])
+  }, [initialNodes]);
+
+  useEffect(() => {
+ //   if(nodes.length !== initialNodes.length) {
+       setInitialNodes(nodes);
+ //   }
+  }, [nodes]);
+
+  useEffect(() => {
+    if(edges.length !== initialEdges.length) {
+       setInitialEdges(edges);
+    }
+  }, [edges]);
 
   return (
     <ReactFlow
