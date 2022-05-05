@@ -3,7 +3,6 @@ import * as React from 'react';
 
 /* Componente Framework Material-UI */
 import Button from '@mui/material/Button';
-
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
@@ -128,9 +127,9 @@ export default function ModalConfig({nomeDaPagina}: propriedade) {
                 >
                 { listaDeIdIcones.map((item, index) => { 
                     return (
-                        <MenuItem key={item} value={item}>
-                           <ListaIcones parametro={item} />
-                        </MenuItem>
+                      <MenuItem key={item} value={item}>
+                          <ListaIcones parametro={item} />
+                      </MenuItem>
                     )
                 })}
                 </Select>

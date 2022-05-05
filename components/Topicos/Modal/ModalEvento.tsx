@@ -18,14 +18,22 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 
 /* Variaveis */
 import { steps } from '../../../Importacoes/Variaveis/Variaveis';
+import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
 
 /* Componente */
+import Eventos  from './subComponentesModal/Evento';
+import Condicao from './subComponentesModal/Condicao';
 
-/* Contexto */
-import { useCache } from '../../../contexts/useCache';
+
+type propriedade = {
+  nomePagina: string;
+  statusModal: boolean;
+  setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -39,35 +47,68 @@ const style = {
   p: 4,
 };
 
-type propriedade = {
-    nomePagina: string;
-    statusModal: boolean;
-    setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-
 export default function ModalEvento({nomePagina, statusModal, setStatusModal }: propriedade) {
   const handleClose = () => setStatusModal(false);
 
   const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set<number>());
+
+  const isStepOptional = (step: number) => {
+    return step === 3;
+  };
+
+  const isStepSkipped = (step: number) => {
+    return skipped.has(step);
+  };
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    if (activeStep === 2) {
-        setActiveStep(0);
-        handleClose();
-    } 
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+    if(activeStep === 2) {
+      setActiveStep((prevActiveStep) => prevActiveStep = 1);
+      setActiveStep(0);
+      handleClose();
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      setSkipped(newSkipped);
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
+  const handleSkip = () => {
+    if (!isStepOptional(activeStep)) {
+      throw new Error("Você não pode pular esta parte pois não é opicional.");
+    }
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
+      const newSkipped = new Set(prevSkipped.values());
+      newSkipped.add(activeStep);
+      return newSkipped;
+    });
   };
 
-  const { configPagina, setConfigPagina } = useCache();
+  /* SUB COMPONENTES */
+  const EtapasRenderizadas = () => {
+    switch (activeStep) {
+      case 0: return <Eventos parametro='0' />;
+      case 1: return (
+                      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                        <Condicao parametro='Param 1' /> 
+                        <Condicao 
+                          parametro='Param 2' 
+                          condicao={condicoes} 
+                        /> 
+                        <Condicao parametro='Param 3' /> 
+                      </Box> 
+                     )
+    }
+  };
 
   return (
       <Modal
@@ -84,43 +125,56 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal }: 
         sx={{ width: '800px'  }}
       >
         <Fade in={statusModal}>
-          <Box sx={style}>
-           <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((step, index) => (
-              <Step key={step.label}>
-                <StepLabel
-                  optional={
-                    index === 2 ? (
-                      <Typography variant="caption">última etapa</Typography>
-                    ) : null
-                  }
-                >
-                  {step.label}
-                </StepLabel>
-                <StepContent>
-                  <Typography> kkk </Typography>
-                  <Box sx={{ mb: 2 }}>
-                    <div>
-                      <Button
-                        variant="contained"
-                        onClick={handleNext}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        {index === steps.length - 1 ? 'Finalizar' : 'Continuar'}
-                      </Button>
-                      <Button
-                        disabled={index === 0}
-                        onClick={handleBack}
-                        sx={{ mt: 1, mr: 1 }}
-                      >
-                        Voltar
-                      </Button>
-                    </div>
-                  </Box>
-                </StepContent>
-              </Step>
-            ))}
+         <Box sx={style}>
+          <Stepper activeStep={activeStep}>
+          {steps.map((label, index) => {
+              const stepProps: { completed?: boolean } = {};
+              const labelProps: {
+                optional?: React.ReactNode;
+              } = {};
+              if (isStepOptional(index)) {
+                labelProps.optional = (
+                  <Typography variant="caption"></Typography>
+                );
+              }
+              if (isStepSkipped(index)) {
+                stepProps.completed = false;
+              }
+              return (
+                <Step key={label} {...stepProps}>
+                  <StepLabel {...labelProps}>{label}</StepLabel>
+                </Step>
+              );
+          })}
           </Stepper>
+          {activeStep !== steps.length && (
+            <React.Fragment>
+              <Container maxWidth="sm">
+                <Box sx={{ display: 'grid', flexDirection: 'row', pt: 2 }}>
+                    {EtapasRenderizadas()}
+                </Box>
+              </Container>
+              <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+                <Button
+                  color="inherit"
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  sx={{ mr: 1 }}
+                >
+                  Voltar
+                </Button>
+                <Box sx={{ flex: '1 1 auto' }} />
+                {isStepOptional(activeStep) && (
+                  <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                    Pular
+                  </Button>
+                )}
+                <Button onClick={handleNext}>
+                  {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
+                </Button>
+              </Box>
+            </React.Fragment>
+          )}
           </Box>
         </Fade>
       </Modal>

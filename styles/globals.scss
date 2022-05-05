@@ -31,13 +31,16 @@ body {
 }
 
 #modal-evento {
-   width: 59rem;
-   margin-left: -12rem;
-   height: 58rem;
-   margin-top: -80px;
+   width: 78rem;
+   margin-left: -32rem;
+   height: 42rem;
+   margin-top: 61px;
 
-   button:hover {
+   button:nth-child(1):hover {
       color: white;
+   }
+   button:nth-child(2):hover {
+      color: #1976d2;
    }
 }
 
