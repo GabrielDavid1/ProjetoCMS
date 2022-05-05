@@ -1,7 +1,7 @@
 /* Contextos */
 import { useList } from '../../contexts/useTopicos';
 import { useConfig } from '../../contexts/useConfig';
-import { useCache } from '../../contexts/useCache';
+import { useEvent } from '../../contexts/useEvent';
 
 /* Icones para Elemento */
 import TreeView from '@mui/lab/TreeView';
@@ -39,6 +39,7 @@ export function ListaDinamica ({ nomePagina }:Props) {
          expanded, setExpanded
     } = useList();
     const { addConfigNoGrupo, setarIdConfig } = useConfig();
+    const { quantidadeEventos } = useEvent();
 
     const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
         setExpanded(nodeIds);
@@ -86,6 +87,7 @@ export function ListaDinamica ({ nomePagina }:Props) {
     }
 
     const plataforma = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) => {
+        console.log(nodes);
         let copiaExpanded = expanded;
         setNomeSelecionado(nodes.id);
         if (adicionaGrupo && id !== selected[0] && id !== 'root') {

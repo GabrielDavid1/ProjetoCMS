@@ -8,20 +8,23 @@ import CottageIcon from '@mui/icons-material/Cottage';
 /* Contextos */ 
 import { useList } from '../../contexts/useTopicos';
 import { useConfig } from '../../contexts/useConfig';
-import { useCache } from '../../contexts/useCache';
+import { useEvent } from '../../contexts/useEvent';
 
 /* Variaveis */
 import { useEffect, useState } from 'react';
 
-export function ToggleBotao () {
+type Props = {
+  nomePagina: string;
+}
+
+export function ToggleBotao ({ nomePagina }:Props) {
     const { setIdTotal, list,
             setNomeSelecionado, setSelected, 
             toggleLateral, ativarToggleLateral ,
             adicionaGrupo, buscarElemento
           } = useList();
     const { idTotal,  retornarQuantidade } = useConfig();
-    const { nomePagina } = useCache();
-
+    const { quantidadeEventos } = useEvent();
 
     const [value, setValue] = useState(0);
 
@@ -63,7 +66,7 @@ export function ToggleBotao () {
           icon={<KeyboardCommandKeyIcon />}
           aria-label="eventos" 
           onClick={() => ativarToggleLateral('eventos')} 
-          disabled={!toggleLateral.eventos}
+          disabled={(quantidadeEventos > 0) ? false : true}
         />
       </Tabs>
       </div>

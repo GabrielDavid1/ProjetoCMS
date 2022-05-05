@@ -1,7 +1,14 @@
+export type Event = {
+    evento: string
+    condicao: string[];
+    acao: string[];
+}
+
 export interface List {
     id: string;
     name: string;
     tipoCache: string;
+    evt?: Event,
     children: List[]
 }
 import { ApexOptions } from 'apexcharts';

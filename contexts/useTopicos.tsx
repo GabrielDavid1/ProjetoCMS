@@ -3,6 +3,7 @@ import React from "react";
 
 /* Contextos */
 import { useConfig } from './useConfig';
+import { useEvent } from './useEvent';
 
 /* Tipagem */
 import { List } from '../Importacoes/Tipagens/Tipagem';
@@ -146,6 +147,7 @@ export function ListProvider({ children }: Props) {
   const [expanded, setExpanded] = React.useState<string[]>([listInitial.expanded[0]]);
   const [tamanho, setTamanho] = React.useState(0);
 
+  const { quantidadeEventos, setQuantidadeEventos } = useEvent();
   const { configuracoes, removerDeGrupo, removerConfigs } = useConfig();
 
   /********************* Lista de Tópicos *******************/
@@ -158,6 +160,7 @@ export function ListProvider({ children }: Props) {
           ? nodes.children.map((node) => removerDaLista(id, node))
           : null  
     } else {
+        (nodes.children[index].evt?.evento === 'ativado') && setQuantidadeEventos(quantidadeEventos - 1);
         removerDeGrupo(nodes.children[index].id, nodes.children[index].children.length);
         delete nodes.children[index];
         nodes.children.splice(index, 1);
@@ -198,11 +201,14 @@ export function ListProvider({ children }: Props) {
   function deletarTudo (nomePagina: string) {
     if (selected.length > 0) {
         let grupoEstatico:string[] = [];
+
         list[0].children.map(elemento => elemento.tipoCache === nomePagina && grupoEstatico.push(elemento.id) );
-        grupoEstatico.map(elemento => removerDaLista(elemento, list[0])); 
-      
+        grupoEstatico.map(elemento => removerDaLista(elemento, list[0]));
+
         configuracoes.map(elemento => elemento.tipoCache === nomePagina && grupoEstatico.push(elemento.id) );
         grupoEstatico.map(elemento => removerConfigs(elemento)); 
+
+        setQuantidadeEventos(0);
 
         setAdicionaGrupo(false);
         setSelected([]);

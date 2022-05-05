@@ -12,10 +12,10 @@ import { ListProvider } from '../contexts/useTopicos';
 import { ModalProvider } from '../contexts/useModal';
 import { ConfigProvider } from '../contexts/useConfig';
 import { CacheProvider } from '../contexts/useCache';
+import { EventProvider } from '../contexts/useEvent';
 
 /* Estilos */
 import '../styles/globals.scss';
-
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -28,7 +28,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         ></meta>
       </Head>
-      <CacheProvider>
+      <EventProvider>
+       <CacheProvider>
         <ConfigProvider>
           <ListProvider>
           <ModalProvider>
@@ -39,7 +40,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           </ModalProvider>
           </ListProvider>
         </ConfigProvider>
-      </CacheProvider>
+       </CacheProvider>
+      </EventProvider>
     </>
   );
 }

@@ -43,7 +43,12 @@ function BaseEstrutura () {
 
    return (
         <div className="conteudo">
-            {elementoGuardado !== undefined && plataformaRenderizacao(elementoGuardado.tipo)}
+            {elementoGuardado !== undefined 
+               ? plataformaRenderizacao(elementoGuardado.tipo) 
+               : <div className="mensagemVazia"> 
+                    <h1> Selecione algum elemento em tela... </h1> 
+                 </div>
+            }
         </div>
     )
 }

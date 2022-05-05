@@ -28,7 +28,7 @@ import Router from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 
 /* Componentes */
-import Conteudo from './Conteudo';
+import ConteudoElementos from './ConteudoElementos';
 import { EstruturaTopicos } from './EstruturaTopicos';
 import { EstruturaConfig } from '../ConfigTopico/EstruturaConfig';
 import ModalConfig from '../Topicos/Modal/ModalConfig';
@@ -45,13 +45,14 @@ import { ToggleBotao } from './ToggleBotao';
 /* nookies */
 import { setCookie, parseCookies } from 'nookies';
 import nookies from 'nookies';
-import { Principal2 } from './Principal2';
+import ConteudoEventos from './ConteudoEventos';
 import ListaIcones from './ListaIcones';
+import EstruturaEventos from '../Eventos/EstruturaEventos';
 
 export default function LayoutWithMenuComponent(props:any) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   const { toggleLateral, list, setList, tamanho, setTamanho } = useList();
   const { configuracoes, setConfiguracoes } = useConfig();
@@ -240,7 +241,6 @@ export default function LayoutWithMenuComponent(props:any) {
                 <ListItemText primary="" />
             </ListItem>
           </Tooltip>
-
           <ModalConfig nomeDaPagina={props.pagina} />
         </List>
       </Drawer>
@@ -248,15 +248,16 @@ export default function LayoutWithMenuComponent(props:any) {
           [classes.contentShift]: open,
       })}> 
         <div className={classes.drawerHeader} />
-        <Conteudo paginaAtual={props.pagina} />
+     {/*   <ConteudoElementos paginaAtual={props.pagina} /> */}
+        <ConteudoEventos />
       </main>
   
       <div className="makeStyles-appBar-3"> 
         <div className="config">
-          <ToggleBotao />
+          <ToggleBotao nomePagina={props.pagina}/>
           { toggleLateral.principal && <EstruturaTopicos nomePagina={props.pagina}   /> }
-          { toggleLateral.configs   && <EstruturaConfig     />  }
-          { toggleLateral.eventos   && <> </> }
+          { toggleLateral.configs   && <EstruturaConfig />  }
+          { toggleLateral.eventos   && <EstruturaEventos nomePagina={props.pagina} /> }
         </div>
       </div>
     </div>
@@ -265,7 +266,6 @@ export default function LayoutWithMenuComponent(props:any) {
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const cookies = parseCookies(context)
-  
   return {
     props: {
       msg: '[SERVER]: Concluido',

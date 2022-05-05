@@ -30,7 +30,8 @@ interface ModalContextValue {
     addConfig: (id:string, type:string, idGrupo:string, nomePagina: string) => void;
     addConfigNoGrupo: (id:string, text:string) => void;
 
-    retornarQuantidade: (id:string) => number;
+    retornarQuantidade: (tipo:string) => number;
+    retornarTipoElemento: (id:string) => string;
 
     setarIdConfig: (id:string) => void;
 
@@ -75,6 +76,7 @@ const listInitial: ModalContextValue = {
     addConfig:  data => {},
     addConfigNoGrupo:  data => {},
     retornarQuantidade:  data => 0,
+    retornarTipoElemento:  data => '',
 
     setarIdConfig:  data => {},
 
@@ -93,7 +95,6 @@ export function ConfigProvider({ children }: Props) {
 
     const buscarConfigs = (id:string) => { 
         let index = configuracoes.findIndex(elemento => elemento.id === id);
-    
         if (index !== -1) {
            return configuracoes[index].config;           
         }
@@ -105,7 +106,13 @@ export function ConfigProvider({ children }: Props) {
         configuracoes.map(elemento => (elemento.tipoCache === tipo) && grupoEstatico.push(elemento.type));
         grupoEstatico.map(elemento => (elemento !== 'padrao') && tamanho++); 
         return tamanho;
-    }   
+    }
+    
+    const retornarTipoElemento = (id:string) => { 
+        let grupoEstatico:string[] = [];
+        configuracoes.map(elemento => (elemento.id === id) && grupoEstatico.push(elemento.type));
+        return grupoEstatico[0];
+    } 
 
     const removerDeGrupo = (idGrupo:string, tamanho: number) => { 
         let grupoEstatico:string[] = [];
@@ -177,7 +184,8 @@ export function ConfigProvider({ children }: Props) {
                 idTotal, setIdTotal, addConfig, addConfigNoGrupo,
                 configuracoes, buscarConfigs, LargAlt, setLargAlt,
                 setConfiguracoes, removerConfigs, removerTudo,
-                removerDeGrupo, setarIdConfig,retornarQuantidade
+                removerDeGrupo, setarIdConfig,retornarQuantidade,
+                retornarTipoElemento
             }} 
         >
         {children}
@@ -191,12 +199,14 @@ export function useConfig() {
            idTotal, setIdTotal, addConfig, addConfigNoGrupo,
            configuracoes, buscarConfigs, LargAlt, setLargAlt,
            setConfiguracoes, removerConfigs, removerTudo,
-           removerDeGrupo,setarIdConfig,retornarQuantidade
+           removerDeGrupo,setarIdConfig,retornarQuantidade,
+           retornarTipoElemento
           } = context;
     return {  
         idTotal, setIdTotal, addConfig, addConfigNoGrupo,
         configuracoes, buscarConfigs, LargAlt, setLargAlt,
         setConfiguracoes, removerConfigs, removerTudo,
-        removerDeGrupo, setarIdConfig,retornarQuantidade
+        removerDeGrupo, setarIdConfig,retornarQuantidade,
+        retornarTipoElemento
     };
 }

@@ -58,4 +58,4 @@ export default function Meio({ paginaAtual }:Props) {
   )       
 }
 
-export const Conteudo = memo(Meio);
+export const ConteudoElementos = memo(Meio);

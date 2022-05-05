@@ -6,7 +6,9 @@ import Divider from '@material-ui/core/Divider';
 import { SelectChangeEvent } from '@mui/material/Select';
 import Button from '@mui/material/Button';
 
-/* Contexto */
+/* Contextos */
+import { useList } from '../../../contexts/useTopicos';
+import { useEvent } from '../../../contexts/useEvent';
 import { useConfig } from '../../../contexts/useConfig';
 
 /* Componentes */
@@ -28,9 +30,12 @@ export function Botao () {
     const [botaoRadius, setBotaoRadius] = useState({ status: false, svg: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' });
     const [tiposBotao, setTiposBotao] = useState({ status: false, svg: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' });
   
+    const { quantidadeEventos, setQuantidadeEventos } = useEvent();
+    const { ativarToggleLateral, list, setList, buscarElemento } = useList();
     const { idTotal, buscarConfigs, configuracoes, setConfiguracoes } = useConfig();
-    
+
     let elementoGuardado:any = buscarConfigs(idTotal);
+    let listaBuscado: any = buscarElemento(idTotal, list[0]);
 
     const handleChange = (event: SelectChangeEvent) => {
       event.preventDefault();
@@ -107,7 +112,26 @@ export function Botao () {
                   : 'M19 13H5v-2h14v2z'
         }); 
         toggleProps(id, parametro);
-    } 
+    }
+
+    function acionarEventos () {
+        if(listaBuscado.evt === undefined) {
+           setQuantidadeEventos(quantidadeEventos+1);
+           let evento = {
+              evento: "ativado",
+              condicao: "vazio",
+              acao: "vazio",
+           }
+           listaBuscado.evt = evento;
+           setList({...list});
+           ativarToggleLateral('eventos');
+        } else {
+           setQuantidadeEventos(quantidadeEventos-1);            
+           delete listaBuscado.evt;
+           setList({...list});
+           ativarToggleLateral('configs');
+        }
+    }
 
     useEffect(() => {
         elementoGuardado = buscarConfigs(idTotal);
@@ -139,10 +163,10 @@ export function Botao () {
     return (
         <>
         {/* Toda a área da tabela de coloração */}  
-          <TabelaDeCor 
-              cor={elementoGuardado.bgColor ? elementoGuardado.bgColor : '#fff'}
-              elemento={elementoGuardado}
-          />
+        <TabelaDeCor 
+            cor={elementoGuardado.bgColor ? elementoGuardado.bgColor : '#fff'}
+            elemento={elementoGuardado}
+        />
         <Divider />
         <div className="areaConfig">
           <ul>
@@ -198,8 +222,9 @@ export function Botao () {
                     marginLeft: '65px',
                     borderRadius: '5px'
                 }}
+                onClick={acionarEventos}
               > 
-                Adicionar Evento 
+                { (listaBuscado.evt === undefined) ? "Adicionar Evento" : "Remover Evento" }
               </Button>
             </li>
           </ul>
