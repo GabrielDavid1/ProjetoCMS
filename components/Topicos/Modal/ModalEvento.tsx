@@ -1,5 +1,5 @@
 /* React */
-import * as React from 'react';
+import React from 'react';
 
 /* Componente Framework Material-UI */
 import Button from '@mui/material/Button';
@@ -20,20 +20,15 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-/* Variaveis */
+/* Variaveis e Tipagens */
 import { steps } from '../../../Importacoes/Variaveis/Variaveis';
 import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
+import { DadoEvtProps } from '../../../Importacoes/Tipagens/Tipagem';
 
-/* Componente */
+/* Componentes */
 import Eventos  from './subComponentesModal/Evento';
 import Condicao from './subComponentesModal/Condicao';
-
-
-type propriedade = {
-  nomePagina: string;
-  statusModal: boolean;
-  setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import Parametros from './subComponentesModal/Parametros';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -47,8 +42,19 @@ const style = {
   p: 4,
 };
 
-export default function ModalEvento({nomePagina, statusModal, setStatusModal }: propriedade) {
-  const handleClose = () => setStatusModal(false);
+type propriedade = {
+  nomePagina: string;
+  statusModal: boolean;
+  setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
+  dadoEvento?: DadoEvtProps
+}
+
+export default function ModalEvento({nomePagina, statusModal, setStatusModal, dadoEvento }: propriedade) {
+  const handleClose = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep = 0);
+    setActiveStep(0);
+    setStatusModal(false);
+  };
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
@@ -68,8 +74,6 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal }: 
       newSkipped.delete(activeStep);
     }
     if(activeStep === 2) {
-      setActiveStep((prevActiveStep) => prevActiveStep = 1);
-      setActiveStep(0);
       handleClose();
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -92,21 +96,28 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal }: 
       return newSkipped;
     });
   };
-
+  
   /* SUB COMPONENTES */
   const EtapasRenderizadas = () => {
     switch (activeStep) {
       case 0: return <Eventos parametro='0' />;
       case 1: return (
-                      <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                        <Condicao parametro='Param 1' /> 
-                        <Condicao 
-                          parametro='Param 2' 
-                          condicao={condicoes} 
-                        /> 
-                        <Condicao parametro='Param 3' /> 
-                      </Box> 
-                     )
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+
+            <Parametros 
+               parametro='Param 1' 
+               dadoEvento={dadoEvento}
+            /> 
+
+            <Condicao 
+              parametro='Param 2' 
+              condicao={condicoes} 
+            /> 
+
+            <Condicao parametro='Param 3' /> 
+                      
+          </Box>
+      );
     }
   };
 

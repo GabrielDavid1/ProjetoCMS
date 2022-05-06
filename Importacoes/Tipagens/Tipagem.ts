@@ -4,6 +4,11 @@ export type Event = {
     acao: string[];
 }
 
+export interface DadoEvtProps {
+    idBotao: string;
+    relacionados: string[]
+}
+
 export interface List {
     id: string;
     name: string;

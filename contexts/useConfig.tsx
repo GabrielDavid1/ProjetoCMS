@@ -6,10 +6,10 @@ import { Config } from '../Importacoes/Tipagens/Tipagem';
 import { propriedadeEstilo } from '../Importacoes/Variaveis/Variaveis';
 
 interface PropsConfig {
-    id: string,
-    type: string, 
+    id: string;
+    type: string; 
     tipoCache?: string;
-    idGrupo: string,
+    idGrupo: string;
     config?: Config;
 }
 

@@ -322,4 +322,4 @@ export const condicoes = [
   {id: '4', tipo: 'Menor'},
   {id: '5', tipo: 'Maior igual'},
   {id: '6', tipo: 'Menor igual'},
-]
+];

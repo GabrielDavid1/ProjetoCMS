@@ -2,24 +2,28 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 /* React Flow */
-import ReactFlow, {  addEdge, Background, useNodesState, useEdgesState, applyNodeChanges } from 'react-flow-renderer';
+import ReactFlow, { addEdge, Background, useEdgesState } from 'react-flow-renderer';
 
 /* Componente */
 import ModalEvento from '../Topicos/Modal/ModalEvento';
 
+/* Contexto */
 import { useEvent } from '../../contexts/useEvent';
+
+/* Tipagens */
+import { DadoEvtProps } from '../../Importacoes/Tipagens/Tipagem';
 
 type Props = {
   nomePagina: string;
 }
 
 const ConteudoEventos = ({ nomePagina }:Props) => {
-  const { initialNodes, onNodesChange, initialEdges, setInitialEdges } = useEvent();
+  const { initialNodes, initialEdges, onNodesChange, setInitialEdges } = useEvent();
 
+  const [dadoEvt, setDadoEvt] = useState<DadoEvtProps>();
+  const [statusModal, setStatusModal] = useState(false);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const [statusModal, setStatusModal] = useState(false);
-  
   const defaultEdgeOptions = { animated: true, style: { stroke: 'red' } };
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
@@ -27,6 +31,14 @@ const ConteudoEventos = ({ nomePagina }:Props) => {
   useEffect(() => {
     if(edges.length !== initialEdges.length) {
        setInitialEdges(edges);
+
+       let grupoEstatico:string[] = [];
+       edges.map(elemento => (elemento.source === edges.slice(-1)[0].source) && grupoEstatico.push(elemento.target));
+
+       let copia = Object.assign({}, dadoEvt);
+       copia = {idBotao: edges.slice(-1)[0].source, relacionados: grupoEstatico};
+       setDadoEvt(copia);
+
        setStatusModal(true);
     }
   }, [edges]);
@@ -45,8 +57,9 @@ const ConteudoEventos = ({ nomePagina }:Props) => {
           nomePagina={nomePagina} 
           statusModal={statusModal}
           setStatusModal={setStatusModal}
+          dadoEvento={dadoEvt}
       /> 
-    </ReactFlow>
+    </ReactFlow> 
   );
 };
 
