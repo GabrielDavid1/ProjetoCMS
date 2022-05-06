@@ -1,5 +1,5 @@
 /* React */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 /* Componente Framework Material-UI */
 import Button from '@mui/material/Button';
@@ -24,11 +24,16 @@ import Container from '@mui/material/Container';
 import { steps } from '../../../Importacoes/Variaveis/Variaveis';
 import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
 import { DadoEvtProps } from '../../../Importacoes/Tipagens/Tipagem';
+import { Config } from '../../../Importacoes/Tipagens/Tipagem';
 
 /* Componentes */
 import Eventos  from './subComponentesModal/Evento';
 import Condicao from './subComponentesModal/Condicao';
 import Parametros from './subComponentesModal/Parametros';
+
+/* Contextos */
+import { useConfig } from '../../../contexts/useConfig';
+import { useList } from '../../../contexts/useTopicos';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -49,13 +54,42 @@ type propriedade = {
   dadoEvento?: DadoEvtProps
 }
 
+type ObjPadrao = {
+  nome: string;
+  configuracoes: Config;
+}
+
 export default function ModalEvento({nomePagina, statusModal, setStatusModal, dadoEvento }: propriedade) {
+  const { list } = useList();
+  const { configuracoes, buscarConfigs } = useConfig();
+ 
+  const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([]);
+
   const handleClose = () => {
     setActiveStep((prevActiveStep) => prevActiveStep = 0);
     setActiveStep(0);
+    setDadosEstaticos([]);
     setStatusModal(false);
   };
 
+  function addDadosEstaticos (id: string) {
+    const regex = new RegExp(id, 'gi');
+    const conf = configuracoes.filter(param => regex.test(param.id))[0].config;
+    DadosEstaticos.push({
+       nome: list[0].children.filter(param => regex.test(param.id))[0].name,
+       configuracoes: (conf !== undefined) ? conf : {},
+    });
+    setDadosEstaticos([...DadosEstaticos]);
+  }
+
+  useEffect(() => {
+    if(statusModal) { 
+       dadoEvento?.relacionados.forEach((dado) => {
+         addDadosEstaticos(dado)       
+       })
+    }
+  },[statusModal])
+  
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
@@ -106,7 +140,7 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
 
             <Parametros 
                parametro='Param 1' 
-               dadoEvento={dadoEvento}
+               dadoEvento={DadosEstaticos}
             /> 
 
             <Condicao 

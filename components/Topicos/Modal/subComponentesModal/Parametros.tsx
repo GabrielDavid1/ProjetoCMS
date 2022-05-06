@@ -12,15 +12,16 @@ import { useConfig } from '../../../../contexts/useConfig';
 
 /* Tipagens */
 import { DadoEvtProps } from '../../../../Importacoes/Tipagens/Tipagem';
+import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
 
 type ObjPadrao = {
-    id: string;
-    tipo: string;
+    nome: string;
+    configuracoes: Config;
 }
 
 type Props = {
     parametro: string;
-    dadoEvento?: DadoEvtProps;
+    dadoEvento?: ObjPadrao[];
 };
 
 export default function Parametros ({ parametro, dadoEvento }:Props) {
@@ -33,15 +34,6 @@ export default function Parametros ({ parametro, dadoEvento }:Props) {
         setValor(event.target.value as string);
     };
     
-    const renderizarDados = () => {
-        let DadosEstaticos:any = [];
-        dadoEvento?.relacionados.forEach((dado) => {       
-            let regex = new RegExp(dado, 'gi');
-            DadosEstaticos = configuracoes.filter(param => regex.test(param.id));
-        })
-        setConfigs(DadosEstaticos);
-    }
-
     return (
         <FormControl fullWidth>
         <InputLabel
@@ -57,7 +49,7 @@ export default function Parametros ({ parametro, dadoEvento }:Props) {
           value={valor}
           label={parametro}
           onChange={handleChange}
-          onClick={renderizarDados}
+          onClick={() => console.log(dadoEvento)}
           style={{width:'99%', 
                   height: '60px', 
                   textAlign:'center',
