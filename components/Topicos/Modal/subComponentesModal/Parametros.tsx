@@ -25,8 +25,6 @@ type Props = {
 };
 
 export default function Parametros ({ parametro, dadoEvento }:Props) {
-    const { configuracoes, buscarConfigs } = useConfig();
-    
     const [valor, setValor] = React.useState('1');
     const [configs, setConfigs] = React.useState<any[]>([]);
  

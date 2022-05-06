@@ -141,6 +141,7 @@ export const propriedadeEstilo = {
       marginInlineStart: "none",
       marginInlineEnd: "none",
       fontWeight: "none",
+      textoArea: '',
       opacity: "1",
       zIndex: "1",
       webkitTextStroke: "none",
@@ -312,6 +313,78 @@ export const propriedadeEstilo = {
       opacity: "1",
       zIndex: "1",
     },
+}
+
+/* Lista de tipos para elementos */
+export const tiposTamanho = {
+    retangulo: [
+      'width',
+      'height',
+      'bgColor',
+      'boxShadow',
+      'borderRadius',
+      'opacity',
+      'zIndex',
+    ],
+    text: [ 
+      'textoArea',
+      'bgColor',
+      'fontSize',
+      'fontFamily',
+      'textAlign',
+      'fontWeight',
+      'opacity',
+      'zIndex',
+    ],
+    input: [ 
+      'width',
+      'height',
+      'bgColor',
+      'fontSize',
+      'opacity',
+      'zIndex',
+    ],
+    tabela: [ 
+      'width',
+      'height',
+      'bgColor',
+      'fontSize',
+      'opacity',
+      'zIndex',
+    ],
+    botao: [ 
+      'width',
+      'height',
+      'bgColor',
+      'fontSize',
+      'fontColor',
+      'svgColor',
+      'borderRadius',
+      'opacity',
+      'zIndex',
+    ],
+    grafico: [ 
+      'width',
+      'height',
+      'opacity',
+      'zIndex',
+    ],
+    textArea: [
+      'width',
+      'height',
+      'textoArea',
+      'bgColor',
+      'fontSize',
+      'fontColor',
+      'opacity',
+      'zIndex',
+    ],
+    imagem: [
+      'width',
+      'height',
+      'opacity',
+      'zIndex',
+    ],
 }
 
 /* Variaveis para condições */
