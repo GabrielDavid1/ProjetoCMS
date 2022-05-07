@@ -9,7 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 
 /* Tipagens e Variaveis*/
 import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
-import { tiposTamanho } from '../../../../Importacoes/Variaveis/Variaveis';
 
 type ObjPadrao = {
     id:string;
@@ -21,7 +20,7 @@ type Props = {
     dadoEvento?: ObjPadrao[];
 };
 
-export default function Parametros ({ parametro, dadoEvento }:Props) {
+export default function ElementoId ({ parametro, dadoEvento }:Props) {
     const [valor, setValor] = React.useState('1');
  
     const handleChange = (event: SelectChangeEvent) => {
@@ -50,12 +49,12 @@ export default function Parametros ({ parametro, dadoEvento }:Props) {
                   padding: '10px',
                   marginBottom: '40px'}}
         >
-        {(dadoEvento !== undefined) && tiposTamanho.map((item, index) => 
-            <MenuItem key={index} value={index+''}>
-                {item} 
-            </MenuItem>
+        {(dadoEvento !== undefined) && dadoEvento.map((item, index) => 
+                <MenuItem key={index} value={item.id}>
+                     {item.nome} 
+                </MenuItem>
           ) 
-        }
+        }   
         </Select>
         </FormControl>
     )

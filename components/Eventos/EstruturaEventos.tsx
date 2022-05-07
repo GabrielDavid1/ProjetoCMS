@@ -33,11 +33,11 @@ export default function EstruturaEventos ({ nomePagina }:Props) {
     const { retornarTipoElemento } = useConfig();
     const { initialNodes, setInitialNodes } = useEvent();
 
-    const [expanded, setExpanded] = React.useState<string[]>([]);
+    const [expanded, setExpanded] = React.useState<string[]>(['root']);
     const [selected, setSelected] = React.useState<string[]>([]);
 
     const [expanded2, setExpanded2] = React.useState<string[]>([]);
-    const [selected2, setSelected2] = React.useState<string[]>([]);
+    const [selected2, setSelected2] = React.useState<string[]>(['root']);
     
     const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
       setExpanded(nodeIds);

@@ -44,7 +44,7 @@ export default function Condicao ({ parametro, condicao }:Props) {
                   height: '60px', 
                   textAlign:'center',
                   padding: '10px',
-                  marginBottom: '40px',
+                  marginBottom: '0px',
                  }}
         >
          {

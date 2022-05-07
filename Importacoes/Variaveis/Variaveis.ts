@@ -103,7 +103,13 @@ export const icones = {
 }
 
 /* Variaeis para passo a passo de configuração de eventos */
-export const steps = ['Selecione o tipo de evento', 'Especifique a condição', 'Determinar ação'];
+export const steps = [
+ 'Selecione o tipo de evento',
+ 'Especifique o primeiro parametro',
+ 'Especifique a condição', 
+ 'Especifique o segundo parametro',
+ 'Determinar ação'
+];
 
 /* Variaveis para estilização dos elementos */
 export const propriedadeEstilo = {
@@ -316,76 +322,22 @@ export const propriedadeEstilo = {
 }
 
 /* Lista de tipos para elementos */
-export const tiposTamanho = {
-    retangulo: [
-      'width',
-      'height',
-      'bgColor',
-      'boxShadow',
-      'borderRadius',
-      'opacity',
-      'zIndex',
-    ],
-    text: [ 
-      'textoArea',
-      'bgColor',
-      'fontSize',
-      'fontFamily',
-      'textAlign',
-      'fontWeight',
-      'opacity',
-      'zIndex',
-    ],
-    input: [ 
-      'width',
-      'height',
-      'bgColor',
-      'fontSize',
-      'opacity',
-      'zIndex',
-    ],
-    tabela: [ 
-      'width',
-      'height',
-      'bgColor',
-      'fontSize',
-      'opacity',
-      'zIndex',
-    ],
-    botao: [ 
-      'width',
-      'height',
-      'bgColor',
-      'fontSize',
-      'fontColor',
-      'svgColor',
-      'borderRadius',
-      'opacity',
-      'zIndex',
-    ],
-    grafico: [ 
-      'width',
-      'height',
-      'opacity',
-      'zIndex',
-    ],
-    textArea: [
-      'width',
-      'height',
-      'textoArea',
-      'bgColor',
-      'fontSize',
-      'fontColor',
-      'opacity',
-      'zIndex',
-    ],
-    imagem: [
-      'width',
-      'height',
-      'opacity',
-      'zIndex',
-    ],
-}
+export const tiposTamanho = [
+    'width',
+    'height',
+    'bgColor',
+    'boxShadow',
+    'borderRadius',
+    'textoArea',
+    'fontColor',
+    'fontSize',
+    'fontFamily',
+    'textAlign',
+    'fontWeight',
+    'svgColor',
+    'opacity',
+    'zIndex',
+]
 
 /* Variaveis para condições */
 export const condicoes = [

@@ -7,15 +7,38 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
+/* Contexto */
+import { useEvent } from '../../../../contexts/useEvent';
+
 type Props = {
-    parametro: string;
+    id: string | undefined;
 }
 
-export default function Evento ({ parametro }:Props) {
+export default function Evento ({ id }:Props) {
     const [valor, setValor] = React.useState('1');
+    const { queryEvento, setQueryEvento } = useEvent();
 
     const handleChange = (event: SelectChangeEvent) => {
+        let param = 'click';
+        if (event.target.value === '2') param = 'hover';
+
+        queryEvento.push({
+            id: (id !== undefined) ? id : '',
+            idElemento: '',
+            evento: param,
+            condicao: {
+                par1: '',
+                par2: '',
+                par3: '',
+            },
+            acao: {
+                raiz: '',
+                alvo: '',
+            },
+        });
+        setQueryEvento([...queryEvento]);
         setValor(event.target.value as string);
+        
     };
 
     return (

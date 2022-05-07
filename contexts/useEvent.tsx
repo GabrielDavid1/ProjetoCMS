@@ -5,13 +5,30 @@ import { Node, Edge, useNodesState, useEdgesState, OnNodesChange, NodeChange } f
 /* Contexto */
 import { useConfig } from "./useConfig";
 
+interface PropsEvento {
+    id: string;
+    idElemento: string;
+    evento: string;
+    condicao: {
+        par1: string;
+        par2: string;
+        par3: string;
+    }
+    acao: {
+        raiz: string;
+        alvo: string;
+    }
+}
 interface ModalContextValue {
+    queryEvento: PropsEvento[],
+    
     initialNodes: Node[],
     initialEdges: Edge[],
-
+    
     quantidadeEventos: number,
     setQuantidadeEventos: (tamanho: number) => void,
-
+    
+    setQueryEvento: (data: PropsEvento[]) => void,
     setInitialNodes: (data: Node[]) => void,
     setInitialEdges: (data: Edge[]) => void,
     onNodesChange: (nodes: NodeChange[]) => void,
@@ -21,12 +38,15 @@ interface Props {
 }
 
 const listInitial: ModalContextValue = {
+    queryEvento: [],
+    
     initialNodes: [],
     initialEdges: [],
 
     quantidadeEventos: 0,
     setQuantidadeEventos:  data => {},
     
+    setQueryEvento:  data => {},
     setInitialNodes:  data => {},
     setInitialEdges:  data => {},
     onNodesChange:  data => {},
@@ -38,8 +58,9 @@ export function EventProvider({ children }: Props) {
     const [ initialNodes, setInitialNodes, onNodesChange ]  = useNodesState(listInitial.initialNodes);
     const [ initialEdges, setInitialEdges ]  = React.useState(listInitial.initialEdges);
 
-    const [ quantidadeEventos, setQuantidadeEventos ]  = React.useState<number>(listInitial.quantidadeEventos);
+    const [ queryEvento, setQueryEvento ] = React.useState<PropsEvento[]>([]);
 
+    const [ quantidadeEventos, setQuantidadeEventos ]  = React.useState<number>(listInitial.quantidadeEventos);
 
     const { configuracoes } = useConfig();
 
@@ -53,6 +74,7 @@ export function EventProvider({ children }: Props) {
                 initialNodes, initialEdges, onNodesChange,
                 setInitialNodes, setInitialEdges,
                 quantidadeEventos, setQuantidadeEventos,
+                queryEvento, setQueryEvento
             }}
         >
         {children}
@@ -66,10 +88,12 @@ export function useEvent() {
         initialNodes, initialEdges, onNodesChange,
         setInitialNodes, setInitialEdges,
         quantidadeEventos, setQuantidadeEventos,
+        queryEvento, setQueryEvento
     } = context;
     return { 
         initialNodes, initialEdges, onNodesChange,
         setInitialNodes, setInitialEdges,
         quantidadeEventos, setQuantidadeEventos,
+        queryEvento, setQueryEvento
     };
 }

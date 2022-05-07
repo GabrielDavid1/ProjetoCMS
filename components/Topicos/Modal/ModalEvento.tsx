@@ -25,15 +25,18 @@ import { steps } from '../../../Importacoes/Variaveis/Variaveis';
 import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
 import { DadoEvtProps } from '../../../Importacoes/Tipagens/Tipagem';
 import { Config } from '../../../Importacoes/Tipagens/Tipagem';
+import { tiposTamanho } from '../../../Importacoes/Variaveis/Variaveis';
 
 /* Componentes */
 import Eventos  from './subComponentesModal/Evento';
 import Condicao from './subComponentesModal/Condicao';
 import Parametros from './subComponentesModal/Parametros';
+import ElementoId from './subComponentesModal/ElementoId';
 
 /* Contextos */
-import { useConfig } from '../../../contexts/useConfig';
 import { useList } from '../../../contexts/useTopicos';
+import { useConfig } from '../../../contexts/useConfig';
+import { useEvent } from '../../../contexts/useEvent';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -55,14 +58,14 @@ type propriedade = {
 }
 
 type ObjPadrao = {
+  id:string;
   nome: string;
-  configuracoes: Config;
 }
 
 export default function ModalEvento({nomePagina, statusModal, setStatusModal, dadoEvento }: propriedade) {
   const { list } = useList();
-  const { configuracoes, buscarConfigs } = useConfig();
- 
+  const {  } = useEvent();  
+
   const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([]);
 
   const handleClose = () => {
@@ -74,10 +77,9 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
 
   function addDadosEstaticos (id: string) {
     const regex = new RegExp(id, 'gi');
-    const conf = configuracoes.filter(param => regex.test(param.id))[0].config;
     DadosEstaticos.push({
+       id: id,
        nome: list[0].children.filter(param => regex.test(param.id))[0].name,
-       configuracoes: (conf !== undefined) ? conf : {},
     });
     setDadosEstaticos([...DadosEstaticos]);
   }
@@ -88,13 +90,13 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
          addDadosEstaticos(dado)       
        })
     }
-  },[statusModal])
+  },[statusModal]);
   
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
   const isStepOptional = (step: number) => {
-    return step === 3;
+    return step === 5;
   };
 
   const isStepSkipped = (step: number) => {
@@ -107,11 +109,17 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
     }
-    if(activeStep === 2) {
+
+    if(activeStep === 4) {
       handleClose();
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
+    }
+
+    switch (activeStep) {
+      case 1: 
+
     }
   };
 
@@ -130,27 +138,44 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
       return newSkipped;
     });
   };
-  
+
   /* SUB COMPONENTES */
   const EtapasRenderizadas = () => {
     switch (activeStep) {
-      case 0: return <Eventos parametro='0' />;
+      case 0: return (
+          <Eventos id={dadoEvento?.idBotao} />
+      );
       case 1: return (
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>            
+            <ElementoId 
+               parametro='Elemento' 
+               dadoEvento={DadosEstaticos}
+            /> 
             <Parametros 
                parametro='Param 1' 
                dadoEvento={DadosEstaticos}
             /> 
-
-            <Condicao 
-              parametro='Param 2' 
-              condicao={condicoes} 
-            /> 
-
-            <Condicao parametro='Param 3' /> 
-                      
           </Box>
+      );
+      case 2: return (
+        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>            
+            <Condicao 
+               parametro='CONDIÇÃO' 
+               condicao={condicoes} 
+            /> 
+        </Box>
+      )
+      case 3: return (
+        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>            
+            <ElementoId 
+              parametro='Elemento' 
+              dadoEvento={DadosEstaticos}
+            /> 
+            <Parametros 
+              parametro='Param 2' 
+              dadoEvento={DadosEstaticos}
+            /> 
+        </Box>
       );
     }
   };
