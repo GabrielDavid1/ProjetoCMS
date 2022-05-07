@@ -6,8 +6,8 @@ import { Node, Edge, useNodesState, useEdgesState, OnNodesChange, NodeChange } f
 import { useConfig } from "./useConfig";
 
 interface PropsEvento {
-    id: string;
-    idElemento: string;
+    idBotao: string;
+    idOutro: string;
     evento: string;
     condicao: {
         par1: string;
@@ -17,7 +17,8 @@ interface PropsEvento {
     acao: {
         raiz: string;
         alvo: string;
-    }
+    },
+    ativado: boolean;
 }
 interface ModalContextValue {
     queryEvento: PropsEvento[],
@@ -32,13 +33,30 @@ interface ModalContextValue {
     setInitialNodes: (data: Node[]) => void,
     setInitialEdges: (data: Edge[]) => void,
     onNodesChange: (nodes: NodeChange[]) => void,
+
+    buscarQuery: (id: string | undefined, tipo: boolean, idElemento?: string) => PropsEvento,
+    deletarQuery: (id: string | undefined, tipo: boolean) => void,
 }
 interface Props {
     children: React.ReactNode;
 }
 
 const listInitial: ModalContextValue = {
-    queryEvento: [],
+    queryEvento: [{
+        idBotao: '',
+        idOutro: '',
+        evento: '',
+        condicao: {
+            par1: '',
+            par2: '',
+            par3: '',
+        },
+        acao: {
+            raiz: '',
+            alvo: '',
+        },
+        ativado: true,
+    }],
     
     initialNodes: [],
     initialEdges: [],
@@ -50,6 +68,8 @@ const listInitial: ModalContextValue = {
     setInitialNodes:  data => {},
     setInitialEdges:  data => {},
     onNodesChange:  data => {},
+    buscarQuery: data => listInitial.queryEvento[0],
+    deletarQuery:  data => {},
 };
 
 const EventContext = React.createContext<ModalContextValue>(listInitial);
@@ -62,11 +82,25 @@ export function EventProvider({ children }: Props) {
 
     const [ quantidadeEventos, setQuantidadeEventos ]  = React.useState<number>(listInitial.quantidadeEventos);
 
-    const { configuracoes } = useConfig();
+    function buscarQuery (id: string | undefined, tipo: boolean, idElemento = '' as string) {
+        let index = queryEvento.findIndex(elemento => elemento.idBotao === id && elemento.ativado === tipo);
 
-    function buscarConfigs () {
-   
+        console.log(queryEvento.find(elemento => elemento.idBotao === id && elemento.idOutro === idElemento))
+
+        if (index !== -1) {
+           return queryEvento[index];           
+        } else {
+            return listInitial.queryEvento[0];
+        }
     }
+
+    function deletarQuery (id: string | undefined, tipo: boolean) {
+        const index = queryEvento.findIndex(elemento => elemento.idBotao === id && elemento.ativado === tipo);
+        if (index !== -1) {
+           queryEvento.splice(index, 1); 
+           setQueryEvento([...queryEvento]);         
+        } 
+    } 
     
     return (
         <EventContext.Provider 
@@ -74,7 +108,8 @@ export function EventProvider({ children }: Props) {
                 initialNodes, initialEdges, onNodesChange,
                 setInitialNodes, setInitialEdges,
                 quantidadeEventos, setQuantidadeEventos,
-                queryEvento, setQueryEvento
+                queryEvento, setQueryEvento, buscarQuery,
+                deletarQuery,
             }}
         >
         {children}
@@ -88,12 +123,14 @@ export function useEvent() {
         initialNodes, initialEdges, onNodesChange,
         setInitialNodes, setInitialEdges,
         quantidadeEventos, setQuantidadeEventos,
-        queryEvento, setQueryEvento
+        queryEvento, setQueryEvento, buscarQuery,
+        deletarQuery,
     } = context;
     return { 
         initialNodes, initialEdges, onNodesChange,
         setInitialNodes, setInitialEdges,
         quantidadeEventos, setQuantidadeEventos,
-        queryEvento, setQueryEvento
+        queryEvento, setQueryEvento, buscarQuery,
+        deletarQuery,
     };
 }

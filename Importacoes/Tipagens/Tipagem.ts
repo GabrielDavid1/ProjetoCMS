@@ -6,6 +6,7 @@ export type Event = {
 
 export interface DadoEvtProps {
     idBotao: string;
+    idOutro: string;
     relacionados: string[]
 }
 

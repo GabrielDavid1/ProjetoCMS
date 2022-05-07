@@ -8,23 +8,30 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 /* Tipagens e Variaveis*/
-import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
 import { tiposTamanho } from '../../../../Importacoes/Variaveis/Variaveis';
+
+/* Contexto */
+import { useEvent } from '../../../../contexts/useEvent';
 
 type ObjPadrao = {
     id:string;
-    nome: string;
 }
 
 type Props = {
     parametro: string;
     dadoEvento?: ObjPadrao[];
+    idBotao: string | undefined;
 };
 
-export default function Parametros ({ parametro, dadoEvento }:Props) {
+export default function Parametros ({ parametro, dadoEvento, idBotao }:Props) {
     const [valor, setValor] = React.useState('1');
- 
+    const { buscarQuery, queryEvento, setQueryEvento } = useEvent();
+
     const handleChange = (event: SelectChangeEvent) => {
+        if(idBotao !== undefined) {
+         //  let dado = buscarQuery(idBotao, false, dadoEvento);
+      //     setQueryEvento([...queryEvento]); 
+        }
         setValor(event.target.value as string);
     };
     
@@ -43,14 +50,13 @@ export default function Parametros ({ parametro, dadoEvento }:Props) {
           value={valor}
           label={parametro}
           onChange={handleChange}
-          onClick={() => console.log(dadoEvento)}
           style={{width:'99%', 
                   height: '60px', 
                   textAlign:'center',
                   padding: '10px',
                   marginBottom: '40px'}}
         >
-        {(dadoEvento !== undefined) && tiposTamanho.map((item, index) => 
+        {tiposTamanho.map((item, index) => 
             <MenuItem key={index} value={index+''}>
                 {item} 
             </MenuItem>

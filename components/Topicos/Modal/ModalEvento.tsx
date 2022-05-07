@@ -20,6 +20,8 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+import { Edge } from 'react-flow-renderer';
+
 /* Variaveis e Tipagens */
 import { steps } from '../../../Importacoes/Variaveis/Variaveis';
 import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
@@ -54,7 +56,7 @@ type propriedade = {
   nomePagina: string;
   statusModal: boolean;
   setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
-  dadoEvento?: DadoEvtProps
+  dadoEvento?: DadoEvtProps;
 }
 
 type ObjPadrao = {
@@ -62,13 +64,27 @@ type ObjPadrao = {
   nome: string;
 }
 
-export default function ModalEvento({nomePagina, statusModal, setStatusModal, dadoEvento }: propriedade) {
+export default function ModalEvento({
+  nomePagina,
+  statusModal,
+  setStatusModal,
+  dadoEvento,
+}: propriedade) {
   const { list } = useList();
-  const {  } = useEvent();  
+  const { buscarQuery, deletarQuery,
+          queryEvento, setQueryEvento,
+        } = useEvent();  
 
   const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([]);
 
   const handleClose = () => {
+    let retorno = buscarQuery(dadoEvento?.idBotao, false);
+    if (retorno.ativado === false && activeStep < 4) {
+        deletarQuery(dadoEvento?.idBotao, false);
+    } else if(retorno.ativado === false && activeStep === 4){
+        retorno.ativado = true;
+        setQueryEvento([...queryEvento]);    
+    }
     setActiveStep((prevActiveStep) => prevActiveStep = 0);
     setActiveStep(0);
     setDadosEstaticos([]);
@@ -88,7 +104,7 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
     if(statusModal) { 
        dadoEvento?.relacionados.forEach((dado) => {
          addDadosEstaticos(dado)       
-       })
+       });
     }
   },[statusModal]);
   
@@ -154,6 +170,7 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
             <Parametros 
                parametro='Param 1' 
                dadoEvento={DadosEstaticos}
+               idBotao={dadoEvento?.idBotao}
             /> 
           </Box>
       );
@@ -174,6 +191,7 @@ export default function ModalEvento({nomePagina, statusModal, setStatusModal, da
             <Parametros 
               parametro='Param 2' 
               dadoEvento={DadosEstaticos}
+              idBotao={dadoEvento?.idBotao}
             /> 
         </Box>
       );

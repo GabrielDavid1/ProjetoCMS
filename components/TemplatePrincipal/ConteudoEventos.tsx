@@ -18,7 +18,7 @@ type Props = {
 }
 
 const ConteudoEventos = ({ nomePagina }:Props) => {
-  const { initialNodes, initialEdges, onNodesChange, setInitialEdges } = useEvent();
+  const { initialNodes, initialEdges, onNodesChange, setInitialEdges, queryEvento, setQueryEvento } = useEvent();
 
   const [dadoEvt, setDadoEvt] = useState<DadoEvtProps>();
   const [statusModal, setStatusModal] = useState(false);
@@ -36,9 +36,29 @@ const ConteudoEventos = ({ nomePagina }:Props) => {
        edges.map(elemento => (elemento.source === edges.slice(-1)[0].source) && grupoEstatico.push(elemento.target));
 
        let copia = Object.assign({}, dadoEvt);
-       copia = {idBotao: edges.slice(-1)[0].source, relacionados: grupoEstatico};
+       copia = {
+                idBotao: edges.slice(-1)[0].source, 
+                idOutro: edges.slice(-1)[0].target, 
+                relacionados: grupoEstatico
+              };
        setDadoEvt(copia);
 
+       queryEvento.push({
+          idBotao: edges.slice(-1)[0].source,
+          idOutro: '',
+          evento: '',
+          condicao: {
+              par1: '',
+              par2: '',
+              par3: '',
+          },
+          acao: {
+              raiz: '',
+              alvo: '',
+          },
+          ativado: false,
+       });
+       setQueryEvento([...queryEvento]);
        setStatusModal(true);
     }
   }, [edges]);
