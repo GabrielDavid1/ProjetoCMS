@@ -7,27 +7,16 @@ import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import StepContent from '@mui/material/StepContent';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-import { Edge } from 'react-flow-renderer';
 
 /* Variaveis e Tipagens */
 import { steps } from '../../../Importacoes/Variaveis/Variaveis';
 import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
 import { DadoEvtProps } from '../../../Importacoes/Tipagens/Tipagem';
-import { Config } from '../../../Importacoes/Tipagens/Tipagem';
-import { tiposTamanho } from '../../../Importacoes/Variaveis/Variaveis';
 
 /* Componentes */
 import Eventos  from './subComponentesModal/Evento';
@@ -37,8 +26,8 @@ import ElementoId from './subComponentesModal/ElementoId';
 
 /* Contextos */
 import { useList } from '../../../contexts/useTopicos';
-import { useConfig } from '../../../contexts/useConfig';
 import { useEvent } from '../../../contexts/useEvent';
+import Acoes from './subComponentesModal/Acoes';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -60,8 +49,25 @@ type propriedade = {
 }
 
 type ObjPadrao = {
-  id:string;
+  idElemento:string;
+  idBotao: string | undefined;
   nome: string;
+}
+
+interface PropsParam {
+    param1: {
+        id: string;
+        tipo: string;
+    };
+    param2: {
+        id: string;
+        tipo: string;
+    };
+    param3: {
+      id: string;
+      tipo: string;
+      acao: string;
+    };
 }
 
 export default function ModalEvento({
@@ -71,17 +77,24 @@ export default function ModalEvento({
   dadoEvento,
 }: propriedade) {
   const { list } = useList();
-  const { buscarQuery, deletarQuery,
-          queryEvento, setQueryEvento,
-        } = useEvent();  
+  const { buscarQuery, deletarQuery, queryEvento, setQueryEvento } = useEvent();  
 
   const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([]);
+  const [paramQuery, setParamQuery] = useState<PropsParam>({
+     param1: {id: '', tipo:'height'},
+     param2: {id: '', tipo:'height'},
+     param3: {id: '', tipo:'height', acao: ''},
+  });
 
   const handleClose = () => {
     let retorno = buscarQuery(dadoEvento?.idBotao, false);
     if (retorno.ativado === false && activeStep < 4) {
         deletarQuery(dadoEvento?.idBotao, false);
     } else if(retorno.ativado === false && activeStep === 4){
+        retorno.condicao.par1 = paramQuery.param1.id +' - '+paramQuery.param1.tipo;
+        retorno.condicao.par3 = paramQuery.param2.id +' - '+paramQuery.param2.tipo;  
+        retorno.acao.raiz = paramQuery.param3.id +' - '+paramQuery.param3.tipo;
+        retorno.acao.alvo = paramQuery.param3.acao;
         retorno.ativado = true;
         setQueryEvento([...queryEvento]);    
     }
@@ -94,7 +107,8 @@ export default function ModalEvento({
   function addDadosEstaticos (id: string) {
     const regex = new RegExp(id, 'gi');
     DadosEstaticos.push({
-       id: id,
+       idElemento: id,
+       idBotao: dadoEvento?.idBotao,
        nome: list[0].children.filter(param => regex.test(param.id))[0].name,
     });
     setDadosEstaticos([...DadosEstaticos]);
@@ -132,11 +146,6 @@ export default function ModalEvento({
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
     }
-
-    switch (activeStep) {
-      case 1: 
-
-    }
   };
 
   const handleBack = () => {
@@ -145,17 +154,16 @@ export default function ModalEvento({
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      throw new Error("Você não pode pular esta parte pois não é opicional.");
+        throw new Error("Você não pode pular esta parte pois não é opicional.");
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
+        const newSkipped = new Set(prevSkipped.values());
+        newSkipped.add(activeStep);
+        return newSkipped;
     });
   };
 
-  /* SUB COMPONENTES */
   const EtapasRenderizadas = () => {
     switch (activeStep) {
       case 0: return (
@@ -164,13 +172,15 @@ export default function ModalEvento({
       case 1: return (
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>            
             <ElementoId 
-               parametro='Elemento' 
+               parametro='Elemento 1' 
                dadoEvento={DadosEstaticos}
+               paramQuery={paramQuery}
+               setParamQuery={setParamQuery}
             /> 
             <Parametros 
                parametro='Param 1' 
-               dadoEvento={DadosEstaticos}
-               idBotao={dadoEvento?.idBotao}
+               paramQuery={paramQuery}
+               setParamQuery={setParamQuery}
             /> 
           </Box>
       );
@@ -179,22 +189,45 @@ export default function ModalEvento({
             <Condicao 
                parametro='CONDIÇÃO' 
                condicao={condicoes} 
+               idBotao={dadoEvento?.idBotao}
             /> 
         </Box>
       )
       case 3: return (
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>            
             <ElementoId 
-              parametro='Elemento' 
+              parametro='Elemento 2' 
               dadoEvento={DadosEstaticos}
+              paramQuery={paramQuery}
+              setParamQuery={setParamQuery}
             /> 
             <Parametros 
               parametro='Param 2' 
-              dadoEvento={DadosEstaticos}
-              idBotao={dadoEvento?.idBotao}
+              paramQuery={paramQuery}
+              setParamQuery={setParamQuery}
             /> 
         </Box>
       );
+      case 4: return ( 
+        <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}> 
+            <ElementoId 
+              parametro='Elemento 3' 
+              dadoEvento={DadosEstaticos}
+              paramQuery={paramQuery}
+              setParamQuery={setParamQuery}
+            /> 
+            <Parametros 
+              parametro='Param 3' 
+              paramQuery={paramQuery}
+              setParamQuery={setParamQuery}
+            />            
+            <Acoes 
+              parametro='Param 1' 
+              paramQuery={paramQuery}
+              setParamQuery={setParamQuery}
+            />            
+        </Box>
+      )
     }
   };
 

@@ -16,11 +16,16 @@ type Props = {
 
 export default function Evento ({ id }:Props) {
     const [valor, setValor] = React.useState('1');
-    const { queryEvento, setQueryEvento } = useEvent();
+    const {buscarQuery, queryEvento, setQueryEvento} = useEvent();
 
     const handleChange = (event: SelectChangeEvent) => {
         let param = 'click';
         if (event.target.value === '2') param = 'hover';
+        let retorno = buscarQuery(id, false);
+        if (retorno.ativado === false) {
+            retorno.evento = param;
+            setQueryEvento([...queryEvento]);
+        }
         setValor(event.target.value as string);
     };
 
@@ -44,8 +49,9 @@ export default function Evento ({ id }:Props) {
                   textAlign:'center', 
                   marginBottom: '10px'}}
         >
-         <MenuItem value={1}> Click </MenuItem>
-         <MenuItem value={2}> Hover </MenuItem>
+         <MenuItem value={1}> Vazio </MenuItem>
+         <MenuItem value={2}> Click </MenuItem>
+         <MenuItem value={3}> Hover </MenuItem>
         </Select>
         </FormControl>
     )

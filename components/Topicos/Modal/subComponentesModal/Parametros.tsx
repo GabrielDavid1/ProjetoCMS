@@ -10,31 +10,46 @@ import MenuItem from '@mui/material/MenuItem';
 /* Tipagens e Variaveis*/
 import { tiposTamanho } from '../../../../Importacoes/Variaveis/Variaveis';
 
-/* Contexto */
-import { useEvent } from '../../../../contexts/useEvent';
-
-type ObjPadrao = {
-    id:string;
+interface PropsParam {
+    param1: {
+        id: string;
+        tipo: string;
+    };
+    param2: {
+        id: string;
+        tipo: string;
+    };
+    param3: {
+        id: string;
+        tipo: string;
+        acao: string;
+    };
 }
 
 type Props = {
     parametro: string;
-    dadoEvento?: ObjPadrao[];
-    idBotao: string | undefined;
+    paramQuery: PropsParam;
+    setParamQuery: React.Dispatch<React.SetStateAction<PropsParam>>;
 };
 
-export default function Parametros ({ parametro, dadoEvento, idBotao }:Props) {
+export default function Parametros ({
+  parametro,
+  paramQuery,
+  setParamQuery,
+}:Props) {
     const [valor, setValor] = React.useState('1');
-    const { buscarQuery, queryEvento, setQueryEvento } = useEvent();
 
     const handleChange = (event: SelectChangeEvent) => {
-        if(idBotao !== undefined) {
-         //  let dado = buscarQuery(idBotao, false, dadoEvento);
-      //     setQueryEvento([...queryEvento]); 
-        }
+        const index = Number(event.target.value);
+        switch (parametro) {
+          case 'Param 1': paramQuery.param1.tipo = tiposTamanho[index]
+          case 'Param 2': paramQuery.param2.tipo = tiposTamanho[index]
+          case 'Param 3': paramQuery.param3.tipo = tiposTamanho[index]
+        }   
+        setParamQuery({...paramQuery});
         setValor(event.target.value as string);
     };
-    
+
     return (
         <FormControl fullWidth>
         <InputLabel
@@ -57,7 +72,10 @@ export default function Parametros ({ parametro, dadoEvento, idBotao }:Props) {
                   marginBottom: '40px'}}
         >
         {tiposTamanho.map((item, index) => 
-            <MenuItem key={index} value={index+''}>
+            <MenuItem 
+               key={index} 
+               value={index+''}
+            >
                 {item} 
             </MenuItem>
           ) 

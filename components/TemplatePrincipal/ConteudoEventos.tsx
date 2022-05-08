@@ -45,11 +45,10 @@ const ConteudoEventos = ({ nomePagina }:Props) => {
 
        queryEvento.push({
           idBotao: edges.slice(-1)[0].source,
-          idOutro: '',
-          evento: '',
+          evento: 'Vazio',
           condicao: {
               par1: '',
-              par2: '',
+              par2: 'Maior',
               par3: '',
           },
           acao: {

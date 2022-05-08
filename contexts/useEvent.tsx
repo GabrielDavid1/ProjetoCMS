@@ -1,13 +1,8 @@
 /* React e React Flow */
 import React from "react";
-import { Node, Edge, useNodesState, useEdgesState, OnNodesChange, NodeChange } from 'react-flow-renderer';
-
-/* Contexto */
-import { useConfig } from "./useConfig";
-
+import { Node, Edge, useNodesState, NodeChange } from 'react-flow-renderer';
 interface PropsEvento {
     idBotao: string;
-    idOutro: string;
     evento: string;
     condicao: {
         par1: string;
@@ -34,7 +29,7 @@ interface ModalContextValue {
     setInitialEdges: (data: Edge[]) => void,
     onNodesChange: (nodes: NodeChange[]) => void,
 
-    buscarQuery: (id: string | undefined, tipo: boolean, idElemento?: string) => PropsEvento,
+    buscarQuery: (id: string | undefined, tipo: boolean) => PropsEvento,
     deletarQuery: (id: string | undefined, tipo: boolean) => void,
 }
 interface Props {
@@ -44,7 +39,6 @@ interface Props {
 const listInitial: ModalContextValue = {
     queryEvento: [{
         idBotao: '',
-        idOutro: '',
         evento: '',
         condicao: {
             par1: '',
@@ -78,17 +72,14 @@ export function EventProvider({ children }: Props) {
     const [ initialNodes, setInitialNodes, onNodesChange ]  = useNodesState(listInitial.initialNodes);
     const [ initialEdges, setInitialEdges ]  = React.useState(listInitial.initialEdges);
 
-    const [ queryEvento, setQueryEvento ] = React.useState<PropsEvento[]>([]);
+    const [ queryEvento, setQueryEvento ] = React.useState<PropsEvento[]>(listInitial.queryEvento);
 
     const [ quantidadeEventos, setQuantidadeEventos ]  = React.useState<number>(listInitial.quantidadeEventos);
 
-    function buscarQuery (id: string | undefined, tipo: boolean, idElemento = '' as string) {
+    function buscarQuery (id: string | undefined, tipo: boolean) {
         let index = queryEvento.findIndex(elemento => elemento.idBotao === id && elemento.ativado === tipo);
-
-        console.log(queryEvento.find(elemento => elemento.idBotao === id && elemento.idOutro === idElemento))
-
         if (index !== -1) {
-           return queryEvento[index];           
+            return queryEvento[index];           
         } else {
             return listInitial.queryEvento[0];
         }

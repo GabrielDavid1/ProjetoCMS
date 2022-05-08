@@ -7,24 +7,53 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-/* Tipagens e Variaveis*/
-import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
-
 type ObjPadrao = {
-    id:string;
+    idElemento:string;
+    idBotao: string | undefined;
     nome: string;
+}
+
+interface PropsParam {
+    param1: {
+        id: string;
+        tipo: string;
+    };
+    param2: {
+        id: string;
+        tipo: string;
+    };
+    param3: {
+        id: string;
+        tipo: string;
+        acao: string;
+    };
 }
 
 type Props = {
     parametro: string;
     dadoEvento?: ObjPadrao[];
+    paramQuery: PropsParam;
+    setParamQuery: React.Dispatch<React.SetStateAction<PropsParam>>;
 };
 
-export default function ElementoId ({ parametro, dadoEvento }:Props) {
+export default function ElementoId ({ 
+  parametro,
+  dadoEvento,
+  paramQuery,
+  setParamQuery,
+}:Props) {
     const [valor, setValor] = React.useState('1');
- 
     const handleChange = (event: SelectChangeEvent) => {
-        setValor(event.target.value as string);
+        const index = Number(event.target.value);
+        if(dadoEvento !== undefined) {
+           switch (parametro) {
+              case 'Elemento 1': paramQuery.param1.id = dadoEvento[index]?.idElemento
+              case 'Elemento 2': paramQuery.param2.id = dadoEvento[index]?.idElemento
+              case 'Elemento 3': paramQuery.param3.id = dadoEvento[index]?.idElemento
+           } 
+           setParamQuery({...paramQuery});
+           setValor(event.target.value as string);
+        }
     };
     
     return (
@@ -42,7 +71,6 @@ export default function ElementoId ({ parametro, dadoEvento }:Props) {
           value={valor}
           label={parametro}
           onChange={handleChange}
-          onClick={() => console.log(dadoEvento)}
           style={{width:'99%', 
                   height: '60px', 
                   textAlign:'center',
@@ -50,11 +78,10 @@ export default function ElementoId ({ parametro, dadoEvento }:Props) {
                   marginBottom: '40px'}}
         >
         {(dadoEvento !== undefined) && dadoEvento.map((item, index) => 
-                <MenuItem key={index} value={item.id}>
-                     {item.nome} 
-                </MenuItem>
-          ) 
-        }   
+          <MenuItem key={index} value={index+''}>
+               {item.nome} 
+          </MenuItem>
+        )}   
         </Select>
         </FormControl>
     )
