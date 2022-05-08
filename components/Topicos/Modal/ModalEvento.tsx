@@ -95,25 +95,30 @@ export default function ModalEvento({
 
   const { initialEdges, setInitialEdges } = useEvent();
 
-  const handleClose = () => {
+  const handleClose = (status = false as boolean) => {
     let retorno = buscarQuery(dadoEvento?.idBotao, false);
-    if (retorno.ativado === false && activeStep < 4) {
-        setEdges(edges.filter(elemento => elemento.source !== dadoEvento?.idBotao));
-        setInitialEdges(initialEdges.filter(elemento => elemento.source !== dadoEvento?.idBotao))
+
+    if (retorno.ativado === false && status === false) {
+        setEdges(edges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
+        setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro))
         deletarQuery(dadoEvento?.idBotao, false);
-    } else if(retorno.ativado === false && activeStep === 4){
-        retorno.condicao.par1 = paramQuery.param1.id +' - '+paramQuery.param1.tipo;
-        retorno.condicao.par3 = paramQuery.param2.id +' - '+paramQuery.param2.tipo;  
-        retorno.acao.raiz = paramQuery.param3.id +' - '+paramQuery.param3.tipo;
-        retorno.acao.alvo = paramQuery.param3.acao;
-        retorno.ativado = true;
-        setQueryEvento([...queryEvento]);    
+    } else if (retorno.ativado === false && status === true) {
+      retorno.condicao.par1 = paramQuery.param1.id +' - '+paramQuery.param1.tipo;
+      retorno.condicao.par3 = paramQuery.param2.id +' - '+paramQuery.param2.tipo;  
+      retorno.acao.raiz = paramQuery.param3.id +' - '+paramQuery.param3.tipo;
+      retorno.acao.alvo = paramQuery.param3.acao;
+      retorno.ativado = true;
+      setQueryEvento([...queryEvento]);  
     }
     setActiveStep((prevActiveStep) => prevActiveStep = 0);
     setActiveStep(0);
     setDadosEstaticos([]);
     setStatusModal(false);
   };
+
+  function salvarAlteracao () {
+    let retorno = buscarQuery(dadoEvento?.idBotao, false);
+  }
 
   function addDadosEstaticos (id: string) {
     const regex = new RegExp(id, 'gi');
@@ -152,7 +157,7 @@ export default function ModalEvento({
     }
 
     if(activeStep === 4) {
-      handleClose();
+      handleClose(true);
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
@@ -248,7 +253,7 @@ export default function ModalEvento({
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={statusModal}
-        onClose={handleClose}
+        onClose={() => handleClose(false)}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
