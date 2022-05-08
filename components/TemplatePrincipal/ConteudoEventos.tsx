@@ -36,11 +36,11 @@ const ConteudoEventos = ({ nomePagina }:Props) => {
        edges.map(elemento => (elemento.source === edges.slice(-1)[0].source) && grupoEstatico.push(elemento.target));
 
        let copia = Object.assign({}, dadoEvt);
-       copia = {
+           copia = {
                 idBotao: edges.slice(-1)[0].source, 
                 idOutro: edges.slice(-1)[0].target, 
                 relacionados: grupoEstatico
-              };
+           };
        setDadoEvt(copia);
 
        queryEvento.push({
@@ -77,6 +77,8 @@ const ConteudoEventos = ({ nomePagina }:Props) => {
           statusModal={statusModal}
           setStatusModal={setStatusModal}
           dadoEvento={dadoEvt}
+          edges={edges}
+          setEdges={setEdges}
       /> 
     </ReactFlow> 
   );

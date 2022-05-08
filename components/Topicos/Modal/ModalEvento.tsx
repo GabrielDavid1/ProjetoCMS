@@ -18,16 +18,19 @@ import { steps } from '../../../Importacoes/Variaveis/Variaveis';
 import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
 import { DadoEvtProps } from '../../../Importacoes/Tipagens/Tipagem';
 
-/* Componentes */
+/* SUB-Componentes */
 import Eventos  from './subComponentesModal/Evento';
 import Condicao from './subComponentesModal/Condicao';
 import Parametros from './subComponentesModal/Parametros';
 import ElementoId from './subComponentesModal/ElementoId';
+import Acoes from './subComponentesModal/Acoes';
 
 /* Contextos */
 import { useList } from '../../../contexts/useTopicos';
 import { useEvent } from '../../../contexts/useEvent';
-import Acoes from './subComponentesModal/Acoes';
+
+/* React Flow */
+import { Edge } from 'react-flow-renderer';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -46,6 +49,8 @@ type propriedade = {
   statusModal: boolean;
   setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
   dadoEvento?: DadoEvtProps;
+  edges: Edge[];
+  setEdges: React.Dispatch<React.SetStateAction<Edge<any>[]>>;
 }
 
 type ObjPadrao = {
@@ -75,6 +80,8 @@ export default function ModalEvento({
   statusModal,
   setStatusModal,
   dadoEvento,
+  edges,
+  setEdges,
 }: propriedade) {
   const { list } = useList();
   const { buscarQuery, deletarQuery, queryEvento, setQueryEvento } = useEvent();  
@@ -86,9 +93,13 @@ export default function ModalEvento({
      param3: {id: '', tipo:'height', acao: ''},
   });
 
+  const { initialEdges, setInitialEdges } = useEvent();
+
   const handleClose = () => {
     let retorno = buscarQuery(dadoEvento?.idBotao, false);
     if (retorno.ativado === false && activeStep < 4) {
+        setEdges(edges.filter(elemento => elemento.source !== dadoEvento?.idBotao));
+        setInitialEdges(initialEdges.filter(elemento => elemento.source !== dadoEvento?.idBotao))
         deletarQuery(dadoEvento?.idBotao, false);
     } else if(retorno.ativado === false && activeStep === 4){
         retorno.condicao.par1 = paramQuery.param1.id +' - '+paramQuery.param1.tipo;
