@@ -1,14 +1,16 @@
 /* React */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, memo } from 'react';
 
 /* React Flow */
 import ReactFlow, { addEdge, Background, useEdgesState } from 'react-flow-renderer';
 
 /* Componente */
 import ModalEvento from '../Topicos/Modal/ModalEvento';
+import { AcessoRapido } from '../Eventos/AcessoRapido';
 
 /* Contexto */
 import { useEvent } from '../../contexts/useEvent';
+import { useList } from '../../contexts/useTopicos';
 
 /* Tipagens */
 import { DadoEvtProps } from '../../Importacoes/Tipagens/Tipagem';
@@ -17,32 +19,44 @@ type Props = {
   nomePagina: string;
 }
 
-const ConteudoEventos = ({ nomePagina }:Props) => {
-  const { initialNodes, initialEdges, onNodesChange, setInitialEdges, queryEvento, setQueryEvento } = useEvent();
+function PadraoConteudoEventos ({ nomePagina }:Props)  {
+  const { initialNodes, initialEdges, 
+          onNodesChange, setInitialEdges, 
+          queryEvento, setQueryEvento 
+        } = useEvent();
+  const { list, retornarNome } = useList();
 
   const [dadoEvt, setDadoEvt] = useState<DadoEvtProps>();
   const [statusModal, setStatusModal] = useState(false);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  const [nomeTooltip, setNomeTooltip] = useState<string[]>([]);
 
   const defaultEdgeOptions = { animated: true, style: { stroke: 'red' } };
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
 
   useEffect(() => {
-    if(edges.length !== initialEdges.length) {
+    if(edges.length !== initialEdges.length) {  
        setInitialEdges(edges);
-
+      
+       /* Pegar elementos que pertencem a raiz*/
        let grupoEstatico:string[] = [];
        edges.map(elemento => (elemento.source === edges.slice(-1)[0].source) && grupoEstatico.push(elemento.target));
-
+      
+       /* Forma os dados que vão servir para mostragem em tela no modal */
        let copia = Object.assign({}, dadoEvt);
-           copia = {
-                idBotao: edges.slice(-1)[0].source, 
-                idOutro: edges.slice(-1)[0].target, 
-                relacionados: grupoEstatico
-           };
-       setDadoEvt(copia);
+           copia = { idBotao: edges.slice(-1)[0].source,
+                     idOutro: edges.slice(-1)[0].target,
+                     relacionados: grupoEstatico };
+           setDadoEvt(copia);
+        
+       /* Constroi um array para aparecer no tooltip do componente (AcessoRapido) */
+       let nome = retornarNome(edges.slice(-1)[0].target, list[0]);
+           nomeTooltip.push(nome);
+           setNomeTooltip(nomeTooltip);
 
+       /* Adiciona no Contexto (global)*/
        queryEvento.push({
           idBotao: edges.slice(-1)[0].source,
           evento: 'Vazio',
@@ -79,9 +93,18 @@ const ConteudoEventos = ({ nomePagina }:Props) => {
           dadoEvento={dadoEvt}
           edges={edges}
           setEdges={setEdges}
+          nomeTooltip={nomeTooltip}
+          setNomeTooltip={setNomeTooltip}
       /> 
+      <AcessoRapido 
+         nome={nomeTooltip}
+         edges={edges} 
+         dadoEvento={dadoEvt}
+         setDadoEvt={setDadoEvt}
+         setStatusModal={setStatusModal}
+      />
     </ReactFlow> 
   );
 };
 
-export default ConteudoEventos;
+export const ConteudoEventos = memo(PadraoConteudoEventos);

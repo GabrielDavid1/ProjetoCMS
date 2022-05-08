@@ -25,6 +25,31 @@ body {
       font-size: 18px;
    }
 
+   button:nth-child(4) {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #f11a38;
+      border-radius: 2px;
+      height: 40px;
+      color: #f11a38;
+      font-weight: 700;
+      font-size: 18px;
+      margin-top: 10px;
+   }
+
+   button:nth-child(4):hover {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #f11a38;
+      border-radius: 2px;
+      height: 40px;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      background: #f11a38;
+      margin-top: 10px;
+   }
+
    ul li.MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
       padding: 3px;
    }
@@ -33,7 +58,7 @@ body {
 #modal-evento {
    width: 124rem;
    margin-left: -77rem;
-   height: 38rem;
+   height: 44rem;
    margin-top: 94px;
 
    button:nth-child(1):hover {
@@ -190,7 +215,22 @@ main.makeStyles-content-9.makeStyles-contentShift-10 {
    flex-grow: 1;
    transition: margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
    margin-left: auto;
+}
 
+.MuiBox-root.css-1dyuqpd {
+   margin-top: 24rem;
+   position: absolute;
+   z-index: 5;
+}
+
+
+button.MuiButtonBase-root.MuiFab-root.MuiFab-circular.MuiFab-sizeLarge.MuiFab-primary.MuiSpeedDial-fab.css-118zhtq-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+   background: white;
+   border-radius: 100px;
+}
+
+button.MuiButtonBase-root.MuiFab-root.MuiFab-circular.MuiFab-sizeSmall.MuiFab-default.MuiSpeedDialAction-fab.css-1e2cad8-MuiButtonBase-root-MuiFab-root-MuiSpeedDialAction-fab {
+   background: white;
 }
 
 .MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters {

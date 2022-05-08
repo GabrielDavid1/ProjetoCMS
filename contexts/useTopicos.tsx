@@ -42,6 +42,8 @@ interface ListContextValue {
   renomearElemento: ( id: string, nodes:List, nome:string ) => void;
   buscarElemento: ( id: string, nodes:List ) => void;
 
+  retornarNome: ( id: string, nodes:List ) => string;
+
   setNomeSelecionado: (data: string) => void;
   
   setGrupo: (data: boolean) => void;
@@ -114,6 +116,8 @@ const listInitial: ListContextValue = {
   buscarElemento: data => {},
 
   setNomeSelecionado: data => {},
+
+  retornarNome: data => "",
 
   setGrupo: data => {},
   setCopiaGrupo: data => {},
@@ -197,6 +201,19 @@ export function ListProvider({ children }: Props) {
     }
   }
 
+  function retornarNome (id: string, nodes:List) {
+    let index = nodes.children.findIndex(elemento => elemento.id === id);
+
+    if (index === -1) {
+        Array.isArray(nodes.children)
+          ? nodes.children.map((node) => retornarNome(id, node))
+          : null  
+    } else {
+        return nodes.children[index].name;
+    }  
+    return '';  
+  }
+
   /********************* Botões Inferiores *******************/
   function deletarTudo (nomePagina: string) {
     if (selected.length > 0) {
@@ -276,7 +293,7 @@ export function ListProvider({ children }: Props) {
         marcarTudo, deletarTudo, 
         onToggleMarcarTudo,
         expanded, setExpanded,
-        buscarElemento
+        buscarElemento, retornarNome,
       }}
     >
       {children}
@@ -302,7 +319,7 @@ export function useList() {
       marcarTudo, deletarTudo, 
       onToggleMarcarTudo,
       expanded, setExpanded,
-      buscarElemento
+      buscarElemento, retornarNome,
     } = context;
     
     return { 
@@ -320,6 +337,6 @@ export function useList() {
       marcarTudo, deletarTudo, 
       onToggleMarcarTudo,
       expanded, setExpanded, 
-      buscarElemento
+      buscarElemento, retornarNome,
     };
 }

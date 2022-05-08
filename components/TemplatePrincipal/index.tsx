@@ -45,7 +45,7 @@ import { ToggleBotao } from './ToggleBotao';
 /* nookies */
 import { setCookie, parseCookies } from 'nookies';
 import nookies from 'nookies';
-import ConteudoEventos from './ConteudoEventos';
+import { ConteudoEventos } from './ConteudoEventos';
 import ListaIcones from './ListaIcones';
 import EstruturaEventos from '../Eventos/EstruturaEventos';
 

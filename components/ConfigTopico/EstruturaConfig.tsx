@@ -13,7 +13,6 @@ import { Imagem } from "./Imagem/Imagem";
 
 /* Contexto */ 
 import { useConfig } from '../../contexts/useConfig';
-import { useCache } from '../../contexts/useCache';
 
 function BaseEstrutura () {
    const { idTotal, buscarConfigs } = useConfig();

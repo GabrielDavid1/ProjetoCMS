@@ -51,6 +51,8 @@ type propriedade = {
   dadoEvento?: DadoEvtProps;
   edges: Edge[];
   setEdges: React.Dispatch<React.SetStateAction<Edge<any>[]>>;
+  nomeTooltip: string[];
+  setNomeTooltip: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 type ObjPadrao = {
@@ -82,6 +84,8 @@ export default function ModalEvento({
   dadoEvento,
   edges,
   setEdges,
+  nomeTooltip,
+  setNomeTooltip,
 }: propriedade) {
   const { list } = useList();
   const { buscarQuery, deletarQuery, queryEvento, setQueryEvento } = useEvent();  
@@ -100,25 +104,23 @@ export default function ModalEvento({
 
     if (retorno.ativado === false && status === false) {
         setEdges(edges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
-        setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro))
+        setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
+        nomeTooltip.pop();
+        setNomeTooltip([...nomeTooltip]);
         deletarQuery(dadoEvento?.idBotao, false);
-    } else if (retorno.ativado === false && status === true) {
-      retorno.condicao.par1 = paramQuery.param1.id +' - '+paramQuery.param1.tipo;
-      retorno.condicao.par3 = paramQuery.param2.id +' - '+paramQuery.param2.tipo;  
-      retorno.acao.raiz = paramQuery.param3.id +' - '+paramQuery.param3.tipo;
-      retorno.acao.alvo = paramQuery.param3.acao;
-      retorno.ativado = true;
-      setQueryEvento([...queryEvento]);  
+    } else if (status === true) {
+        retorno.condicao.par1 = paramQuery.param1.id +' - '+paramQuery.param1.tipo;
+        retorno.condicao.par3 = paramQuery.param2.id +' - '+paramQuery.param2.tipo;  
+        retorno.acao.raiz = paramQuery.param3.id +' - '+paramQuery.param3.tipo;
+        retorno.acao.alvo = paramQuery.param3.acao;
+        retorno.ativado = true;
+        setQueryEvento([...queryEvento]);  
     }
     setActiveStep((prevActiveStep) => prevActiveStep = 0);
     setActiveStep(0);
     setDadosEstaticos([]);
     setStatusModal(false);
   };
-
-  function salvarAlteracao () {
-    let retorno = buscarQuery(dadoEvento?.idBotao, false);
-  }
 
   function addDadosEstaticos (id: string) {
     const regex = new RegExp(id, 'gi');
@@ -179,6 +181,20 @@ export default function ModalEvento({
         return newSkipped;
     });
   };
+
+  function removerElementoAcessoRapido () {
+    let retorno = buscarQuery(dadoEvento?.idBotao, true);
+    if (dadoEvento?.idTooltip !== undefined && retorno.ativado === true) {
+        nomeTooltip.splice(dadoEvento.idTooltip, 1);
+        setNomeTooltip([...nomeTooltip]);
+        setEdges(edges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
+        setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
+        deletarQuery(dadoEvento?.idBotao, false);
+        setStatusModal(false);
+    } else {
+        handleClose();
+    }
+  }
 
   const EtapasRenderizadas = () => {
     switch (activeStep) {
@@ -310,6 +326,9 @@ export default function ModalEvento({
                   {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
                 </Button>
               </Box>
+              <Button onClick={() => removerElementoAcessoRapido()}>
+                Remover Evento
+              </Button>
             </React.Fragment>
           )}
           </Box>

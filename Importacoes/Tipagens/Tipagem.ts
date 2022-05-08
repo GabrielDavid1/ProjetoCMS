@@ -7,7 +7,8 @@ export type Event = {
 export interface DadoEvtProps {
     idBotao: string;
     idOutro: string;
-    relacionados: string[]
+    idTooltip?: number;
+    relacionados: string[];
 }
 
 export interface List {
