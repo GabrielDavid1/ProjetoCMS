@@ -151,8 +151,13 @@ export function ListProvider({ children }: Props) {
   const [expanded, setExpanded] = React.useState<string[]>([listInitial.expanded[0]]);
   const [tamanho, setTamanho] = React.useState(0);
 
-  const { quantidadeEventos, setQuantidadeEventos } = useEvent();
-  const { configuracoes, removerDeGrupo, removerConfigs } = useConfig();
+  const { renomearNode, setQuantidadeEventos, 
+          removeEvento, setQueryEvento,
+          setInitialEdges, setInitialNodes,
+        } = useEvent();
+  const { configuracoes, removerDeGrupo, 
+          removerConfigs, buscarConfigs 
+        } = useConfig();
 
   /********************* Lista de Tópicos *******************/
   const removerDaLista = ( id: string, nodes:List ) => {
@@ -163,10 +168,16 @@ export function ListProvider({ children }: Props) {
         Array.isArray(nodes.children)
           ? nodes.children.map((node) => removerDaLista(id, node))
           : null  
-    } else {
-        (nodes.children[index].evt?.evento === 'ativado') && setQuantidadeEventos(quantidadeEventos - 1);
+    } else {      
+        /* Remover do Evento */
+        let elemento:any = buscarConfigs(id);
+        (elemento !== undefined) && removeEvento(id, elemento.type);
+
+        /* Remover do grupo */
         removerDeGrupo(nodes.children[index].id, nodes.children[index].children.length);
         delete nodes.children[index];
+      
+        /* Remover da lista */
         nodes.children.splice(index, 1);
         setList({...list});
     }
@@ -182,6 +193,7 @@ export function ListProvider({ children }: Props) {
           ? nodes.children.map((node) => renomearElemento(id, node, name))
           : null  
     } else {
+        renomearNode(nodes.children[index].id, name);
         nodes.children[index].name = name;
         setList({...list});
         setNomeSelecionado(name);
@@ -229,6 +241,9 @@ export function ListProvider({ children }: Props) {
 
         setAdicionaGrupo(false);
         setSelected([]);
+        setQueryEvento([]);
+        setInitialEdges([]);
+        setInitialNodes([]);
     }
   }
 

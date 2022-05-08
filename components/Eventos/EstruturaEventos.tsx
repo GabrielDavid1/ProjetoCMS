@@ -56,7 +56,7 @@ export default function EstruturaEventos ({ nomePagina }:Props) {
     };
 
     function plataformaBotoes (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) {
-        if (event.detail === 2) {
+        if (event.detail === 2 && id !== 'root') {
             setInitialNodes([...initialNodes,
               { id: id,
                 data: { label: nodes.name }, 
@@ -67,7 +67,7 @@ export default function EstruturaEventos ({ nomePagina }:Props) {
     }
 
     function plataformaOutros (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) {
-        if (event.detail === 2) {
+        if (event.detail === 2 && id !== 'root') {
             setInitialNodes([...initialNodes,
               { id: id,
                 data: { label: nodes.name }, 

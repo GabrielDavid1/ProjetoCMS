@@ -88,7 +88,7 @@ export default function ModalEvento({
   setNomeTooltip,
 }: propriedade) {
   const { list } = useList();
-  const { buscarQuery, deletarQuery, queryEvento, setQueryEvento } = useEvent();  
+  const { buscarQuery, deletarQuery, initialNodes, queryEvento, setQueryEvento } = useEvent();  
 
   const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([]);
   const [paramQuery, setParamQuery] = useState<PropsParam>({

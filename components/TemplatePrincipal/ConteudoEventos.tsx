@@ -35,7 +35,7 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
   const defaultEdgeOptions = { animated: true, style: { stroke: 'red' } };
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
-
+    
   useEffect(() => {
     if(edges.length !== initialEdges.length) {  
        setInitialEdges(edges);

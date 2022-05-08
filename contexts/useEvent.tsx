@@ -29,8 +29,11 @@ interface ModalContextValue {
     setInitialEdges: (data: Edge[]) => void,
     onNodesChange: (nodes: NodeChange[]) => void,
 
+    renomearNode: (id: string, novoNome: string) => void,
+
     buscarQuery: (id: string | undefined, tipo: boolean) => PropsEvento,
     deletarQuery: (id: string | undefined, tipo: boolean) => void,
+    removeEvento: (id: string, tipo: string) => void,
 }
 interface Props {
     children: React.ReactNode;
@@ -62,6 +65,10 @@ const listInitial: ModalContextValue = {
     setInitialNodes:  data => {},
     setInitialEdges:  data => {},
     onNodesChange:  data => {},
+
+    renomearNode:  data => {},
+    removeEvento:  data => {},
+
     buscarQuery: data => listInitial.queryEvento[0],
     deletarQuery:  data => {},
 };
@@ -92,6 +99,25 @@ export function EventProvider({ children }: Props) {
            setQueryEvento([...queryEvento]);         
         } 
     } 
+
+    function removeEvento (id:string, tipo: string) {
+        let index = 0;
+        if (tipo === 'Botao') {
+            index = initialEdges.findIndex(elemento => elemento.source === id);
+            initialEdges.splice(index, 1);    
+            setInitialEdges([...initialEdges]);
+        } else {
+            index = initialNodes.findIndex(elemento => elemento.id === id);
+            initialNodes.splice(index, 1);   
+            setInitialNodes([...initialNodes]);            
+        }
+    }
+
+    function renomearNode(id: string, novoNome: string) {
+        let index = initialNodes.findIndex(elemento => elemento.id === id);
+        initialNodes[index].data.label = novoNome;
+        setInitialNodes([...initialNodes]);
+    }
     
     return (
         <EventContext.Provider 
@@ -100,7 +126,7 @@ export function EventProvider({ children }: Props) {
                 setInitialNodes, setInitialEdges,
                 quantidadeEventos, setQuantidadeEventos,
                 queryEvento, setQueryEvento, buscarQuery,
-                deletarQuery,
+                deletarQuery, removeEvento, renomearNode
             }}
         >
         {children}
@@ -115,13 +141,13 @@ export function useEvent() {
         setInitialNodes, setInitialEdges,
         quantidadeEventos, setQuantidadeEventos,
         queryEvento, setQueryEvento, buscarQuery,
-        deletarQuery,
+        deletarQuery, removeEvento, renomearNode
     } = context;
     return { 
         initialNodes, initialEdges, onNodesChange,
         setInitialNodes, setInitialEdges,
         quantidadeEventos, setQuantidadeEventos,
         queryEvento, setQueryEvento, buscarQuery,
-        deletarQuery,
+        deletarQuery, removeEvento, renomearNode
     };
 }
