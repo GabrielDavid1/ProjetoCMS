@@ -22,6 +22,8 @@ interface Propriedades {
     dadoEvento?: DadoEvtProps;
     setDadoEvt: React.Dispatch<React.SetStateAction<DadoEvtProps | undefined>>;
     setStatusModal: React.Dispatch<React.SetStateAction<boolean>>;
+    statusQuery: boolean;
+    setStatusQuery: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 function PadraoAcessoRapido({
@@ -29,7 +31,8 @@ function PadraoAcessoRapido({
    edges, 
    dadoEvento, 
    setDadoEvt,
-   setStatusModal
+   setStatusModal,
+   setStatusQuery,
 }:Propriedades) { 
    function setarModal(source: string, target:string, idTooltip: number) {
         let grupoEstatico:string[] = [];
@@ -42,6 +45,7 @@ function PadraoAcessoRapido({
                       relacionados: grupoEstatico, };
         setDadoEvt(copia);
         setStatusModal(true);
+        setStatusQuery(true);
    }
 
    return (

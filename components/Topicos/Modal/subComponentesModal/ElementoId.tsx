@@ -42,7 +42,7 @@ export default function ElementoId ({
   paramQuery,
   setParamQuery,
 }:Props) {
-    const [valor, setValor] = React.useState('1');
+    const [valor, setValor] = React.useState('0');
     const handleChange = (event: SelectChangeEvent) => {
         const index = Number(event.target.value);
         if(dadoEvento !== undefined) {

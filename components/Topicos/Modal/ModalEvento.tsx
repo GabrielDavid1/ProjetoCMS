@@ -52,7 +52,8 @@ type propriedade = {
   edges: Edge[];
   setEdges: React.Dispatch<React.SetStateAction<Edge<any>[]>>;
   nomeTooltip: string[];
-  setNomeTooltip: React.Dispatch<React.SetStateAction<string[]>>
+  setNomeTooltip: React.Dispatch<React.SetStateAction<string[]>>;
+  statusQuery: boolean;
 }
 
 type ObjPadrao = {
@@ -86,36 +87,60 @@ export default function ModalEvento({
   setEdges,
   nomeTooltip,
   setNomeTooltip,
+  statusQuery,
 }: propriedade) {
-  const { list } = useList();
-  const { buscarQuery, deletarQuery, initialNodes, queryEvento, setQueryEvento } = useEvent();  
+  const { list, retornarNome } = useList();
+  const { buscarQuery, deletarQuery,
+          queryEvento, setQueryEvento,
+          initialEdges, setInitialEdges } = useEvent();  
 
-  const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([]);
+  const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([{ 
+                                                                      idElemento: '', 
+                                                                      idBotao: '', 
+                                                                      nome: 'Vazio'
+                                                                    }]);
+
   const [paramQuery, setParamQuery] = useState<PropsParam>({
      param1: {id: '', tipo:'height'},
      param2: {id: '', tipo:'height'},
      param3: {id: '', tipo:'height', acao: ''},
   });
 
-  const { initialEdges, setInitialEdges } = useEvent();
-
   const handleClose = (status = false as boolean) => {
-    let retorno = buscarQuery(dadoEvento?.idBotao, false);
+    let retorno:any = buscarQuery(dadoEvento?.idBotao, statusQuery);
 
-    if (retorno.ativado === false && status === false) {
+    if (retorno.ativado === false && status === false ) {
         setEdges(edges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
         setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
         nomeTooltip.pop();
         setNomeTooltip([...nomeTooltip]);
         deletarQuery(dadoEvento?.idBotao, false);
     } else if (status === true) {
-        retorno.condicao.par1 = paramQuery.param1.id +' - '+paramQuery.param1.tipo;
-        retorno.condicao.par3 = paramQuery.param2.id +' - '+paramQuery.param2.tipo;  
-        retorno.acao.raiz = paramQuery.param3.id +' - '+paramQuery.param3.tipo;
-        retorno.acao.alvo = paramQuery.param3.acao;
+        let id_1 = (paramQuery.param1.id !== undefined) 
+                        ? paramQuery.param1.id 
+                        : DadosEstaticos[0].idElemento;
+
+        let id_2 = (paramQuery.param2.id !== undefined) 
+                        ? paramQuery.param2.id 
+                        : DadosEstaticos[0].idElemento;
+        
+        let id_3 = (paramQuery.param3.id !== undefined) 
+                        ? paramQuery.param3.id 
+                        : DadosEstaticos[0].idElemento;
+
+        retorno.condicao.par1 = id_1 +' - '+paramQuery.param1.tipo;
+        retorno.condicao.par3 = id_2 +' - '+paramQuery.param2.tipo;  
+        retorno.acao.id = id_3;
+        retorno.acao.tipo = paramQuery.param3.tipo;
+        retorno.acao.alterado = paramQuery.param3.acao;
         retorno.ativado = true;
         setQueryEvento([...queryEvento]);  
-    }
+        setParamQuery({
+          param1: {id: paramQuery.param1.id, tipo:'height'},
+          param2: {id: paramQuery.param2.id, tipo:'height'},
+          param3: {id: paramQuery.param3.id, tipo:'height', acao: ''},
+       });
+    } 
     setActiveStep((prevActiveStep) => prevActiveStep = 0);
     setActiveStep(0);
     setDadosEstaticos([]);
@@ -132,8 +157,19 @@ export default function ModalEvento({
     setDadosEstaticos([...DadosEstaticos]);
   }
 
+  function carregarTooltips () {
+    nomeTooltip = [];
+    queryEvento.filter(elemento => elemento.idBotao !== '').map(function(item){
+        (item.nomeAlvo !== undefined) && nomeTooltip.push(item.nomeAlvo)
+    });
+    setNomeTooltip([...nomeTooltip]);
+  }
+
   useEffect(() => {
+    setDadosEstaticos([{ idElemento: '', idBotao: '', nome: 'Vazio' }]);
+    carregarTooltips();
     if(statusModal) { 
+       reset();
        dadoEvento?.relacionados.forEach((dado) => {
          addDadosEstaticos(dado)       
        });
@@ -189,11 +225,39 @@ export default function ModalEvento({
         setNomeTooltip([...nomeTooltip]);
         setEdges(edges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
         setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
-        deletarQuery(dadoEvento?.idBotao, false);
+        let index = queryEvento.findIndex(elemento => (  elemento.condicao.par1 === dadoEvento?.idOutro || 
+                                                         elemento.condicao.par3 === dadoEvento?.idOutro ||
+                                                         elemento.acao.id === dadoEvento?.idOutro ) && 
+                                                         elemento.idBotao === dadoEvento?.idBotao ); 
+        queryEvento.splice(index, 1);
+        setQueryEvento([...queryEvento]);
         setStatusModal(false);
     } else {
         handleClose();
     }
+  }
+  
+  function reset() {
+    if (statusQuery === true) {
+        let index = queryEvento.findIndex(elemento => (elemento.acao.id === dadoEvento?.idOutro) && elemento.idBotao === dadoEvento?.idBotao ); 
+        queryEvento.splice(index, 1);
+        queryEvento.push({
+          idBotao: (dadoEvento !== undefined) ? dadoEvento?.idOutro : '',
+          evento: 'Vazio',
+          condicao: {
+              par1: '',
+              par2: 'Maior',
+              par3: '',
+          },
+          acao: {
+              id: '',
+              tipo: '',
+              alterado: '',
+          },
+          ativado: false,
+        });
+        setQueryEvento([...queryEvento]);
+    } 
   }
 
   const EtapasRenderizadas = () => {
@@ -254,7 +318,7 @@ export default function ModalEvento({
               setParamQuery={setParamQuery}
             />            
             <Acoes 
-              parametro='Param 1' 
+              parametro='Ações' 
               paramQuery={paramQuery}
               setParamQuery={setParamQuery}
             />            

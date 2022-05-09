@@ -247,9 +247,9 @@ export default function LayoutWithMenuComponent(props:any) {
       <main className={clsx(classes.content, {
           [classes.contentShift]: open,
       })}> 
-        <div className={classes.drawerHeader} />
-     {/*   <ConteudoElementos paginaAtual={props.pagina} /> */}
-        <ConteudoEventos nomePagina={props.pagina} />
+          <div className={classes.drawerHeader} />
+          {!toggleLateral.eventos && <ConteudoElementos paginaAtual={props.pagina} /> }
+          {toggleLateral.eventos && <ConteudoEventos nomePagina={props.pagina} />} 
       </main>
   
       <div className="makeStyles-appBar-3"> 

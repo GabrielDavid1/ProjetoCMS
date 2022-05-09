@@ -4,9 +4,6 @@ import * as React from 'react';
 /* Componente Framework Material-UI */
 import TextField from '@mui/material/TextField';
 
-/* Tipagens e Variaveis*/
-import { tiposTamanho } from '../../../../Importacoes/Variaveis/Variaveis';
-
 interface PropsParam {
     param1: {
         id: string;
@@ -44,6 +41,7 @@ export default function Acoes ({
              id="outlined-basic" 
              label="Resultado" 
              variant="outlined"
+             defaultValue=""
              value={paramQuery.param3.acao}
              onChange={(e) => handleChange(e)} 
           />

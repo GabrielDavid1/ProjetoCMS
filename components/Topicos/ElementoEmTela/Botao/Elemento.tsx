@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 /* Contexto */
 import { useList } from '../../../../contexts/useTopicos';
 import { useConfig } from '../../../../contexts/useConfig';
+import { useEvent } from '../../../../contexts/useEvent';
 
 /* Tipagens */
 import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
@@ -44,6 +45,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    config,
    estado,
 }, ref ) => {
+  const {  teste } = useEvent();
   const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
 
@@ -56,6 +58,10 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
   }
 
   const trocarLateral = (parametro: number) => {
+    if (config !== undefined) {
+   //    Acao(id, config, configuracoes);
+        teste(id, configuracoes);
+    }
     if (parametro === 2) {
         setIdTotal('');
         ativarToggleLateral('principal');

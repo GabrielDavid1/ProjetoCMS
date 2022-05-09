@@ -32,10 +32,12 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
 
   const [nomeTooltip, setNomeTooltip] = useState<string[]>([]);
 
+  const [statusQuery, setStatusQuery] = useState(false); 
+
   const defaultEdgeOptions = { animated: true, style: { stroke: 'red' } };
 
   const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
-    
+
   useEffect(() => {
     if(edges.length !== initialEdges.length) {  
        setInitialEdges(edges);
@@ -59,6 +61,7 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
        /* Adiciona no Contexto (global)*/
        queryEvento.push({
           idBotao: edges.slice(-1)[0].source,
+          nomeAlvo: nome,
           evento: 'Vazio',
           condicao: {
               par1: '',
@@ -66,13 +69,15 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
               par3: '',
           },
           acao: {
-              raiz: '',
-              alvo: '',
+              id: '',
+              tipo: '',
+              alterado: '',
           },
           ativado: false,
        });
        setQueryEvento([...queryEvento]);
        setStatusModal(true);
+       setStatusQuery(false);
     }
   }, [edges]);
 
@@ -95,6 +100,7 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
           setEdges={setEdges}
           nomeTooltip={nomeTooltip}
           setNomeTooltip={setNomeTooltip}
+          statusQuery={statusQuery}
       /> 
       <AcessoRapido 
          nome={nomeTooltip}
@@ -102,6 +108,8 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
          dadoEvento={dadoEvt}
          setDadoEvt={setDadoEvt}
          setStatusModal={setStatusModal}
+         statusQuery={statusQuery}
+         setStatusQuery={setStatusQuery}
       />
     </ReactFlow> 
   );

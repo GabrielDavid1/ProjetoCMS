@@ -38,7 +38,6 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(({
   }
 
   const trocarLateral = (parametro: number) => {
-    console.log(config?.x);
     if (parametro === 2) {
         setIdTotal('');
         ativarToggleLateral('principal');

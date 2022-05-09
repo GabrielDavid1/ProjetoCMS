@@ -18,7 +18,7 @@ type Props = {
   paginaAtual: string;
 }
 
-export default function Meio({ paginaAtual }:Props) { 
+export default function ConteudoElementos({ paginaAtual }:Props) { 
   const { setIdTotal, configuracoes } = useConfig(); 
   return (
     <div className="container">
@@ -57,5 +57,3 @@ export default function Meio({ paginaAtual }:Props) {
     </div>
   )       
 }
-
-export const ConteudoElementos = memo(Meio);
