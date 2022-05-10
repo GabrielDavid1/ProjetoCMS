@@ -22,15 +22,13 @@ type Props = {
 function PadraoConteudoEventos ({ nomePagina }:Props)  {
   const { initialNodes, initialEdges, 
           onNodesChange, setInitialEdges, 
-          queryEvento, setQueryEvento 
+          nomeTooltip, setNomeTooltip,
         } = useEvent();
   const { list, retornarNome } = useList();
 
   const [dadoEvt, setDadoEvt] = useState<DadoEvtProps>();
   const [statusModal, setStatusModal] = useState(false);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-
-  const [nomeTooltip, setNomeTooltip] = useState<string[]>([]);
 
   const [statusQuery, setStatusQuery] = useState(false); 
 
@@ -46,36 +44,18 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
        let grupoEstatico:string[] = [];
        edges.map(elemento => (elemento.source === edges.slice(-1)[0].source) && grupoEstatico.push(elemento.target));
       
-       /* Forma os dados que vão servir para mostragem em tela no modal */
-       let copia = Object.assign({}, dadoEvt);
-           copia = { idBotao: edges.slice(-1)[0].source,
-                     idOutro: edges.slice(-1)[0].target,
-                     relacionados: grupoEstatico };
-           setDadoEvt(copia);
-        
        /* Constroi um array para aparecer no tooltip do componente (AcessoRapido) */
        let nome = retornarNome(edges.slice(-1)[0].target, list[0]);
            nomeTooltip.push(nome);
            setNomeTooltip(nomeTooltip);
 
-       /* Adiciona no Contexto (global)*/
-       queryEvento.push({
-          idBotao: edges.slice(-1)[0].source,
-          nomeAlvo: nome,
-          evento: 'Vazio',
-          condicao: {
-              par1: '',
-              par2: 'Maior',
-              par3: '',
-          },
-          acao: {
-              id: '',
-              tipo: '',
-              alterado: '',
-          },
-          ativado: false,
-       });
-       setQueryEvento([...queryEvento]);
+       /* Forma os dados que vão servir para mostragem em tela no modal */
+       let copia = Object.assign({}, dadoEvt);
+           copia = { idBotao: edges.slice(-1)[0].source,
+                     idOutro: edges.slice(-1)[0].target,
+                     nomeAlvo:nome, 
+                     relacionados: grupoEstatico };
+       setDadoEvt(copia);
        setStatusModal(true);
        setStatusQuery(false);
     }

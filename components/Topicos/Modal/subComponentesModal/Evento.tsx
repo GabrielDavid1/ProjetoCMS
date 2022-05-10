@@ -7,24 +7,20 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-/* Contexto */
-import { useEvent } from '../../../../contexts/useEvent';
-
 type Props = {
     id: string | undefined;
+    setEventoParam: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Evento ({ id }:Props) {
+export default function Evento ({ id, setEventoParam }:Props) {
     const [valor, setValor] = React.useState('1');
-    const {buscarQuery, queryEvento, setQueryEvento} = useEvent();
 
     const handleChange = (event: SelectChangeEvent) => {
-        let param = 'click';
-        if (event.target.value === '2') param = 'hover';
-        let retorno = buscarQuery(id, false);
-        if (retorno.ativado === false) {
-            retorno.evento = param;
-            setQueryEvento([...queryEvento]);
+        let numero = event.target.value as string;
+        if(numero === '1') {
+            setEventoParam('Vazio');
+        } else {
+            setEventoParam('Click');
         }
         setValor(event.target.value as string);
     };
@@ -49,9 +45,8 @@ export default function Evento ({ id }:Props) {
                   textAlign:'center', 
                   marginBottom: '10px'}}
         >
-         <MenuItem value={1}> Vazio </MenuItem>
-         <MenuItem value={2}> Click </MenuItem>
-         <MenuItem value={3}> Hover </MenuItem>
+         <MenuItem value={'1'}> Vazio </MenuItem>
+         <MenuItem value={'2'}> Click </MenuItem>
         </Select>
         </FormControl>
     )

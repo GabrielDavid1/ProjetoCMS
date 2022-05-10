@@ -8,6 +8,7 @@ export interface DadoEvtProps {
     idBotao: string;
     idOutro: string;
     idTooltip?: number;
+    nomeAlvo?: string;
     relacionados: string[];
 }
 

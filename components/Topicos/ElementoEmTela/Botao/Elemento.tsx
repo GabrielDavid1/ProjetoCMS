@@ -45,7 +45,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    config,
    estado,
 }, ref ) => {
-  const {  teste } = useEvent();
+  const {  plataformaEvento } = useEvent();
   const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
 
@@ -59,8 +59,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
 
   const trocarLateral = (parametro: number) => {
     if (config !== undefined) {
-   //    Acao(id, config, configuracoes);
-        teste(id, configuracoes);
+        plataformaEvento(id, configuracoes);
     }
     if (parametro === 2) {
         setIdTotal('');

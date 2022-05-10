@@ -10,6 +10,9 @@ import MenuItem from '@mui/material/MenuItem';
 /* Contexto */
 import { useEvent } from '../../../../contexts/useEvent';
 
+/* Variaveis */
+import { condicoes } from '../../../../Importacoes/Variaveis/Variaveis';
+
 type ObjPadrao = {
     id: string;
     tipo: string;
@@ -17,22 +20,16 @@ type ObjPadrao = {
 
 type Props = {
     parametro: string;
-    condicao?: ObjPadrao[];
-    idBotao: string | undefined;
+    setCondicaoParam: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function Condicao ({ parametro, condicao, idBotao }:Props) {
+export default function Condicao ({ parametro, setCondicaoParam }:Props) {
     const [valor, setValor] = React.useState('0');
-    const { buscarQuery, queryEvento, setQueryEvento } = useEvent();
     
     const handleChange = (event: SelectChangeEvent) => {
         const index = Number(event.target.value);
-        if(condicao !== undefined) {
-           let dado = buscarQuery(idBotao, false);
-           dado.condicao.par2 = condicao[index]?.tipo;
-           setQueryEvento([...queryEvento]);
-        }
         setValor(event.target.value as string);
+        setCondicaoParam(condicoes[index]?.tipo);
     };
     
     return (
@@ -59,8 +56,8 @@ export default function Condicao ({ parametro, condicao, idBotao }:Props) {
                  }}
         >
          {
-           Array.isArray(condicao) 
-              ? (condicao.map((item, index) => { 
+           Array.isArray(condicoes) 
+              ? (condicoes.map((item, index) => { 
                  return (
                   <MenuItem key={index} value={index+''} >
                     {item.tipo} 

@@ -15,7 +15,6 @@ import Container from '@mui/material/Container';
 
 /* Variaveis e Tipagens */
 import { steps } from '../../../Importacoes/Variaveis/Variaveis';
-import { condicoes } from '../../../Importacoes/Variaveis/Variaveis';
 import { DadoEvtProps } from '../../../Importacoes/Tipagens/Tipagem';
 
 /* SUB-Componentes */
@@ -52,8 +51,8 @@ type propriedade = {
   edges: Edge[];
   setEdges: React.Dispatch<React.SetStateAction<Edge<any>[]>>;
   nomeTooltip: string[];
-  setNomeTooltip: React.Dispatch<React.SetStateAction<string[]>>;
   statusQuery: boolean;
+  setNomeTooltip: (data: string[]) => void;
 }
 
 type ObjPadrao = {
@@ -89,95 +88,49 @@ export default function ModalEvento({
   setNomeTooltip,
   statusQuery,
 }: propriedade) {
-  const { list, retornarNome } = useList();
-  const { buscarQuery, deletarQuery,
+  const { list } = useList();
+  const { deletarQuery,
           queryEvento, setQueryEvento,
           initialEdges, setInitialEdges } = useEvent();  
 
-  const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([{ 
-                                                                      idElemento: '', 
-                                                                      idBotao: '', 
-                                                                      nome: 'Vazio'
-                                                                    }]);
+  const [condicaoParam, setCondicaoParam] = useState('');
+  const [eventoParam, setEventoParam] = useState('Vazio');
+  const [dadosAlvo, setDadosAlvo] = useState({id:'', nome:''});
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set<number>());
 
+  const [DadosEstaticos, setDadosEstaticos] = useState<ObjPadrao[]>([{idElemento: '', 
+                                                                      idBotao: '', 
+                                                                      nome: 'Vazio'}]);
   const [paramQuery, setParamQuery] = useState<PropsParam>({
-     param1: {id: '', tipo:'height'},
-     param2: {id: '', tipo:'height'},
-     param3: {id: '', tipo:'height', acao: ''},
+    param1: {id: '', tipo:'height'},
+    param2: {id: '', tipo:'height'},
+    param3: {id: '', tipo:'height', acao: ''},
   });
 
   const handleClose = (status = false as boolean) => {
-    let retorno:any = buscarQuery(dadoEvento?.idBotao, statusQuery);
-
-    if (retorno.ativado === false && status === false ) {
+    let index = 0;
+    let retorno = queryEvento.find(elemento => (elemento.acao.id === dadoEvento?.idOutro && elemento.idBotao === dadoEvento?.idBotao))
+    
+    if(statusQuery) {
+        index = queryEvento.findIndex(elemento => (elemento.acao.id === dadoEvento?.idOutro && elemento.idBotao === dadoEvento?.idBotao));
+    }
+    
+    if (status === false && statusQuery === false) {
         setEdges(edges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
         setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
         nomeTooltip.pop();
         setNomeTooltip([...nomeTooltip]);
         deletarQuery(dadoEvento?.idBotao, false);
-    } else if (status === true) {
-        let id_1 = (paramQuery.param1.id !== undefined) 
-                        ? paramQuery.param1.id 
-                        : DadosEstaticos[0].idElemento;
-
-        let id_2 = (paramQuery.param2.id !== undefined) 
-                        ? paramQuery.param2.id 
-                        : DadosEstaticos[0].idElemento;
-        
-        let id_3 = (paramQuery.param3.id !== undefined) 
-                        ? paramQuery.param3.id 
-                        : DadosEstaticos[0].idElemento;
-
-        retorno.condicao.par1 = id_1 +' - '+paramQuery.param1.tipo;
-        retorno.condicao.par3 = id_2 +' - '+paramQuery.param2.tipo;  
-        retorno.acao.id = id_3;
-        retorno.acao.tipo = paramQuery.param3.tipo;
-        retorno.acao.alterado = paramQuery.param3.acao;
-        retorno.ativado = true;
-        setQueryEvento([...queryEvento]);  
-        setParamQuery({
-          param1: {id: paramQuery.param1.id, tipo:'height'},
-          param2: {id: paramQuery.param2.id, tipo:'height'},
-          param3: {id: paramQuery.param3.id, tipo:'height', acao: ''},
-       });
-    } 
+    } else if(retorno?.ativado === true && status === true && statusQuery === true && index !== -1) {
+        queryEvento.splice(index, 1);
+        setQueryEvento([...queryEvento]);
+    }
     setActiveStep((prevActiveStep) => prevActiveStep = 0);
     setActiveStep(0);
     setDadosEstaticos([]);
     setStatusModal(false);
   };
-
-  function addDadosEstaticos (id: string) {
-    const regex = new RegExp(id, 'gi');
-    DadosEstaticos.push({
-       idElemento: id,
-       idBotao: dadoEvento?.idBotao,
-       nome: list[0].children.filter(param => regex.test(param.id))[0].name,
-    });
-    setDadosEstaticos([...DadosEstaticos]);
-  }
-
-  function carregarTooltips () {
-    nomeTooltip = [];
-    queryEvento.filter(elemento => elemento.idBotao !== '').map(function(item){
-        (item.nomeAlvo !== undefined) && nomeTooltip.push(item.nomeAlvo)
-    });
-    setNomeTooltip([...nomeTooltip]);
-  }
-
-  useEffect(() => {
-    setDadosEstaticos([{ idElemento: '', idBotao: '', nome: 'Vazio' }]);
-    carregarTooltips();
-    if(statusModal) { 
-       reset();
-       dadoEvento?.relacionados.forEach((dado) => {
-         addDadosEstaticos(dado)       
-       });
-    }
-  },[statusModal]);
-  
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
 
   const isStepOptional = (step: number) => {
     return step === 5;
@@ -200,6 +153,39 @@ export default function ModalEvento({
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       setSkipped(newSkipped);
     }
+
+    if(activeStep === 4) {
+        nomeTooltip.push(DadosEstaticos[DadosEstaticos.length-1].nome);
+        setNomeTooltip([...nomeTooltip]);
+        let id_1 = (paramQuery.param1.id !== undefined) 
+                      ? paramQuery.param1.id 
+                      : DadosEstaticos[0].idElemento;
+
+        let id_2 = (paramQuery.param2.id !== undefined) 
+                      ? paramQuery.param2.id 
+                      : DadosEstaticos[1].idElemento;
+
+        let id_3 = (dadoEvento !== undefined) ? dadoEvento?.idOutro : '0.73';
+
+        /* Adiciona no Contexto (global)*/
+        queryEvento.push({
+          idBotao: edges.slice(-1)[0].source,
+          nomeAlvo: dadoEvento?.nomeAlvo,
+          evento: eventoParam,
+          condicao: {
+              par1: id_1 +' - '+paramQuery.param1.tipo,
+              par2: condicaoParam,
+              par3: id_2 +' - '+paramQuery.param2.tipo,
+          },
+          acao: {
+              id: id_3,
+              tipo: paramQuery.param3.tipo,
+              alterado: paramQuery.param3.acao,
+          },
+          ativado: true,
+        });
+        setQueryEvento([...queryEvento]);
+    }
   };
 
   const handleBack = () => {
@@ -218,52 +204,69 @@ export default function ModalEvento({
     });
   };
 
+  function addDadosEstaticos (id: string) {
+    const regex = new RegExp(id, 'gi');
+    DadosEstaticos.push({
+       idElemento: id,
+       idBotao: dadoEvento?.idBotao,
+       nome: list[0].children.filter(param => regex.test(param.id))[0].name,
+    });
+    setDadosEstaticos([...DadosEstaticos]);
+  }
+
+  function carregarTooltips () {
+    nomeTooltip = [];
+    queryEvento.filter(elemento => elemento.idBotao !== '').map(function(item){
+         let nome = list[0].children.find(elemento => elemento.id === item.acao.id)?.name;
+         nomeTooltip.push((nome !== undefined) ? nome : '')
+    });
+    setNomeTooltip([...nomeTooltip]);
+  }
+
+  useEffect(() => {
+    setDadosEstaticos([{ idElemento: '', idBotao: '', nome: 'Vazio' }]);
+    carregarTooltips();
+    if(statusModal) { 
+      let id   = (dadoEvento?.idOutro !== undefined) ? dadoEvento.idOutro : '0.73';
+      let nome = list[0].children.find(elemento => elemento.id === id)?.name;
+
+      setDadosAlvo({id: id, nome: (nome !== undefined) ? nome : 'Vazio'});
+  
+      dadoEvento?.relacionados.forEach((dado) => {
+         addDadosEstaticos(dado)       
+      });
+    }
+  },[statusModal]);
+
   function removerElementoAcessoRapido () {
-    let retorno = buscarQuery(dadoEvento?.idBotao, true);
-    if (dadoEvento?.idTooltip !== undefined && retorno.ativado === true) {
+    let retorno = queryEvento.find(elemento => (elemento.acao.id === dadoEvento?.idOutro && elemento.idBotao === dadoEvento?.idBotao));
+    if (dadoEvento?.idTooltip !== undefined && retorno?.ativado === true) {
+     
         nomeTooltip.splice(dadoEvento.idTooltip, 1);
         setNomeTooltip([...nomeTooltip]);
-        setEdges(edges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
-        setInitialEdges(initialEdges.filter(elemento => elemento.target !== dadoEvento?.idOutro));
-        let index = queryEvento.findIndex(elemento => (  elemento.condicao.par1 === dadoEvento?.idOutro || 
-                                                         elemento.condicao.par3 === dadoEvento?.idOutro ||
-                                                         elemento.acao.id === dadoEvento?.idOutro ) && 
-                                                         elemento.idBotao === dadoEvento?.idBotao ); 
+      
+        let indexEdge = edges.findIndex(elemento => elemento.target === retorno?.acao.id && elemento.source === retorno?.idBotao)
+        edges.splice(indexEdge,1);
+        setEdges([...edges]);     
+        setInitialEdges(edges);
+        
+        let index = queryEvento.findIndex(elemento => ( elemento.acao.id === retorno?.acao.id && elemento.idBotao === retorno?.idBotao )); 
         queryEvento.splice(index, 1);
         setQueryEvento([...queryEvento]);
-        setStatusModal(false);
+     
+        setStatusModal(false); 
     } else {
         handleClose();
     }
   }
   
-  function reset() {
-    if (statusQuery === true) {
-        let index = queryEvento.findIndex(elemento => (elemento.acao.id === dadoEvento?.idOutro) && elemento.idBotao === dadoEvento?.idBotao ); 
-        queryEvento.splice(index, 1);
-        queryEvento.push({
-          idBotao: (dadoEvento !== undefined) ? dadoEvento?.idOutro : '',
-          evento: 'Vazio',
-          condicao: {
-              par1: '',
-              par2: 'Maior',
-              par3: '',
-          },
-          acao: {
-              id: '',
-              tipo: '',
-              alterado: '',
-          },
-          ativado: false,
-        });
-        setQueryEvento([...queryEvento]);
-    } 
-  }
-
   const EtapasRenderizadas = () => {
     switch (activeStep) {
       case 0: return (
-          <Eventos id={dadoEvento?.idBotao} />
+          <Eventos
+             id={dadoEvento?.idBotao} 
+             setEventoParam={setEventoParam}
+          />
       );
       case 1: return (
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>            
@@ -284,8 +287,7 @@ export default function ModalEvento({
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>            
             <Condicao 
                parametro='CONDIÇÃO' 
-               condicao={condicoes} 
-               idBotao={dadoEvento?.idBotao}
+               setCondicaoParam={setCondicaoParam}
             /> 
         </Box>
       )
@@ -311,6 +313,7 @@ export default function ModalEvento({
               dadoEvento={DadosEstaticos}
               paramQuery={paramQuery}
               setParamQuery={setParamQuery}
+              dadosAlvo={dadosAlvo}
             /> 
             <Parametros 
               parametro='Param 3' 
@@ -400,3 +403,37 @@ export default function ModalEvento({
       </Modal>
   );
 }
+
+/* 
+
+        let id_1 = (paramQuery.param1.id !== undefined) 
+        ? paramQuery.param1.id 
+        : DadosEstaticos[0].idElemento;
+
+        let id_2 = (paramQuery.param2.id !== undefined) 
+                ? paramQuery.param2.id 
+                : DadosEstaticos[0].idElemento;
+
+        let id_3 = (paramQuery.param3.id !== undefined) 
+                ? paramQuery.param3.id 
+                : DadosEstaticos[0].idElemento;
+
+
+        queryEvento.push({
+          idBotao: edges.slice(-1)[0].source,
+          nomeAlvo: dadoEvento?.nomeAlvo,
+          evento: eventoParam,
+          condicao: {
+              par1: id_1 +' - '+paramQuery.param1.tipo,
+              par2: condicaoParam,
+              par3: id_2 +' - '+paramQuery.param2.tipo,
+          },
+          acao: {
+              id: id_3,
+              tipo: paramQuery.param3.tipo,
+              alterado: paramQuery.param3.acao,
+          },
+          ativado: false,
+       });
+       setQueryEvento([...queryEvento]);
+*/

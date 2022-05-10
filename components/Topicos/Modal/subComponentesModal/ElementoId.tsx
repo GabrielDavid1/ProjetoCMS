@@ -34,6 +34,7 @@ type Props = {
     dadoEvento?: ObjPadrao[];
     paramQuery: PropsParam;
     setParamQuery: React.Dispatch<React.SetStateAction<PropsParam>>;
+    dadosAlvo?:any;
 };
 
 export default function ElementoId ({ 
@@ -41,15 +42,17 @@ export default function ElementoId ({
   dadoEvento,
   paramQuery,
   setParamQuery,
+  dadosAlvo,
 }:Props) {
     const [valor, setValor] = React.useState('0');
     const handleChange = (event: SelectChangeEvent) => {
         const index = Number(event.target.value);
         if(dadoEvento !== undefined) {
+            console.log(parametro)
            switch (parametro) {
               case 'Elemento 1': paramQuery.param1.id = dadoEvento[index]?.idElemento
               case 'Elemento 2': paramQuery.param2.id = dadoEvento[index]?.idElemento
-              case 'Elemento 3': paramQuery.param3.id = dadoEvento[index]?.idElemento
+              case 'Elemento 3': paramQuery.param3.id = (dadosAlvo !== undefined) ? dadosAlvo.id : '0.79';
            } 
            setParamQuery({...paramQuery});
            setValor(event.target.value as string);
@@ -77,11 +80,16 @@ export default function ElementoId ({
                   padding: '10px',
                   marginBottom: '40px'}}
         >
-        {(dadoEvento !== undefined) && dadoEvento.map((item, index) => 
-          <MenuItem key={index} value={index+''}>
-               {item.nome} 
-          </MenuItem>
-        )}   
+        
+        {(dadoEvento !== undefined && parametro !== 'Elemento 3') ? dadoEvento.map((item, index) => 
+            <MenuItem key={index} value={index+''}>
+                {item.nome} 
+            </MenuItem>
+        ) :           
+            <MenuItem value={0}>
+               {dadosAlvo.nome} 
+            </MenuItem> 
+        }
         </Select>
         </FormControl>
     )

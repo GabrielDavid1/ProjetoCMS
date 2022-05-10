@@ -1,6 +1,5 @@
 /* React */
 import * as React from 'react';
-import { memo } from 'react';
 
 /* Componente Framework Material-UI */
 import Box from '@mui/material/Box';
@@ -26,7 +25,7 @@ interface Propriedades {
     setStatusQuery: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function PadraoAcessoRapido({
+export function AcessoRapido({
    nome, 
    edges, 
    dadoEvento, 
@@ -71,5 +70,3 @@ function PadraoAcessoRapido({
       </Box>
    );
 }
-
-export const AcessoRapido = memo(PadraoAcessoRapido);

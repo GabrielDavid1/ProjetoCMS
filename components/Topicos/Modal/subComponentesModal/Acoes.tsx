@@ -41,7 +41,6 @@ export default function Acoes ({
              id="outlined-basic" 
              label="Resultado" 
              variant="outlined"
-             defaultValue=""
              value={paramQuery.param3.acao}
              onChange={(e) => handleChange(e)} 
           />

@@ -34,6 +34,8 @@ interface PropsEvento {
 interface ModalContextValue {
     queryEvento: PropsEvento[],
     
+    nomeTooltip: string[];
+
     initialNodes: Node[],
     initialEdges: Edge[],
     
@@ -43,9 +45,10 @@ interface ModalContextValue {
     setQueryEvento: (data: PropsEvento[]) => void,
     setInitialNodes: (data: Node[]) => void,
     setInitialEdges: (data: Edge[]) => void,
+    setNomeTooltip: (data: string[]) => void,
     onNodesChange: (nodes: NodeChange[]) => void,
 
-    teste: (idBotao: string, resto:PropsConfig[]) => void,
+    plataformaEvento: (idBotao: string, resto:PropsConfig[]) => void,
 
     renomearNode: (id: string, novoNome: string) => void,
 
@@ -73,6 +76,8 @@ const listInitial: ModalContextValue = {
         },
         ativado: true,
     }],
+
+    nomeTooltip: [],
     
     initialNodes: [],
     initialEdges: [],
@@ -83,9 +88,10 @@ const listInitial: ModalContextValue = {
     setQueryEvento:  data => {},
     setInitialNodes:  data => {},
     setInitialEdges:  data => {},
+    setNomeTooltip:  data => {},
     onNodesChange:  data => {},
 
-    teste:  data => {},
+    plataformaEvento:  data => {},
 
     renomearNode:  data => {},
     removeEvento:  data => {},
@@ -99,12 +105,13 @@ const EventContext = React.createContext<ModalContextValue>(listInitial);
 export function EventProvider({ children }: Props) {
     const [ initialNodes, setInitialNodes, onNodesChange ]  = useNodesState(listInitial.initialNodes);
     const [ initialEdges, setInitialEdges ]  = React.useState(listInitial.initialEdges);
+    const [nomeTooltip, setNomeTooltip] = React.useState<string[]>([]);
 
     const [ queryEvento, setQueryEvento ] = React.useState<PropsEvento[]>(listInitial.queryEvento);
 
     const [ quantidadeEventos, setQuantidadeEventos ]  = React.useState<number>(listInitial.quantidadeEventos);
 
-    const { buscarConfigs, configuracoes, setConfiguracoes } = useConfig();
+    const { configuracoes, setConfiguracoes } = useConfig();
 
     function buscarQuery (id: string | undefined, tipo: boolean) {
         let index = queryEvento.findIndex(elemento => elemento.idBotao === id && elemento.ativado === tipo);
@@ -144,9 +151,9 @@ export function EventProvider({ children }: Props) {
         }
     }
 
-    function teste (idBotao: string, resto:PropsConfig[]) {
+    function plataformaEvento (idBotao: string, resto:PropsConfig[]) {
         console.log(queryEvento)
-        queryEvento.filter(elemento => elemento.idBotao === idBotao).map(function(item){
+        queryEvento.filter(elemento => elemento.idBotao === idBotao && elemento.evento !== 'Vazio').map(function(item){
             Acao(idBotao, item, resto);
         });
     }
@@ -230,10 +237,10 @@ export function EventProvider({ children }: Props) {
         <EventContext.Provider 
             value={{ 
                 initialNodes, initialEdges, onNodesChange,
-                setInitialNodes, setInitialEdges,
+                setInitialNodes, setInitialEdges, nomeTooltip, setNomeTooltip,
                 quantidadeEventos, setQuantidadeEventos,
                 queryEvento, setQueryEvento, buscarQuery,
-                deletarQuery, removeEvento, renomearNode,teste 
+                deletarQuery, removeEvento, renomearNode,plataformaEvento 
             }}
         >
         {children}
@@ -245,16 +252,16 @@ export function useEvent() {
     const context = React.useContext(EventContext);
     const  { 
         initialNodes, initialEdges, onNodesChange,
-        setInitialNodes, setInitialEdges,
+        setInitialNodes, setInitialEdges, nomeTooltip, setNomeTooltip,
         quantidadeEventos, setQuantidadeEventos,
         queryEvento, setQueryEvento, buscarQuery,
-        deletarQuery, removeEvento, renomearNode,teste
+        deletarQuery, removeEvento, renomearNode,plataformaEvento
     } = context;
     return { 
         initialNodes, initialEdges, onNodesChange,
-        setInitialNodes, setInitialEdges,
+        setInitialNodes, setInitialEdges, nomeTooltip, setNomeTooltip,
         quantidadeEventos, setQuantidadeEventos,
         queryEvento, setQueryEvento, buscarQuery,
-        deletarQuery, removeEvento, renomearNode,teste
+        deletarQuery, removeEvento, renomearNode,plataformaEvento
     };
 }
