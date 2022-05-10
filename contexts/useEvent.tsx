@@ -1,5 +1,6 @@
-/* React e React Flow */
+/* React, Next e React Flow */
 import React from "react";
+import Router from 'next/router';
 import { Node, Edge, useNodesState, NodeChange } from 'react-flow-renderer';
 
 /* Contexto */
@@ -128,18 +129,29 @@ export function EventProvider({ children }: Props) {
            queryEvento.splice(index, 1); 
            setQueryEvento([...queryEvento]);         
         } 
-    } 
+    }
 
     function removeEvento (id:string, tipo: string) {
-        let index = 0;
-        if (tipo === 'Botao') {
-            index = initialEdges.findIndex(elemento => elemento.source === id);
-            initialEdges.splice(index, 1);    
+        let index_1,index_2 = -1;
+        index_1 = initialNodes.findIndex(elemento => elemento.id === id);
+
+        if (index_1 !== -1) {
+            initialNodes.splice(index_1, 1);   
+            setInitialNodes([...initialNodes]);
+        }
+
+        if (index_2 !== -1) {
+            index_2 = initialEdges.findIndex(elemento => elemento.source === id);
+            initialEdges.splice(index_2, 1);    
             setInitialEdges([...initialEdges]);
-        } else {
-            index = initialNodes.findIndex(elemento => elemento.id === id);
-            initialNodes.splice(index, 1);   
-            setInitialNodes([...initialNodes]);            
+            queryEvento.splice(index_2, 1);
+            setQueryEvento([...queryEvento]);
+        } else if (index_2 === -1) {
+            index_2 = initialEdges.findIndex(elemento => elemento.target === id);
+            initialEdges.splice(index_2, 1);    
+            setInitialEdges([...initialEdges]);   
+            queryEvento.splice(index_2, 1);
+            setQueryEvento([...queryEvento]);         
         }
     }
 
@@ -152,7 +164,6 @@ export function EventProvider({ children }: Props) {
     }
 
     function plataformaEvento (idBotao: string, resto:PropsConfig[]) {
-        console.log(queryEvento)
         queryEvento.filter(elemento => elemento.idBotao === idBotao && elemento.evento !== 'Vazio').map(function(item){
             Acao(idBotao, item, resto);
         });
@@ -187,13 +198,17 @@ export function EventProvider({ children }: Props) {
             case 'boxShadow': dado.config.boxShadow = valorAlterado; break;
             case 'borderRadius': dado.config.borderRadius = valorAlterado; break;
             case 'textoArea': dado.config.textoArea = valorAlterado; break;
+            case 'fontColor': dado.config.fontColor = valorAlterado; break;
             case 'fontSize': dado.config.fontSize = valorAlterado; break;
             case 'fontFamily': dado.config.fontFamily = valorAlterado; break;
             case 'fontWeight': dado.config.fontWeight = valorAlterado; break;
             case 'svgColor': dado.config.svgColor = valorAlterado; break;
             case 'opacity': dado.config.opacity = valorAlterado; break;
             case 'zIndex': dado.config.zIndex = valorAlterado; break;
-            default: dado.config.fontColor = valorAlterado; break;
+            case 'primeirapagina': Router.push('primeirapagina'); break;
+            case 'segundapagina': Router.push('segundapagina'); break;
+            case 'terceirapagina': Router.push('terceirapagina'); break;
+            default: dado.config.textoArea = valorAlterado; break;
         }
         setConfiguracoes([...configuracoes]);
     }
@@ -207,13 +222,14 @@ export function EventProvider({ children }: Props) {
                 case id+'  '+'boxShadow': return config.boxShadow;
                 case id+'  '+'borderRadius': return config.borderRadius;
                 case id+'  '+'textoArea': return config.textoArea;
+                case id+'  '+'fontColor': return config.fontColor;
                 case id+'  '+'fontSize': return config.fontSize;
                 case id+'  '+'fontFamily': return config.fontFamily;
                 case id+'  '+'fontWeight': return config.fontWeight;
                 case id+'  '+'svgColor': return config.svgColor;
                 case id+'  '+'opacity': return config.opacity;
                 case id+'  '+'zIndex': return config.zIndex;
-                default: return config.fontColor;
+                default: return config.textoArea;
             }
         }
     }

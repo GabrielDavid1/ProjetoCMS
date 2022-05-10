@@ -1,5 +1,5 @@
 /* React */
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef } from 'react';
 
 /* Contexto */
 import dynamic from 'next/dynamic';
@@ -17,7 +17,6 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 /* Divs */
 import DivElemento from './DivElemento';
-
 
 interface Props {
   id: string;
@@ -82,15 +81,14 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(({
       >
         <TextareaAutosize
           aria-label="textarea vazio"
-          placeholder="Digite algo aqui..."
           value={config?.textoArea}
           onChange={(e) => alterarTexto(e)}
           style={{ 
-              backgroundColor: config?.bgColor,
-              width:config?.width,
-              height:config?.height,
-              fontSize:config?.fontSize,
-              color: config?.fontColor,
+            backgroundColor: config?.bgColor,
+            width:config?.width,
+            height:config?.height,
+            fontSize:config?.fontSize,
+            color: config?.fontColor,
           }}
         />
       </DivElemento>

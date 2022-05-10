@@ -125,7 +125,7 @@ export default function ModalConfig({nomeDaPagina}: propriedade) {
                           textAlign:'center', 
                           marginBottom: '10px'}}
                 >
-                { listaDeIdIcones.map((item, index) => { 
+                {listaDeIdIcones.map((item, index) => { 
                     return (
                       <MenuItem key={item} value={item}>
                           <ListaIcones parametro={item} />

@@ -49,18 +49,9 @@ export function InputTexto ({ config }: Props) {
             fontWeight = {config?.fontWeight}
             webkitTextStroke = {config?.webkitTextStroke}
             opacity={config?.opacity}
+            zIndex={config?.zIndex}
         > 
-        {(parametro > 1) ? (
-          <ContentEditable
-            className="InputTexto"
-            innerRef={contentEditable}
-            html={estado.html} // innerHTML of the editable div
-            disabled={false}       // use true to disable editing
-            onChange={handleChange} // handle innerHTML change
-            tagName='article' // Use a custom HTML tag (uses a div by default)
-          />
-        ) : ( <> <p> {subTexto} </p> </> )}
+          {config?.textoArea}
         </Paragrafo>
-
     )
 }

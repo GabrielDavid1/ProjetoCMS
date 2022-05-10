@@ -48,7 +48,6 @@ export default function ElementoId ({
     const handleChange = (event: SelectChangeEvent) => {
         const index = Number(event.target.value);
         if(dadoEvento !== undefined) {
-            console.log(parametro)
            switch (parametro) {
               case 'Elemento 1': paramQuery.param1.id = dadoEvento[index]?.idElemento
               case 'Elemento 2': paramQuery.param2.id = dadoEvento[index]?.idElemento
@@ -75,7 +74,7 @@ export default function ElementoId ({
           label={parametro}
           onChange={handleChange}
           style={{width:'99%', 
-                  height: '60px', 
+                  height: '56px', 
                   textAlign:'center',
                   padding: '10px',
                   marginBottom: '40px'}}

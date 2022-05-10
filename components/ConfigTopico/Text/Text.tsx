@@ -16,7 +16,7 @@ import { Titulo } from './AreaConfig/Titulo';
 import { Borda } from './AreaConfig/Borda';
 import { Opacidade } from '../Padrao/Opacidade';
 import { Camada } from '../Padrao/Camada';
-
+import { ModificarTexto } from '../Padrao/ModificarTexto';
 
 export function Text () {
     let valorEstatico = 0;
@@ -147,6 +147,10 @@ export function Text () {
                bordaVisibilidade={bordaVisibilidade}
                add={add}
             />
+
+            {/* Toda a área da borda*/}
+            <ModificarTexto elemento={elementoGuardado} />
+
             {/* Toda a área da configuração da opacidade*/}
             <Opacidade />
 

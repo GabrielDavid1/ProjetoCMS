@@ -58,7 +58,6 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( { id, config }, ref 
           className="resizeable"  
           ref={ref} 
           onClick={(e) => trocarLateral(e.detail)}
-          zIndex={config?.zIndex}
       >
        <InputTexto config={config} />
       </DivElemento>

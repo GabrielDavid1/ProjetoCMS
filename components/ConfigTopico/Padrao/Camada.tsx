@@ -18,8 +18,8 @@ export function Camada ({  propriedades }: PropsConfig) {
         event.preventDefault();
         setConfiguracoes(
           configuracoes.map(el => (el.id === idTotal && el.config !== undefined
-              ? {...el, config:  {...el.config, zIndex:event.target.value }}
-              : el
+                 ? {...el, config:  {...el.config, zIndex:event.target.value }}
+                 : el
           ))
         ) 
     }

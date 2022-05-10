@@ -248,16 +248,16 @@ export default function LayoutWithMenuComponent(props:any) {
           [classes.contentShift]: open,
       })}> 
           <div className={classes.drawerHeader} />
-          {!toggleLateral.eventos && <ConteudoElementos paginaAtual={props.pagina} /> }
-          {toggleLateral.eventos && <ConteudoEventos nomePagina={props.pagina} />} 
+          {!toggleLateral.eventos && <ConteudoElementos paginaAtual={props.pagina} />}
+          {toggleLateral.eventos  && <ConteudoEventos nomePagina={props.pagina} />} 
       </main>
   
       <div className="makeStyles-appBar-3"> 
         <div className="config">
           <ToggleBotao nomePagina={props.pagina}/>
-          { toggleLateral.principal && <EstruturaTopicos nomePagina={props.pagina}   /> }
-          { toggleLateral.configs   && <EstruturaConfig />  }
-          { toggleLateral.eventos   && <EstruturaEventos nomePagina={props.pagina} /> }
+          { toggleLateral.principal && <EstruturaTopicos nomePagina={props.pagina}   />}
+          { toggleLateral.configs   && <EstruturaConfig /> }
+          { toggleLateral.eventos   && <EstruturaEventos nomePagina={props.pagina}   />}
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ const Paragrafo = styled.div<Config>`
       font-weight: ${(p) => p.fontWeight};
       -webkit-text-stroke: ${(p) => p.webkitTextStroke}; 
       opacity: ${(p) => p.opacity};
+      z-index: ${(p) => p.zIndex};
 `;
 
 export default Paragrafo;

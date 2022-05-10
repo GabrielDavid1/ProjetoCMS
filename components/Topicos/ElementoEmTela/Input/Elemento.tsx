@@ -46,8 +46,9 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
 }, ref ) => {
   const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
-
+  
   const [visibilidade, setVisibilidade] = useState(false);
+  const [valor, setValor] = useState(config?.textoArea);
 
   function addElementoNoGrupo () {
       if (adicionaGrupo === false) {
@@ -82,6 +83,16 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
     )
   }  
 
+  function setarValor (e: React.ChangeEvent<HTMLInputElement>) {
+    setConfiguracoes(
+      configuracoes.map(el => (el.id === id && el.config !== undefined
+          ? {...el, config: 
+            {...el.config, textoArea: e.target.value}}
+          : el
+      ))
+    ) 
+  }
+
   return (
     <Draggable
       disabled={estado} 
@@ -104,6 +115,8 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
            width={config?.width} 
            height={config?.height} 
            fontSize={config?.fontSize} 
+           value={config?.textoArea}
+           onChange={(e) => setarValor(e)}
         />
         <SelectElemento
             visibilidade={visibilidade}

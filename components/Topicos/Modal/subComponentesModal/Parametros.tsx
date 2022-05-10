@@ -6,6 +6,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 /* Tipagens e Variaveis*/
 import { tiposTamanho } from '../../../../Importacoes/Variaveis/Variaveis';
@@ -37,50 +39,33 @@ export default function Parametros ({
   paramQuery,
   setParamQuery,
 }:Props) {
-    const [valor, setValor] = React.useState('1');
+    const [value, setValue] = React.useState<string | null>(tiposTamanho[0]);
+    const [inputValue, setInputValue] = React.useState('');
 
-    const handleChange = (event: SelectChangeEvent) => {
-        const index = Number(event.target.value);
+    const handleChange = (event: SelectChangeEvent, newValue: string | null) => {
         switch (parametro) {
-          case 'Param 1': paramQuery.param1.tipo = tiposTamanho[index]
-          case 'Param 2': paramQuery.param2.tipo = tiposTamanho[index]
-          case 'Param 3': paramQuery.param3.tipo = tiposTamanho[index]
+          case 'Param 1': paramQuery.param1.tipo = (newValue !== null) ? newValue : 'Vazio'; 
+          case 'Param 2': paramQuery.param2.tipo = (newValue !== null) ? newValue : 'Vazio'; 
+          case 'Param 3': paramQuery.param3.tipo = (newValue !== null) ? newValue : 'Vazio'; 
         }   
         setParamQuery({...paramQuery});
-        setValor(event.target.value as string);
+        setValue(newValue);
     };
 
     return (
-        <FormControl fullWidth>
-        <InputLabel
-           id="demo-simple-select-label"
-           style={{ marginBottom: '20px' }}
-        >
-           {parametro}
-        </InputLabel> 
-        <Select
-          className="controleIconesModal"
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={valor}
-          label={parametro}
-          onChange={handleChange}
-          style={{width:'99%', 
-                  height: '60px', 
-                  textAlign:'center',
-                  padding: '10px',
-                  marginBottom: '40px'}}
-        >
-        {tiposTamanho.map((item, index) => 
-            <MenuItem 
-               key={index} 
-               value={index+''}
-            >
-                {item} 
-            </MenuItem>
-          ) 
-        }
-        </Select>
-        </FormControl>
+        <>
+         <Autocomplete
+          value={value}
+          onChange={(event: any, newValue: string | null) => handleChange(event, newValue)}
+          inputValue={inputValue}
+          onInputChange={(event, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          id="controllable-states-demo"
+          options={tiposTamanho}
+          sx={{ width: 300, height: 70 }}
+          renderInput={(params) => <TextField {...params} label="Paramêtros" />}
+        />
+       </>
     )
 }

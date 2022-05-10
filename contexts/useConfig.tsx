@@ -89,7 +89,7 @@ const ConfigContext = React.createContext<ModalContextValue>(listInitial);
 
 export function ConfigProvider({ children }: Props) {
     const [ idTotal, setIdTotal ] = React.useState<string>('');
-    const [LargAlt, setLargAlt] = React.useState<LargAltProps>({ width: '100px', 
+    const [ LargAlt, setLargAlt ] = React.useState<LargAltProps>({ width: '100px', 
                                                                  height: '100px'});
     const [ configuracoes, setConfiguracoes ] = React.useState<PropsConfig[]>([listInitial.configuracoes[0]]);
 

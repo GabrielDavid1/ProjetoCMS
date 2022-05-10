@@ -170,13 +170,19 @@ export function ListProvider({ children }: Props) {
           : null  
     } else {      
         /* Remover do Evento */
-        let elemento:any = buscarConfigs(id);
-        (elemento !== undefined) && removeEvento(id, elemento.type);
+        removeEvento(id, 'tipo');
 
         /* Remover do grupo */
         removerDeGrupo(nodes.children[index].id, nodes.children[index].children.length);
         delete nodes.children[index];
-      
+        
+        /* Desabilita caso esta adicionano em grupo */
+        if(copiaGrupo.length > 0) {
+          if(id === copiaGrupo[0].id) {
+            setAdicionaGrupo(false);
+          }
+        }
+        
         /* Remover da lista */
         nodes.children.splice(index, 1);
         setList({...list});
