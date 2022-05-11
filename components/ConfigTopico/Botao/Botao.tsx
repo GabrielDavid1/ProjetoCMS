@@ -30,7 +30,7 @@ export function Botao () {
     const [botaoRadius, setBotaoRadius] = useState({ status: false, svg: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' });
     const [tiposBotao, setTiposBotao] = useState({ status: false, svg: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' });
   
-    const { quantidadeEventos, setQuantidadeEventos } = useEvent();
+    const { quantidadeEventos, setQuantidadeEventos, removeEvento } = useEvent();
     const { ativarToggleLateral, list, setList, buscarElemento } = useList();
     const { idTotal, buscarConfigs, configuracoes, setConfiguracoes } = useConfig();
 
@@ -129,6 +129,7 @@ export function Botao () {
            setQuantidadeEventos(quantidadeEventos-1);            
            delete listaBuscado.evt;
            setList({...list});
+           removeEvento(idTotal, 'tipos');
            ativarToggleLateral('configs');
         }
     }
