@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 /* Componente */
 import TemplatePrincipal from '../components/TemplatePrincipal/ConteudoPrincipal';
 
-export default function terceirapagina() {
+export default function primeirapagina() {
   const { list, tamanho } = useList();
   const { configuracoes } = useConfig();
   const { configPagina } = useCache();
@@ -66,5 +66,5 @@ export default function terceirapagina() {
     });
   }, [list, configuracoes, configPagina, initialNodes, initialEdges, nomeTooltip, queryEvento, quantidadeEventos]);
 
-  return <TemplatePrincipal pagina="terceiraPagina" />
+  return <TemplatePrincipal pagina="primeiraPagina" />
 }

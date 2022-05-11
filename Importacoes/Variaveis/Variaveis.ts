@@ -1,3 +1,6 @@
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
+
 /* Marcador para Slider (Configuração de Topicos) */
 export const marks = [
     {
@@ -349,3 +352,64 @@ export const condicoes = [
   {id: '5', tipo: 'Maior igual'},
   {id: '6', tipo: 'Menor igual'},
 ];
+
+/* Estilização de templates */
+export const Item1 = styled(Paper)(({ theme }) => ({
+  background: "url('/imagens/add.png') no-repeat center center",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  height: 140,
+  width: 100,
+  cursor: 'pointer',
+  textAlign: 'center',
+    border: '1px solid gray',
+  color: theme.palette.text.secondary,
+}));
+
+export const Item2 = styled(Paper)(({ theme }) => ({
+  background: "url('/imagens/card.png') no-repeat center center",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  height: 140,
+  width: 100,
+  cursor: 'pointer',
+  textAlign: 'center',
+    border: '1px solid gray',
+  color: theme.palette.text.secondary,
+}));
+
+export const Item3 = styled(Paper)(({ theme }) => ({
+  background: "url('/imagens/tabela.png') no-repeat center center",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  height: 140,
+  width: 100,
+  cursor: 'pointer',
+  textAlign: 'center',
+    border: '1px solid gray',
+  color: theme.palette.text.secondary,
+}));
+
+export const Item4 = styled(Paper)(({ theme }) => ({
+  background: "url('/imagens/email.png') no-repeat center center",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  height: 140,
+  width: 100,
+  cursor: 'pointer',
+  textAlign: 'center',
+  border: '1px solid gray',
+  color: theme.palette.text.secondary,
+}));
+
+export const Item5 = styled(Paper)(({ theme }) => ({
+  background: "url('/imagens/imagem.png') no-repeat center center",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  height: 140,
+  width: 100,
+  cursor: 'pointer',
+  textAlign: 'center',
+    border: '1px solid gray',
+  color: theme.palette.text.secondary,
+}));

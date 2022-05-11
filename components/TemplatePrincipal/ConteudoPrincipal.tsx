@@ -27,7 +27,6 @@ import clsx from 'clsx';
 
 /* Componentes React e Next*/
 import { ReactNode, useEffect, useState } from 'react';
-import Link from 'next/link';
 import Router from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 
@@ -54,7 +53,7 @@ import { ConteudoEventos } from './ConteudoEventos';
 import ListaIcones from './ListaIcones';
 import EstruturaEventos from '../Eventos/EstruturaEventos';
 
-export default function LayoutWithMenuComponent(props:any) {
+export default function ConteudoPrincipal(props:any) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -249,9 +248,13 @@ export default function LayoutWithMenuComponent(props:any) {
           </Typography>
 
           <div className="profile-area">
-             <Link href="/" passHref>
-                <ListItem button component="a">Página principal</ListItem>
-             </Link>  
+             <ListItem 
+                onClick={() => salvarConfiguracoes('/')} 
+                button 
+                component="a"
+              >
+               Página principal
+              </ListItem>
              <Avatar alt="Gabriel David" /> 
           </div>
         </Toolbar>
@@ -280,7 +283,7 @@ export default function LayoutWithMenuComponent(props:any) {
         </div>
         <List>
           <Tooltip style={{fontSize: '5rem'}} title={configPagina[0].nomePagina} placement="right-start">
-            <ListItem onClick={() => salvarConfiguracoes('/')} button component="a">
+            <ListItem onClick={() => salvarConfiguracoes('/primeirapagina')} button component="a">
                 <ListItemIcon>
                     <ListaIcones parametro={configPagina[0].iconeId} />
                 </ListItemIcon>

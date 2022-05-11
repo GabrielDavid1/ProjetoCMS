@@ -11,7 +11,7 @@ import { setCookie } from 'nookies';
 import { useEffect } from 'react';
 
 /* Componente */
-import TemplatePrincipal from '../components/TemplatePrincipal';
+import TemplatePrincipal from '../components/TemplatePrincipal/ConteudoPrincipal';
 
 export default function segundapagina() {
   const { list, tamanho } = useList();
