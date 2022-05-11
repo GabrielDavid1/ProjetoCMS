@@ -3,8 +3,14 @@ import React from "react";
 import Router from 'next/router';
 import { Node, Edge, useNodesState, NodeChange } from 'react-flow-renderer';
 
-/* Contexto */
+/* Contextos */
 import { useConfig } from './useConfig';
+import { useList } from './useTopicos';
+import { useCache } from './useCache';
+
+/* Nookies */
+import { setCookie } from 'nookies';
+import Link from '@mui/material/Link';
 /* Tipagens */
 import { Config } from '../Importacoes/Tipagens/Tipagem';
 
@@ -113,6 +119,48 @@ export function EventProvider({ children }: Props) {
     const [ quantidadeEventos, setQuantidadeEventos ]  = React.useState<number>(listInitial.quantidadeEventos);
 
     const { configuracoes, setConfiguracoes } = useConfig();
+    const { list, tamanho } = useList();
+    const { configPagina  } = useCache();
+
+    function salvarConfiguracoes (rota: string) {
+        setCookie(null, 'LISTA', JSON.stringify(list), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'CONFIG', JSON.stringify(configuracoes), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'TAMANHO', JSON.stringify(tamanho), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'CONFIGPAGINA', JSON.stringify(configPagina), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'INITIAL_NODES', JSON.stringify(initialNodes), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'INITIAL_EDGES', JSON.stringify(initialEdges), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'NOME_TOOLTIP', JSON.stringify(nomeTooltip), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'QUERY_EVENTO', JSON.stringify(queryEvento), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        setCookie(null, 'QUANTIDADE_EVENTOS', JSON.stringify(quantidadeEventos), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });
+        Router.push(rota);
+    }
 
     function buscarQuery (id: string | undefined, tipo: boolean) {
         let index = queryEvento.findIndex(elemento => elemento.idBotao === id && elemento.ativado === tipo);
@@ -205,9 +253,9 @@ export function EventProvider({ children }: Props) {
             case 'svgColor': dado.config.svgColor = valorAlterado; break;
             case 'opacity': dado.config.opacity = valorAlterado; break;
             case 'zIndex': dado.config.zIndex = valorAlterado; break;
-            case 'primeirapagina': Router.push('primeirapagina'); break;
-            case 'segundapagina': Router.push('segundapagina'); break;
-            case 'terceirapagina': Router.push('terceirapagina'); break;
+            case 'primeirapagina': salvarConfiguracoes('/primeirapagina'); break;
+            case 'segundapagina':  salvarConfiguracoes('/segundapagina');  break;
+            case 'terceirapagina': salvarConfiguracoes('/terceirapagina'); break;
             default: dado.config.textoArea = valorAlterado; break;
         }
         setConfiguracoes([...configuracoes]);

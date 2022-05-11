@@ -19,6 +19,7 @@ type LargAltProps = {
 }
 interface ModalContextValue {
     idTotal: string,
+    statusEdicao: boolean,
     configuracoes: PropsConfig[];
     LargAlt: LargAltProps;
 
@@ -34,6 +35,7 @@ interface ModalContextValue {
     retornarTipoElemento: (id:string) => string;
 
     setarIdConfig: (id:string) => void;
+    setStatusEdicao: (status:boolean) => void;
 
     removerTudo: () => void;
     removerConfigs: (id:string) => void;
@@ -45,7 +47,7 @@ interface Props {
 
 const listInitial: ModalContextValue = {
     idTotal: '',
-
+    statusEdicao: true,
     LargAlt: {
         width: '150px',
         height: '150px'
@@ -79,6 +81,7 @@ const listInitial: ModalContextValue = {
     retornarTipoElemento:  data => '',
 
     setarIdConfig:  data => {},
+    setStatusEdicao:  data => {},
 
     removerTudo: () => {},
     removerConfigs:  data => {},
@@ -89,6 +92,7 @@ const ConfigContext = React.createContext<ModalContextValue>(listInitial);
 
 export function ConfigProvider({ children }: Props) {
     const [ idTotal, setIdTotal ] = React.useState<string>('');
+    const [ statusEdicao, setStatusEdicao ] = React.useState(true);
     const [ LargAlt, setLargAlt ] = React.useState<LargAltProps>({ width: '100px', 
                                                                  height: '100px'});
     const [ configuracoes, setConfiguracoes ] = React.useState<PropsConfig[]>([listInitial.configuracoes[0]]);
@@ -185,7 +189,7 @@ export function ConfigProvider({ children }: Props) {
                 configuracoes, buscarConfigs, LargAlt, setLargAlt,
                 setConfiguracoes, removerConfigs, removerTudo,
                 removerDeGrupo, setarIdConfig,retornarQuantidade,
-                retornarTipoElemento
+                retornarTipoElemento, statusEdicao, setStatusEdicao
             }} 
         >
         {children}
@@ -200,13 +204,13 @@ export function useConfig() {
            configuracoes, buscarConfigs, LargAlt, setLargAlt,
            setConfiguracoes, removerConfigs, removerTudo,
            removerDeGrupo,setarIdConfig,retornarQuantidade,
-           retornarTipoElemento
+           retornarTipoElemento, statusEdicao, setStatusEdicao
           } = context;
     return {  
         idTotal, setIdTotal, addConfig, addConfigNoGrupo,
         configuracoes, buscarConfigs, LargAlt, setLargAlt,
         setConfiguracoes, removerConfigs, removerTudo,
         removerDeGrupo, setarIdConfig,retornarQuantidade,
-        retornarTipoElemento
+        retornarTipoElemento, statusEdicao, setStatusEdicao
     };
 }

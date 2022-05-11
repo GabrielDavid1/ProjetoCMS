@@ -1,5 +1,8 @@
 /* React */
 import React from "react";
+
+/* Contexto */ 
+import { useConfig } from '../../../contexts/useConfig';
 interface Props {
     visibilidade: boolean;
     refLeft:React.MutableRefObject<HTMLDivElement>;
@@ -15,10 +18,11 @@ export function SelectElemento ({
    refRight,
    refBottom
 }: Props) {
+   const { statusEdicao } = useConfig();
    return (
        <>
         {
-         (visibilidade)  ? 
+         (visibilidade && statusEdicao)  ? 
          (<>
             <div ref={refLeft} className="resizer resizer-l"></div>
             <div ref={refTop} className="resizer resizer-t"></div>

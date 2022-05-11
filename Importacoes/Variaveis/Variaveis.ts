@@ -336,9 +336,6 @@ export const tiposTamanho = [
     'textAlign',
     'fontWeight',
     'svgColor',
-    'primeirapagina',
-    'segundapagina',
-    'tereirapagina',
     'opacity',
     'zIndex',
 ]

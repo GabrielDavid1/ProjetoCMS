@@ -42,7 +42,8 @@ export default function Acoes ({
              label="Resultado" 
              variant="outlined"
              value={paramQuery.param3.acao}
-             onChange={(e) => handleChange(e)} 
+             onChange={(e) => handleChange(e)}
+            sx={{ height: '40px' }}
           />
         </>
     )

@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const Elemento = forwardRef<HTMLDivElement, Props>(( { id, config }, ref ) => {
-  const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
+  const { setIdTotal, configuracoes, setConfiguracoes, statusEdicao } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
 
   function addElementoNoGrupo () {
@@ -57,7 +57,7 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( { id, config }, ref 
       <DivElemento 
           className="resizeable"  
           ref={ref} 
-          onClick={(e) => trocarLateral(e.detail)}
+          onClick={(e) => (statusEdicao) && trocarLateral(e.detail)}
       >
        <InputTexto config={config} />
       </DivElemento>

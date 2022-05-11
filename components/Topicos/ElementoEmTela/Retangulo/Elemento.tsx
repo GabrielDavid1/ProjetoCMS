@@ -39,7 +39,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    estado,
 }, ref ) => {
   const { list, ativarToggleLateral, adicionaGrupo } = useList();
-  const { setIdTotal, configuracoes, setConfiguracoes } = useConfig();
+  const { setIdTotal, configuracoes, setConfiguracoes, statusEdicao } = useConfig();
   const [visibilidade, setVisibilidade] = useState(false);
 
   function addElementoNoGrupo () {
@@ -87,7 +87,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
           className="resizeable" 
           onMouseOver={() => setVisibilidade(true)} 
           onMouseOut={() => setVisibilidade(false)}
-          onClick={(e) => trocarLateral(e.detail)}
+          onClick={(e) => (statusEdicao) && trocarLateral(e.detail)}
           bgColor={config?.bgColor}
           width={config?.width}
           height={config?.height}

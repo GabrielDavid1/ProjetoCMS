@@ -16,7 +16,12 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
 import Tooltip from '@mui/material/Tooltip';
 
-import Box from '@mui/material/Box';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
+import LeakAddIcon from '@mui/icons-material/LeakAdd';
+import LeakRemoveIcon from '@mui/icons-material/LeakRemove';
+
 /* Componente clsx*/
 import clsx from 'clsx';
 
@@ -54,10 +59,9 @@ export default function LayoutWithMenuComponent(props:any) {
   const theme = useTheme();
 
   const [open, setOpen] = useState(true);
+  const [statusConfig, setStatusConfig] = useState(true);
 
-  const { configuracoes, setConfiguracoes } = useConfig();
-  const { toggleLateral, list, setList, tamanho, setTamanho } = useList();
-
+  const { configPagina, setConfigPagina  } = useCache();
   const { setInitialNodes, setInitialEdges,
           setNomeTooltip,  setQueryEvento,
           initialNodes, initialEdges,
@@ -65,8 +69,12 @@ export default function LayoutWithMenuComponent(props:any) {
           quantidadeEventos, setQuantidadeEventos,
         } = useEvent();
 
-  const { configPagina, setConfigPagina  } = useCache();
+  const { configuracoes, setConfiguracoes, 
+          statusEdicao, setStatusEdicao
+        } = useConfig();
 
+  const { toggleLateral, list, setList, tamanho, setTamanho } = useList();
+  
   useEffect(() => {
     if (nookies.get().LISTA !== undefined) {
         setList(JSON.parse(nookies.get().LISTA));
@@ -297,6 +305,33 @@ export default function LayoutWithMenuComponent(props:any) {
                 <ListItemText primary="" />
             </ListItem>
           </Tooltip>
+          
+          <Tooltip 
+            title={statusConfig ? 'Esconder Área de Configurações' : 'Mostrar Área de Configurações'} 
+            style={{fontSize: '5rem'}}
+            placement="right-start"
+          >
+            <ListItem  onClick={() => setStatusConfig(!statusConfig)}  button component="a">
+                <ListItemIcon>
+                    {statusConfig ? <RemoveRedEyeIcon /> : <VisibilityOffIcon />}
+                </ListItemIcon>
+                <ListItemText primary="" />
+            </ListItem>
+          </Tooltip>          
+
+          <Tooltip
+            title={statusEdicao ? 'Desatvar Seleção Editar' : 'Ativar Seleção Editar' }
+            style={{fontSize: '5rem'}} 
+            placement="right-start"
+          >
+            <ListItem  onClick={() => setStatusEdicao(!statusEdicao)}  button component="a">
+                <ListItemIcon>
+                    {statusEdicao ? <LeakAddIcon /> : <LeakRemoveIcon />}
+                </ListItemIcon>
+                <ListItemText primary="" />
+            </ListItem>
+          </Tooltip>  
+
           <ModalConfig nomeDaPagina={props.pagina} />
         </List>
       </Drawer>
@@ -305,9 +340,10 @@ export default function LayoutWithMenuComponent(props:any) {
       })}> 
           <div className={classes.drawerHeader} />
           {!toggleLateral.eventos && <ConteudoElementos paginaAtual={props.pagina} />}
-          {toggleLateral.eventos  && <ConteudoEventos nomePagina={props.pagina} />} 
+          {toggleLateral.eventos  && <ConteudoEventos nomePagina={props.pagina}    />} 
       </main>
       
+      {statusConfig &&
       <div className="makeStyles-appBar-3"> 
         <div className="config">
           <ToggleBotao nomePagina={props.pagina}/>
@@ -316,6 +352,7 @@ export default function LayoutWithMenuComponent(props:any) {
           { toggleLateral.eventos   && <EstruturaEventos nomePagina={props.pagina}   />}
         </div>
       </div>
+      }
     </div>
   );
 }
