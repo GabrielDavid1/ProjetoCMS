@@ -13,15 +13,12 @@ type PropsConfig = {
 
 export function ModificarTexto ({ elemento }: PropsConfig) {
     const { configuracoes, setConfiguracoes } = useConfig();
-    const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
 
     const [valor, setValor] = useState(elemento.textoArea);
 
     function mudarPropriedades (event = {} as React.ChangeEvent<HTMLTextAreaElement>) {
         elemento.textoArea = event.target.value;            
         setConfiguracoes([...configuracoes]);
-
-        console.log(event.target.value);
         setValor(event.target.value);
     }
 

@@ -15,10 +15,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import MenuIcon from '@material-ui/icons/Menu';
 import Tooltip from '@mui/material/Tooltip';
-
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
 import LeakAddIcon from '@mui/icons-material/LeakAdd';
 import LeakRemoveIcon from '@mui/icons-material/LeakRemove';
 
@@ -45,6 +43,12 @@ import { useEvent } from '../../contexts/useEvent';
 /* Funções */
 import { useStyles } from '../../Importacoes/Funcoes/Funcoes';
 import { ToggleBotao } from './ToggleBotao';
+
+/* Variaveis */
+import { 
+  cardLista, cardConfig, tabelaLista, tabelaConfig,
+  imagemLista, imagemConfig, emailLista, emailConfig,
+} from '../../Importacoes/Variaveis/Variaveis';
 
 /* nookies */
 import { setCookie, parseCookies } from 'nookies';
@@ -172,6 +176,27 @@ export default function ConteudoPrincipal(props:any) {
           path: '/', 
         });
     }
+    if(props.pagina === 'Template') {
+      switch (props.tipo) {
+        case 'card':
+          setList(cardLista);
+          setConfiguracoes(cardConfig);
+        break;
+        case 'tabela':
+          setList(tabelaLista);
+          setConfiguracoes(tabelaConfig);
+        break;
+        case 'imagem':
+          setList(imagemLista);
+          setConfiguracoes(imagemConfig);
+        break;
+        case 'email':
+          setList(emailLista);
+          setConfiguracoes(emailConfig);
+        break;
+      }
+      setOpen(false);
+   }
   }, []);
 
   const handleDrawerOpen = () => {
@@ -221,7 +246,6 @@ export default function ConteudoPrincipal(props:any) {
     });
     Router.push(rota);
   }
-
   return (
     <div className={classes.root}>
       <AppBar
@@ -231,6 +255,7 @@ export default function ConteudoPrincipal(props:any) {
         })}
       >
         <Toolbar>
+          {(props.pagina !== 'Template') &&
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -240,11 +265,13 @@ export default function ConteudoPrincipal(props:any) {
           >
             <MenuIcon />
           </IconButton>
-
+          }
           <Typography variant="h6" noWrap>
             {props.pagina === "primeiraPagina" && configPagina[0].nomePagina}
             {props.pagina === "segundaPagina" && configPagina[1].nomePagina}
             {props.pagina === "terceiraPagina" && configPagina[2].nomePagina}
+            {props.pagina === "Template Card" && "Template Card"}
+            {props.pagina === "Template" && "Template"}
           </Typography>
 
           <div className="profile-area">

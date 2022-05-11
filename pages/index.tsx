@@ -63,7 +63,7 @@ export default function Principal() {
     
       <div className="AreaIniciar"> 
           <div className="blocoTitulo">
-              <p> Iniciar um novo projeto </p>
+              <p> Exemplos de uso em projeto </p>
           </div>
           <Grid sx={{ flexGrow: 1, height: '13rem' }} container spacing={2}>
             <Grid item xs={12}>
@@ -71,21 +71,21 @@ export default function Principal() {
                    container
                    justifyContent="center" 
                    spacing={spacing}
-                   sx={{ height: '13rem' }}
+                   sx={{ height: '12rem' }}
                 >
                 <Grid item>
-                    <Item1 onClick={() => Router.push('/primeirapagina')} >Novo</Item1>
+                    <Item1 onClick={() => Router.push('/primeirapagina')}></Item1>
                 </Grid>
-                <Grid item>
+                <Grid item onClick={() => Router.push('/template_card')}>
                     <Item2></Item2>
                 </Grid>
-                <Grid item>
+                <Grid item onClick={() => Router.push('/template_tabela')}>
                     <Item3></Item3>
                 </Grid>
-                <Grid item>
+                <Grid item onClick={() => Router.push('/template_email')}>
                     <Item4></Item4>
                 </Grid>
-                <Grid item>
+                <Grid item onClick={() => Router.push('/template_imagem')}>
                     <Item5></Item5>
                 </Grid>
                 </Grid>

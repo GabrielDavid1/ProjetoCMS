@@ -66,5 +66,5 @@ export default function terceirapagina() {
     });
   }, [list, configuracoes, configPagina, initialNodes, initialEdges, nomeTooltip, queryEvento, quantidadeEventos]);
 
-  return <TemplatePrincipal pagina="terceiraPagina" />
+  return <TemplatePrincipal pagina="terceiraPagina"  tipo="Normal" />
 }

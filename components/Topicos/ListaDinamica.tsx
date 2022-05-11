@@ -38,7 +38,7 @@ export function ListaDinamica ({ nomePagina }:Props) {
          selected, setSelected,
          expanded, setExpanded
     } = useList();
-    const { addConfigNoGrupo, setarIdConfig } = useConfig();
+    const { addConfigNoGrupo, setarIdConfig, configuracoes } = useConfig();
     const { quantidadeEventos } = useEvent();
 
     const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {

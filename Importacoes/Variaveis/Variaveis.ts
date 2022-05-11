@@ -362,8 +362,11 @@ export const Item1 = styled(Paper)(({ theme }) => ({
   width: 100,
   cursor: 'pointer',
   textAlign: 'center',
-    border: '1px solid gray',
+  border: '1px solid gray',
   color: theme.palette.text.secondary,
+  '&:hover': {
+    border: '1px solid #3f51b5'
+  },
 }));
 
 export const Item2 = styled(Paper)(({ theme }) => ({
@@ -374,8 +377,11 @@ export const Item2 = styled(Paper)(({ theme }) => ({
   width: 100,
   cursor: 'pointer',
   textAlign: 'center',
-    border: '1px solid gray',
+  border: '1px solid gray',
   color: theme.palette.text.secondary,
+  '&:hover': {
+    border: '1px solid #3f51b5'
+  },
 }));
 
 export const Item3 = styled(Paper)(({ theme }) => ({
@@ -386,8 +392,11 @@ export const Item3 = styled(Paper)(({ theme }) => ({
   width: 100,
   cursor: 'pointer',
   textAlign: 'center',
-    border: '1px solid gray',
+  border: '1px solid gray',
   color: theme.palette.text.secondary,
+    '&:hover': {
+    border: '1px solid #3f51b5'
+  },
 }));
 
 export const Item4 = styled(Paper)(({ theme }) => ({
@@ -400,6 +409,9 @@ export const Item4 = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   border: '1px solid gray',
   color: theme.palette.text.secondary,
+  '&:hover': {
+    border: '1px solid #3f51b5'
+  },
 }));
 
 export const Item5 = styled(Paper)(({ theme }) => ({
@@ -410,6 +422,494 @@ export const Item5 = styled(Paper)(({ theme }) => ({
   width: 100,
   cursor: 'pointer',
   textAlign: 'center',
-    border: '1px solid gray',
+  border: '1px solid gray',
   color: theme.palette.text.secondary,
+  '&:hover': {
+    border: '1px solid #3f51b5'
+  },
 }));
+
+/* Template CARD */
+export const cardLista = [
+  {
+    id: 'root',
+    name: "Sua árvore de tópicos adicionados",
+    tipoCache: "Template",
+    children: [
+      {
+        id: '0.9',
+        tipoCache: "padrao",
+        name: '',
+        children: [],
+      },
+      {
+        children: [],
+        id: "20",
+        name: "cabeçalho",
+        tipoCache: "Template",
+      },
+      {
+        children: [],
+        id: "21",
+        name: "corpo",
+        tipoCache: "Template",
+      },
+      {
+        children: [],
+        id: "22",
+        name: "Titulo",
+        tipoCache: "Template",
+      },
+      {
+        children: [],
+        id: "23",
+        name: "Conteudo",
+        tipoCache: "Template",
+      },
+    ]
+  }
+];
+
+export const cardConfig = [
+  {
+    id: "20",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Retangulo",
+    config: {
+      bgColor: "orange",
+      borderRadius: "20px",
+      boxShadow: "0px 0px 0px",
+      colorBorder: "#rrggbb",
+      height: "94px",
+      multiSelect: false,
+      opacity: "1",
+      pxBorder: "1px",
+      tipo: "Retangulo",
+      typeBorder: "3",
+      width: "343px",
+      x: 362,
+      y: 186,
+      zIndex: "1",
+    }
+  },
+  {
+    id: "21",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Retangulo",
+    config: {
+      bgColor: "#fffefb",
+      borderRadius: "0px",
+      boxShadow: "0px 0px 0px",
+      colorBorder: "#rrggbb",
+      height: "107px",
+      multiSelect: false,
+      opacity: "1",
+      pxBorder: "1px",
+      tipo: "Retangulo",
+      typeBorder: "3",
+      width: "344px",
+      x: 362,
+      y: 225,
+      zIndex: "1",
+    }
+  },
+  {
+    id: "22",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Text",
+    config: {
+      bgColor: "#422605",
+      display: "block",
+      fontFamily: "Arial",
+      fontSize: "2em",
+      fontWeight: "bold",
+      marginBlockEnd: "0.67em",
+      marginBlockStart: "0.67em",
+      marginInlineEnd: "0px",
+      marginInlineStart: "0px",
+      multiSelect: false,
+      opacity: "1",
+      textAlign: "center",
+      textoArea: "Titulo",
+      tipo: "Text",
+      webkitTextStroke: "none",
+      x: 375,
+      y: 164,
+      zIndex: "1",
+    }
+  },
+  {
+    id: "23",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Text",
+    config: {
+      bgColor: "black",
+      display: "none",
+      fontFamily: "Arial",
+      fontSize: "5rem",
+      fontWeight: "none",
+      marginBlockEnd: "none",
+      marginBlockStart: "none",
+      marginInlineEnd: "none",
+      marginInlineStart: "none",
+      multiSelect: false,
+      opacity: "1",
+      textAlign: "none",
+      textoArea: "Card",
+      tipo: "Text",
+      webkitTextStroke: "none",
+      x: 440,
+      y: 228,
+      zIndex: "1",
+    }
+  },
+]; 
+
+/* Template Tabela */
+export const tabelaLista = [
+  {
+    id: 'root',
+    name: "Sua árvore de tópicos adicionados",
+    tipoCache: "Template",
+    children: [
+      {
+        id: '0.9',
+        tipoCache: "padrao",
+        name: '',
+        children: [],
+      },
+      {
+        children: [],
+        id: "1",
+        name: "Fundo",
+        tipoCache: "Template",
+      },
+      {
+        children: [],
+        id: "2",
+        name: "Titulo",
+        tipoCache: "Template",
+      },
+      {
+        children: [],
+        id: "3",
+        name: "Conteudo",
+        tipoCache: "Template",
+      },
+    ]
+  }
+];
+
+export const tabelaConfig = [
+ {
+  id: "1",
+  idGrupo: "0",
+  tipoCache: "Template",
+  type: "Retangulo",
+  config: {
+    bgColor: "#fdfdfd",
+    borderRadius: "0px",
+    boxShadow: "1px 1px 5px",
+    colorBorder: "#404040",
+    height: "314px",
+    multiSelect: false,
+    opacity: "1",
+    pxBorder: "1px",
+    tipo: "Retangulo",
+    typeBorder: "solid",
+    width: "295px",
+    x: 520,
+    y: 165,
+    zIndex: "1",
+  },
+ },
+ {
+  id: "2",
+  idGrupo: "0",
+  tipoCache: "Template",
+  type: "Text",
+  config: {
+    bgColor: "black",
+    display: "none",
+    fontFamily: "Arial",
+    fontSize: "5rem",
+    fontWeight: "none",
+    marginBlockEnd: "none",
+    marginBlockStart: "none",
+    marginInlineEnd: "none",
+    marginInlineStart: "none",
+    multiSelect: false,
+    opacity: "1",
+    textAlign: "none",
+    textoArea: "Titulo",
+    tipo: "Text",
+    webkitTextStroke: "none",
+    x: 538,
+    y: 162,
+    zIndex: "1",
+  },
+ },
+ {
+  id: "3",
+  idGrupo: "0",
+  tipoCache: "Template",
+  type: "Text",
+  config: {
+    bgColor: "#3a3737",
+    display: "none",
+    fontFamily: "Arial",
+    fontSize: "3rem",
+    fontWeight: "none",
+    marginBlockEnd: "none",
+    marginBlockStart: "none",
+    marginInlineEnd: "none",
+    marginInlineStart: "none",
+    multiSelect: false,
+    opacity: "1",
+    textAlign: "none",
+    textoArea: "Conteudo",
+    tipo: "Text",
+    webkitTextStroke: "none",
+    x: 562,
+    y: 319,
+    zIndex: "1",
+  },
+ },
+]; 
+
+/* Template Imagem */
+export const imagemLista = [
+  {
+    id: 'root',
+    name: "Sua árvore de tópicos adicionados",
+    tipoCache: "Template",
+    children: [
+      {
+        id: '0.9',
+        tipoCache: "padrao",
+        name: '',
+        children: [],
+      },
+      {
+        children: [],
+        id: "1",
+        name: "Fundo",
+        tipoCache: "Template",
+      },
+      {
+        children: [],
+        id: "2",
+        name: "Imagem",
+        tipoCache: "Template",
+      },
+    ]
+  }
+];
+
+export const imagemConfig = [
+  {
+    id: "1",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Retangulo",
+    config: {
+      bgColor: "#fcfcfc",
+      borderRadius: "0px",
+      boxShadow: "0px 0px 0px",
+      colorBorder: "#424242",
+      height: "323px",
+      multiSelect: false,
+      opacity: "1",
+      pxBorder: "1px",
+      tipo: "Retangulo",
+      typeBorder: "solid",
+      width: "642px",
+      x: 370,
+      y: 204,
+      zIndex: "1",
+    },  
+  },
+  {
+    id: "2",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Imagem",
+    config: {
+      height: "auto",
+      multiSelect: false,
+      opacity: "1",
+      statusImagem: false,
+      tipo: "Imagem",
+      width: "auto",
+      x: 639,
+      y: 329,
+      zIndex: "1",
+    }
+  },
+];
+
+/* Template Email */
+export const emailLista = [
+  {
+    id: 'root',
+    name: "Sua árvore de tópicos adicionados",
+    tipoCache: "Template",
+    children: [
+       {
+        children: [],
+        id: "1",
+        name: "Fundo",
+        tipoCache: "Template",
+       },
+       {
+        children: [],
+        id: "2",
+        name: "Divisor",
+        tipoCache: "Template",
+       },   
+       {
+        children: [],
+        id: "3",
+        name: "Titulo",
+        tipoCache: "Template",
+       }, 
+       {
+        children: [],
+        id: "4",
+        name: "Input",
+        tipoCache: "Template",
+       },
+       {
+        children: [],
+        id: "5",
+        name: "Botao",
+        tipoCache: "Template",
+       },
+    ],
+  }, 
+];
+
+export const emailConfig = [
+  {
+    id: "1",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Retangulo",
+    config: {
+      bgColor: "#ffffff",
+      borderRadius: "0px",
+      boxShadow: "0px 0px 0px",
+      colorBorder: "#5c5c5c",
+      height: "401px",
+      multiSelect: false,
+      opacity: "1",
+      pxBorder: "1px",
+      tipo: "Retangulo",
+      typeBorder: "solid",
+      width: "687px",
+      x: 293,
+      y: 136,
+      zIndex: "1",
+    },
+  },
+  {
+    id: "2",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Retangulo",
+    config: {
+      bgColor: "#817f7c",
+      borderRadius: "0px",
+      boxShadow: "0px 0px 0px",
+      colorBorder: "#rrggbb",
+      height: "4px",
+      multiSelect: false,
+      opacity: "1",
+      pxBorder: "1px",
+      tipo: "Retangulo",
+      typeBorder: "3",
+      width: "686px",
+      x: 293,
+      y: 225,
+      zIndex: "1",
+    },
+  },
+  {
+    id: "3",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Text",
+    config: {
+      bgColor: "#383737",
+      display: "none",
+      fontFamily: "Arial",
+      fontSize: "4rem",
+      fontWeight: "none",
+      marginBlockEnd: "none",
+      marginBlockStart: "none",
+      marginInlineEnd: "none",
+      marginInlineStart: "none",
+      multiSelect: false,
+      opacity: "1",
+      textAlign: "none",
+      textoArea: "Digite seu email",
+      tipo: "Text",
+      webkitTextStroke: "none",
+      x: 393,
+      y: 133,
+      zIndex: "1",
+    },
+  },
+  {
+    id: "4",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Input",
+    config: {
+      bgColor: "red",
+      fontSize: "4rem",
+      height: "61px",
+      multiSelect: false,
+      opacity: "1",
+      textoArea: "",
+      tipo: "Input",
+      tipoCache: "padrao",
+      width: "582px",
+      x: 343,
+      y: 310,
+      zIndex: "1",
+    },
+  },
+  {
+    id: "5",
+    idGrupo: "0",
+    tipoCache: "Template",
+    type: "Botao",
+    config: {
+      bgColor: "white",
+      borderRadius: "0px",
+      botaoTitulo: "ENVIAR",
+      colorBorder: "#5f95f1",
+      fontColor: "#1976d2",
+      fontSize: "2rem",
+      height: "65px",
+      left: "0px",
+      modeloBotao: "none",
+      multiSelect: false,
+      opacity: "1",
+      pxBorder: "1px",
+      svgColor: "rgba(0, 0, 0, 0.26)",
+      tipo: "Botao",
+      top: "0px",
+      typeBorder: "solid",
+      width: "582px",
+      x: 344,
+      y: 419,
+      zIndex: "1",
+    },
+  },
+];

@@ -66,5 +66,5 @@ export default function segundapagina() {
     });
   }, [list, configuracoes, configPagina, initialNodes, initialEdges, nomeTooltip, queryEvento, quantidadeEventos]);
 
-  return <TemplatePrincipal pagina="segundaPagina" />
+  return <TemplatePrincipal pagina="segundaPagina" tipo="Normal" />
 }

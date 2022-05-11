@@ -66,5 +66,5 @@ export default function primeirapagina() {
     });
   }, [list, configuracoes, configPagina, initialNodes, initialEdges, nomeTooltip, queryEvento, quantidadeEventos]);
 
-  return <TemplatePrincipal pagina="primeiraPagina" />
+  return <TemplatePrincipal pagina="primeiraPagina" tipo="normal" />
 }
