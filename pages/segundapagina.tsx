@@ -2,6 +2,7 @@
 import { useList } from '../contexts/useTopicos';
 import { useConfig } from '../contexts/useConfig';
 import { useCache } from '../contexts/useCache';
+import { useEvent } from '../contexts/useEvent';
 
 /* Nookies */
 import { setCookie } from 'nookies';
@@ -16,6 +17,12 @@ export default function segundapagina() {
   const { list, tamanho } = useList();
   const { configuracoes } = useConfig();
   const { configPagina } = useCache();
+  const { initialNodes, 
+          initialEdges,
+          nomeTooltip,
+          queryEvento,
+          quantidadeEventos,
+        } = useEvent();
 
   useEffect(() => {
     window.addEventListener('beforeunload', function (e) {
@@ -36,8 +43,28 @@ export default function segundapagina() {
       { maxAge: 86400 * 7,
         path: '/', 
       });
+      setCookie(null, 'INITIAL_NODES', JSON.stringify(initialNodes), 
+      { maxAge: 86400 * 7,
+        path: '/', 
+      });
+      setCookie(null, 'INITIAL_EDGES', JSON.stringify(initialEdges), 
+      { maxAge: 86400 * 7,
+        path: '/', 
+      });
+      setCookie(null, 'NOME_TOOLTIP', JSON.stringify(nomeTooltip), 
+      { maxAge: 86400 * 7,
+        path: '/', 
+      });
+      setCookie(null, 'QUERY_EVENTO', JSON.stringify(queryEvento), 
+      { maxAge: 86400 * 7,
+        path: '/', 
+      });
+      setCookie(null, 'QUANTIDADE_EVENTOS', JSON.stringify(quantidadeEventos), 
+      { maxAge: 86400 * 7,
+        path: '/', 
+      });
     });
-  }, [list, configuracoes, configPagina]);
+  }, [list, configuracoes, configPagina, initialNodes, initialEdges, nomeTooltip, queryEvento, quantidadeEventos]);
 
   return <TemplatePrincipal pagina="segundaPagina" />
 }

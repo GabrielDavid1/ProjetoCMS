@@ -64,7 +64,7 @@ interface Props {
 const listInitial: ModalContextValue = {
     queryEvento: [{
         idBotao: '',
-        evento: '',
+        evento:  '',
         condicao: {
             par1: '',
             par2: '',
@@ -106,7 +106,7 @@ const EventContext = React.createContext<ModalContextValue>(listInitial);
 export function EventProvider({ children }: Props) {
     const [ initialNodes, setInitialNodes, onNodesChange ]  = useNodesState(listInitial.initialNodes);
     const [ initialEdges, setInitialEdges ]  = React.useState(listInitial.initialEdges);
-    const [nomeTooltip, setNomeTooltip] = React.useState<string[]>([]);
+    const [ nomeTooltip, setNomeTooltip ] = React.useState<string[]>([]);
 
     const [ queryEvento, setQueryEvento ] = React.useState<PropsEvento[]>(listInitial.queryEvento);
 
