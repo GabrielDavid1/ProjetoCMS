@@ -25,6 +25,7 @@ import nookies from 'nookies';
 import { GetServerSidePropsContext } from 'next';
 
 /* Estilização de templates */
+//@ts-ignore
 export const Item1 = styled(Paper)(({ theme }) => ({
   background: "url('/imagens/add.png') no-repeat center center",
   ...theme.typography.body2,
@@ -39,7 +40,7 @@ export const Item1 = styled(Paper)(({ theme }) => ({
     border: '1px solid #3f51b5'
   },
 }));
-
+//@ts-ignore
 export const Item2 = styled(Paper)(({ theme }) => ({
   background: "url('/imagens/card.png') no-repeat center center",
   ...theme.typography.body2,
@@ -54,7 +55,7 @@ export const Item2 = styled(Paper)(({ theme }) => ({
     border: '1px solid #3f51b5'
   },
 }));
-
+//@ts-ignore
 export const Item3 = styled(Paper)(({ theme }) => ({
   background: "url('/imagens/tabela.png') no-repeat center center",
   ...theme.typography.body2,
@@ -69,7 +70,7 @@ export const Item3 = styled(Paper)(({ theme }) => ({
     border: '1px solid #3f51b5'
   },
 }));
-
+//@ts-ignore
 export const Item4 = styled(Paper)(({ theme }) => ({
   background: "url('/imagens/email.png') no-repeat center center",
   ...theme.typography.body2,
@@ -84,7 +85,7 @@ export const Item4 = styled(Paper)(({ theme }) => ({
     border: '1px solid #3f51b5'
   },
 }));
-
+//@ts-ignore
 export const Item5 = styled(Paper)(({ theme }) => ({
   background: "url('/imagens/imagem.png') no-repeat center center",
   ...theme.typography.body2,
