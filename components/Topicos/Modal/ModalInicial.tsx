@@ -47,7 +47,7 @@ export default function ModalInicial({ open, setOpen }:Propriedades) {
           <Box sx={style}>
             <img src="/imagens/paginainicial.gif" alt="Pagina Inicial" />
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Bem vindo ao sisema cms, gerenciador e projetor de elementos / conteúdo.
+              Bem vindo ao sisema cms, gerenciador e projetor de elementos / conteúdo.👩‍💻
             </Typography>
           </Box>
         </Fade>
