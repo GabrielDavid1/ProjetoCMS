@@ -17,7 +17,7 @@ em fim concluir esse que pra mim foi um grande desafio ao longo desses 2 meses d
 - React Flow
 - Lógica E-C-A
 
-## 🚀 Getting Started
+## 🚀 Começando
 
 Rodar o servidor
 ```bash
