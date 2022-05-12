@@ -6,6 +6,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@mui/material/Grid';
 import Router from 'next/router';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 /* Componente clsx*/
 import clsx from 'clsx';
@@ -17,46 +20,22 @@ import { useState } from 'react';
 import { useStyles } from '../Importacoes/Funcoes/Funcoes';
 import { Item1, Item2, Item3, Item4, Item5 } from '../Importacoes/Variaveis/Variaveis';
 
+import  ImagensProjeto from '../components/TemplatePrincipal/ImagensProjeto/index';
+
 export default function Principal() {
   const classes = useStyles();
 
   const [spacing, setSpacing] = useState(2);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSpacing(Number((event.target as HTMLInputElement).value));
-  };
-    
-  const [open, setOpen] = useState(true);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   return (
     <div 
       id="paginaInicial"
       className={classes.root}
     >
-      <AppBar
-        position="fixed"
-  
-      >
+      <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" noWrap>
-            Pagina Inicial
+            Projeto CMS | Gabriel David da Silva
           </Typography>
         </Toolbar>
       </AppBar>
@@ -93,8 +72,18 @@ export default function Principal() {
           </Grid>
       </div>
       <div className="AreaProjeto"> 
-          <h1> Pagina Inicial KKKKKKK</h1>
+          <div className="blocoTitulo">
+              <h1> Documentação do Projeto </h1>
+          </div>
+          <ImagensProjeto />
       </div>    
+      <footer className="AreaRodape">
+          <div className="iconesRodape">
+            <GitHubIcon onClick={() => Router.push('https://github.com/GabrielDavid1/ProjetoCMS')} />
+            <LinkedInIcon onClick={() => Router.push('https://www.linkedin.com/in/gabrieldavidsilva/')} />
+            <WhatsAppIcon onClick={() => Router.push('https://wa.me/5548984791459')} />
+          </div>
+      </footer>
     </div>
   );
 }
