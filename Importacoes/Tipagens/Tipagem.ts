@@ -19,6 +19,7 @@ export interface List {
     evt?: Event,
     children: List[]
 }
+
 import { ApexOptions } from 'apexcharts';
 export interface Config {
     tipo?: string;
