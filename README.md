@@ -53,6 +53,22 @@ tipoCache - Elemento para ter controle da lista entre as páginas.<br />
 idGrupo - Identificador para descobrir se o elemente participa de algum grupo no momento de remover.<br />
 config - Carrega as configurações.<br />
 
+## useEvent
+idBotao: Auto Explicativo.<br />
+evento: Tipo de evento, o sistema foi criado apenas para ter o click, mas pode ser adicioando também focus, hover e etc.<br />
+nomeAlvo?: Gurda o nome do elemento que será modificado para que apareça na função de tooltips no canto inferior esqurdo<br />
+condicao: {<br />
+    par1: Mantem uma condição em string, EX: "ELEMENTO1 WIDTH === "ELEMENTO2 WIDTH2" <br />
+    par2: Possui as condições, maior, menor, maior que, menor que, diferente, igual etc.<br />
+    par3: Mantem uma condição em string, EX: "ELEMENTO1 WIDTH === "ELEMENTO2 WIDTH2" <br />
+}<br />
+acao: {<br />
+    id: Identificador do Alvo a ser alterado<br />
+    tipo: Qual parametro vai ser alterado, width, height, bgColor, etc<br />;
+    alterado: Valor para alterar;<br />
+},<br />
+ativado: Idenfificador para que não ative qualquer botão que seja criado.<br />
+
 ## Ler mais na documentação do next js
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
