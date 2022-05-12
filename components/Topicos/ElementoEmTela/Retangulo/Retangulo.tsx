@@ -25,7 +25,6 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
   const { configuracoes } = useConfig();
 
   const [estado, setEstado] = useState(false);
-
   const [estadoWH, setEstadoWH] = useState({width: '150px', 
                                             height: '150px'});                                         
 
@@ -193,6 +192,7 @@ export const Retangulo = ({ id, config }: PropsComponentes) => {
         refBottom={refBottom}
         config={config}
         estado={estado}
+        setEstado={setEstado}
       />
   );
 }

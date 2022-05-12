@@ -1,5 +1,5 @@
 /* React */
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 
 /* Contexto */
 import dynamic from 'next/dynamic';
@@ -17,7 +17,6 @@ let Draggable = require('react-draggable');
 /* Divs */
 import DivElemento from './DivElemento';
 
-
 interface Props {
     id: string;
     width: string;
@@ -28,6 +27,7 @@ interface Props {
     refBottom:React.MutableRefObject<HTMLDivElement>; 
     config?: Config;
     estado: boolean;
+    setEstado: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Chart = dynamic(() => import('react-apexcharts'), {
@@ -44,11 +44,16 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    refBottom,
    config,
    estado,
+   setEstado,
 }, ref ) => {
   const { setIdTotal, configuracoes, setConfiguracoes, statusEdicao } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
 
   const [visibilidade, setVisibilidade] = useState(false);
+
+  useEffect(() => {
+    (statusEdicao === false) ? setEstado(true) : setEstado(false);
+ }, [statusEdicao]);
 
   function addElementoNoGrupo () {
       if (adicionaGrupo === false) {

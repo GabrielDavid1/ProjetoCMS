@@ -9,9 +9,8 @@ import { useConfig } from '../../../../contexts/useConfig';
 import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
 let Draggable = require('react-draggable');
 
-/* Divs */
-import DivElemento from './DivElemento';
-import { InputTexto } from './InputTexto';
+/* Div */
+import Paragrafo from './Paragrafo';
 
 interface Props {
     id: string;
@@ -50,17 +49,30 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( { id, config }, ref 
 
   return (
   <Draggable
+    disabled={!statusEdicao} 
     onStop={setarTransform}
     defaultPosition={{x: config?.x, y: config?.y}}
   >  
     <div>
-      <DivElemento 
+      <Paragrafo 
           className="resizeable"  
           ref={ref} 
           onClick={(e) => (statusEdicao) && trocarLateral(e.detail)}
-      >
-       <InputTexto config={config} />
-      </DivElemento>
+          display="none"
+          bgColor={config?.bgColor}
+          fontSize={config?.fontSize}
+          fontFamily={config?.fontFamily}
+          marginBlockStart = {config?.marginBlockStart}
+          marginBlockEnd = {config?.marginBlockEnd}
+          marginInlineStart = {config?.marginInlineStart}
+          marginInlineEnd = {config?.marginInlineEnd}
+          fontWeight = {config?.fontWeight}
+          webkitTextStroke = {config?.webkitTextStroke}
+          opacity={config?.opacity}
+          zIndex={config?.zIndex}
+        > 
+          {config?.textoArea}
+      </Paragrafo>
     </div>
     </Draggable>
   )

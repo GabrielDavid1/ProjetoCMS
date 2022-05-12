@@ -15,7 +15,6 @@ let Draggable = require('react-draggable');
 import DivElemento from './DivElemento';
 import { UploadImagem } from './UploadImagem';
 
-
 interface Props {
     id: string;
     config?: Config;
@@ -62,6 +61,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
 
   return (
     <Draggable
+      disabled={!statusEdicao}
       onStop={setarTransform}
       defaultPosition={{x: config?.x, y: config?.y}}
     > 

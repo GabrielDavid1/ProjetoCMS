@@ -1,5 +1,5 @@
 /* React */
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 
 /* Framework Style Component */
 import styled from 'styled-components';
@@ -29,7 +29,7 @@ interface Props {
     config?: Config;
     children?: React.ReactNode;
     estado: boolean;
-    estadoTransform: string;
+    setEstado: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
@@ -42,13 +42,16 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    refBottom,
    config,
    estado,
-   estadoTransform,
+   setEstado,
 }, ref ) => {
   const { setIdTotal, configuracoes, setConfiguracoes, statusEdicao } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
   
   const [visibilidade, setVisibilidade] = useState(false);
-  const [valor, setValor] = useState(config?.textoArea);
+
+  useEffect(() => {
+    (statusEdicao === false) ? setEstado(true) : setEstado(false);
+ }, [statusEdicao]);
 
   function addElementoNoGrupo () {
       if (adicionaGrupo === false) {

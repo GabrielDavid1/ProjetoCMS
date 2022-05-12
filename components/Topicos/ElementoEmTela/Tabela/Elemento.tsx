@@ -56,6 +56,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(({
 
   return (
   <Draggable
+    disabled={!statusEdicao} 
     onStop={setarTransform}
     defaultPosition={{x: config?.x, y: config?.y}}
   >  

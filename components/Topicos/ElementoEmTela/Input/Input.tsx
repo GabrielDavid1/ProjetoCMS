@@ -7,7 +7,6 @@ import { Elemento } from './Elemento';
 
 /* Tipagens e Variaveis */
 import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
-import { propriedadeEstilo } from '../../../../Importacoes/Variaveis/Variaveis';
 
 interface PropsComponentes {
   id: string;
@@ -15,7 +14,6 @@ interface PropsComponentes {
 }
 
 export const Input = ({ id, config }: PropsComponentes) => {
-  const refPrincipal = useRef<HTMLDivElement>({} as HTMLDivElement);
   const ref = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refLeft = useRef<HTMLDivElement>({} as HTMLDivElement);
   const refTop = useRef<HTMLDivElement>({} as HTMLDivElement);
@@ -27,7 +25,7 @@ export const Input = ({ id, config }: PropsComponentes) => {
   const [estado, setEstado] = useState(false);
   const [estadoWH, setEstadoWH] = useState({width: '150px', 
                                             height: '150px'});
-  const [estadoTransform, setEstadoTransform] = useState('');  
+  
   useEffect(() => {
     const resizeableEle = ref.current;
     const styles = window.getComputedStyle(resizeableEle); 
@@ -193,7 +191,7 @@ export const Input = ({ id, config }: PropsComponentes) => {
       refBottom={refBottom}
       config={config}
       estado={estado}
-      estadoTransform={estadoTransform}
+      setEstado={setEstado}
     />
   );
 }

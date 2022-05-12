@@ -191,6 +191,7 @@ export const Grafico = ({ id, config }: PropsComponentes) => {
       refBottom={refBottom}
       config={config}
       estado={estado}
+      setEstado={setEstado}
     />
   );
 }

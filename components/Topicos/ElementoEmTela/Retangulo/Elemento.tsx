@@ -1,5 +1,5 @@
 /* React */
-import React, { useState, forwardRef } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 
 /* Contexto */
 import { useList } from '../../../../contexts/useTopicos';
@@ -25,6 +25,7 @@ interface Props {
     refBottom:React.MutableRefObject<HTMLDivElement>; 
     config?: Config;
     estado: boolean;
+    setEstado: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
@@ -37,15 +38,20 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    refBottom,
    config,
    estado,
+   setEstado,
 }, ref ) => {
-  const { list, ativarToggleLateral, adicionaGrupo } = useList();
+  const { ativarToggleLateral, adicionaGrupo } = useList();
   const { setIdTotal, configuracoes, setConfiguracoes, statusEdicao } = useConfig();
   const [visibilidade, setVisibilidade] = useState(false);
 
+  useEffect(() => {
+     (statusEdicao === false) ? setEstado(true) : setEstado(false);
+  }, [statusEdicao]);
+  
   function addElementoNoGrupo () {
-      if (adicionaGrupo === false) {
-          ativarToggleLateral("configs");
-      }
+    if (adicionaGrupo === false) {
+        ativarToggleLateral("configs");
+    }
   }
 
   const trocarLateral = (parametro: number) => {

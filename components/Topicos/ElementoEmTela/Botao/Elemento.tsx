@@ -1,5 +1,5 @@
 /* React */
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 
 /* Componente material-ui */
 import Button from '@mui/material/Button';
@@ -32,6 +32,7 @@ interface Props {
     config?: Config;
     children?: React.ReactNode;
     estado: boolean;
+    setEstado: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
@@ -44,12 +45,17 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
    refBottom,
    config,
    estado,
+   setEstado,
 }, ref ) => {
   const {  plataformaEvento } = useEvent();
   const { setIdTotal, configuracoes, setConfiguracoes, statusEdicao } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
 
   const [visibilidade, setVisibilidade] = useState(false);
+
+  useEffect(() => {
+    (statusEdicao === false) ? setEstado(true) : setEstado(false);
+  }, [statusEdicao]);
 
   function addElementoNoGrupo () {
       if (adicionaGrupo === false) {

@@ -1,5 +1,5 @@
 /* React */
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 
 /* Contexto */
 import dynamic from 'next/dynamic';
@@ -68,6 +68,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(({
 
   return (
   <Draggable
+    disabled={!statusEdicao} 
     onStop={setarTransform}
     defaultPosition={{x: config?.x, y: config?.y}}
   >   
