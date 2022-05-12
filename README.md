@@ -10,6 +10,7 @@ em fim concluir esse que pra mim foi um grande desafio ao longo desses 2 meses d
 ## 💡Técnologias
 - ReactJS
 - NextJs
+- TypeScript
 - VanillaJS
 - Material UI
 - Sass
@@ -30,6 +31,14 @@ Abra em [http://localhost:3000](http://localhost:3000)
 ## 🕹 [Documentação]
 
 ![Mapa de Contexto](public/projetocmsgabrieldavidsilva.png)
+
+## useList
+list: 
+id - Identificador | Serve para identificação e relacionamento entre Topicos <-> Config <-> Eventos
+type - Tipo do Elemento | Serve na hora da criação para que na frente possa ser renderizado na tela
+tipoCache - Elemento para ter controle da lista entre as páginas
+idGrupo - Identificador para descobrir se o elemente participa de algum grupo no momento de remover
+config - Carrega as configurações
 
 ## Ler mais na documentação do next js
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
