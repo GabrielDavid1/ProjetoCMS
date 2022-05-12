@@ -6,6 +6,7 @@ projeto, escalabilidade de código, solução de problemas, mais conhecimento de
 até de assuntos que nem havia estudado no curso. Graças ao criador do céu e da terra pude
 em fim concluir esse que pra mim foi um grande desafio ao longo desses 2 meses de projeto.
 
+![ImagemSistema](public/imagemdosistema.png)
 
 ## 💡Técnologias
 - ReactJS
