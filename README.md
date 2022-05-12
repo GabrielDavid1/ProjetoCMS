@@ -38,23 +38,23 @@ conflitos com typescript, por isso mistura de português com inglês.
 
 ## useList
 
-list:
-id - Identificador | Serve para identificação e relacionamento entre Topicos <-> Config <-> Eventos.<br />
-name - Auto Explicativo.<br />
-tipoCache - Elemento para ter controle da lista entre as páginas.<br />
-evt - Carrega toda a querydos eventos. Imagine uma linha de comando desestruturada em objeto<br />
-children - Array que guarda os elementos filhos.<br />
+>list:
+>id - Identificador | Serve para identificação e relacionamento entre Topicos <-> Config <-> Eventos.<br />
+>name - Auto Explicativo.<br />
+>tipoCache - Elemento para ter controle da lista entre as páginas.<br />
+>evt - Carrega toda a querydos eventos. Imagine uma linha de comando desestruturada em objeto<br />
+>children - Array que guarda os elementos filhos.<br />
 
 ## useConfig
-configuracoes: 
-id - Identificador | Serve para identificação e relacionamento entre Topicos <-> Config <-> Eventos.<br />
-type - Tipo do Elemento | Serve na hora da criação para que na frente possa ser renderizado na tela.<br />
-tipoCache - Elemento para ter controle da lista entre as páginas.<br />
-idGrupo - Identificador para descobrir se o elemente participa de algum grupo no momento de remover.<br />
-config - Carrega as configurações.<br />
+>configuracoes: 
+>id - Identificador | Serve para identificação e relacionamento entre Topicos <-> Config <-> Eventos.<br />
+>type - Tipo do Elemento | Serve na hora da criação para que na frente possa ser renderizado na tela.<br />
+>tipoCache - Elemento para ter controle da lista entre as páginas.<br />
+>idGrupo - Identificador para descobrir se o elemente participa de algum grupo no momento de remover.<br />
+>config - Carrega as configurações.<br />
 
 ## useEvent
-queryEvento:
+>queryEvento:
 >idBotao - Auto Explicativo.<br />
 >evento: Tipo de evento, o sistema foi criado apenas para ter o click, mas pode ser adicioando também focus, hover e etc.<br />
 >nomeAlvo - Gurda o nome do elemento que será modificado para que apareça na função de tooltips no canto inferior esqurdo<br />
@@ -71,10 +71,10 @@ acao: {<br />
 >ativado - Idenfificador para que não ative qualquer botão que seja criado.<br />
 
 ## useCache
-configPagina:
-identificador -  Auto Explicativo.<br />
-nomePagina -  Auto Explicativo.<br />
-iconeId -  Auto Explicativo.<br />
+>configPagina:
+>identificador -  Auto Explicativo.<br />
+>nomePagina -  Auto Explicativo.<br />
+>iconeId -  Auto Explicativo.<br />
 
 ## Ler mais na documentação do next js
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
