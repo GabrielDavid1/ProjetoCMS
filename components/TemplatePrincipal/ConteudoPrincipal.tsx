@@ -24,7 +24,7 @@ import LeakRemoveIcon from '@mui/icons-material/LeakRemove';
 import clsx from 'clsx';
 
 /* Componentes React e Next*/
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { GetServerSidePropsContext } from 'next';
 
@@ -32,7 +32,10 @@ import { GetServerSidePropsContext } from 'next';
 import ConteudoElementos from './ConteudoElementos';
 import { EstruturaTopicos } from './EstruturaTopicos';
 import { EstruturaConfig } from '../ConfigTopico/EstruturaConfig';
+import { ConteudoEventos } from './ConteudoEventos';
 import ModalConfig from '../Topicos/Modal/ModalConfig';
+import ListaIcones from './ListaIcones';
+import EstruturaEventos from '../Eventos/EstruturaEventos';
 
 /* Contexto */ 
 import { useList } from '../../contexts/useTopicos';
@@ -53,9 +56,6 @@ import {
 /* nookies */
 import { setCookie, parseCookies } from 'nookies';
 import nookies from 'nookies';
-import { ConteudoEventos } from './ConteudoEventos';
-import ListaIcones from './ListaIcones';
-import EstruturaEventos from '../Eventos/EstruturaEventos';
 
 export default function ConteudoPrincipal(props:any) {
   const classes = useStyles();
@@ -76,7 +76,10 @@ export default function ConteudoPrincipal(props:any) {
           statusEdicao, setStatusEdicao
         } = useConfig();
 
-  const { toggleLateral, list, setList, tamanho, setTamanho } = useList();
+  const { toggleLateral, 
+          list, setList, 
+          tamanho, setTamanho 
+        } = useList();
   
   useEffect(() => {
     if (nookies.get().LISTA !== undefined) {

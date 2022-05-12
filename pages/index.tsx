@@ -1,8 +1,6 @@
 /* Componentes Framework Material-UI */
 import AppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
-import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@mui/material/Grid';
 import Router from 'next/router';
@@ -10,28 +8,43 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
-/* Componente clsx*/
-import clsx from 'clsx';
+/* Componente*/
+import ModalInicial from '../components/Topicos/Modal/ModalInicial';
 
 /* Componentes React e Next*/
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /* Funções e Variaveis */
 import { useStyles } from '../Importacoes/Funcoes/Funcoes';
 import { Item1, Item2, Item3, Item4, Item5 } from '../Importacoes/Variaveis/Variaveis';
 
-import  ImagensProjeto from '../components/TemplatePrincipal/ImagensProjeto/index';
+/* nookies */
+import { setCookie, parseCookies } from 'nookies';
+import nookies from 'nookies';
+import { GetServerSidePropsContext } from 'next';
 
 export default function Principal() {
   const classes = useStyles();
-
   const [spacing, setSpacing] = useState(2);
+  const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (nookies.get().PRIMEIRA_VEZ === null || nookies.get().PRIMEIRA_VEZ !== 'true') {
+        setOpen(true);
+        setCookie(null, 'PRIMEIRA_VEZ', JSON.stringify(true), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        });  
+    } 
+  }, []);
+  
   return (
+    
     <div 
       id="paginaInicial"
       className={classes.root}
     >
+      <ModalInicial open={open} setOpen={setOpen} />
       <AppBar position="fixed">
         <Toolbar>
           <Typography variant="h6" noWrap>
@@ -53,7 +66,9 @@ export default function Principal() {
                    sx={{ height: '12rem' }}
                 >
                 <Grid item>
-                    <Item1 onClick={() => Router.push('/primeirapagina')}>Meu Projeto</Item1>
+                    <Item1 onClick={() => Router.push('/primeirapagina')}>
+                      Meu Projeto
+                    </Item1>
                 </Grid>
                 <Grid item onClick={() => Router.push('/template_card')}>
                     <Item2></Item2>
@@ -73,9 +88,8 @@ export default function Principal() {
       </div>
       <div className="AreaProjeto"> 
           <div className="blocoTitulo">
-              <h1> Documentação do Projeto </h1>
+              <h1> Documentação do Projeto e Contato </h1>
           </div>
-          <ImagensProjeto />
       </div>    
       <footer className="AreaRodape">
           <div className="iconesRodape">
@@ -86,4 +100,14 @@ export default function Principal() {
       </footer>
     </div>
   );
+}
+
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const cookies = parseCookies(context)
+  return {
+    props: {
+      msg: '[SERVER]: Concluido',
+      PRIMEIRA_VEZ:cookies.PRIMEIRA_VEZ || null,
+    },
+  }
 }
