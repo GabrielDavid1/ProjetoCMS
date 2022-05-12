@@ -78,7 +78,8 @@ export default function ConteudoPrincipal(props:any) {
 
   const { toggleLateral, 
           list, setList, 
-          tamanho, setTamanho 
+          tamanho, setTamanho ,
+          ativarToggleLateral,
         } = useList();
   
   useEffect(() => {
@@ -247,6 +248,7 @@ export default function ConteudoPrincipal(props:any) {
     { maxAge: 86400 * 7,
       path: '/', 
     });
+    ativarToggleLateral('principal');
     Router.push(rota);
   }
   return (

@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 import TemplatePrincipal from '../components/TemplatePrincipal/ConteudoPrincipal';
 
 export default function segundapagina() {
-  const { list, tamanho } = useList();
+  const { list, ativarToggleLateral, tamanho } = useList();
   const { configuracoes } = useConfig();
   const { configPagina } = useCache();
   const { initialNodes, 
@@ -27,6 +27,7 @@ export default function segundapagina() {
   useEffect(() => {
     window.addEventListener('beforeunload', function (e) {
       e.preventDefault();
+      ativarToggleLateral('principal');
       setCookie(null, 'LISTA', JSON.stringify(list), 
       { maxAge: 86400 * 7,
         path: '/', 

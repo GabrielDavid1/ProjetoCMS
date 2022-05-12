@@ -25,7 +25,6 @@ import { GetServerSidePropsContext } from 'next';
 
 export default function Principal() {
   const classes = useStyles();
-  const [spacing, setSpacing] = useState(2);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ export default function Principal() {
                 <Grid 
                    container
                    justifyContent="center" 
-                   spacing={spacing}
+                   spacing={2}
                    sx={{ height: '12rem' }}
                 >
                 <Grid item>
