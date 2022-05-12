@@ -53,7 +53,7 @@ export default function Principal() {
                    sx={{ height: '12rem' }}
                 >
                 <Grid item>
-                    <Item1 onClick={() => Router.push('/primeirapagina')}></Item1>
+                    <Item1 onClick={() => Router.push('/primeirapagina')}>Meu Projeto</Item1>
                 </Grid>
                 <Grid item onClick={() => Router.push('/template_card')}>
                     <Item2></Item2>

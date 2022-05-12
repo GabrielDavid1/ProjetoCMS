@@ -23,53 +23,52 @@ export default function ImagensProjeto() {
 }
 
 const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
-    title: 'Bed',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
-    title: 'Books',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
-    title: 'Sink',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
-    title: 'Kitchen',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1588436706487-9d55d73a39e3',
-    title: 'Blinds',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
-    title: 'Chairs',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1530731141654-5993c3016c77',
-    title: 'Laptop',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
-    title: 'Doors',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
-    title: 'Coffee',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee',
-    title: 'Storage',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62',
-    title: 'Candle',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4',
-    title: 'Coffee table',
-  },
-  
+    {
+        img: '/imagens/listagem/imagem1.png',
+        title: 'imagem1',
+    },
+    {
+        img: '/imagens/listagem/imagem2.png',
+        title: 'imagem2',
+    },
+    {
+        img: '/imagens/listagem/imagem3.png',
+        title: 'imagem3',
+    },
+    {
+        img: '/imagens/listagem/imagem4.png',
+        title: 'imagem4',
+    },
+    {
+    img: '/imagens/listagem/imagem5.png',
+    title: 'imagem5',
+    },
+    {
+    img: '/imagens/listagem/imagem6.png',
+    title: 'imagem6',
+    },
+    {
+    img: '/imagens/listagem/imagem7.png',
+    title: 'imagem7',
+    },
+    {
+    img: '/imagens/listagem/imagem8.png',
+    title: 'imagem8',
+    },
+    {
+    img: '/imagens/listagem/imagem9.png',
+    title: 'imagem9',
+    },
+    {
+    img: '/imagens/listagem/imagem10.png',
+    title: 'imagem10',
+    },
+    {
+    img: '/imagens/listagem/imagem11.png',
+    title: 'imagem11',
+    },
+    {
+    img: '/imagens/listagem/imagem12.png',
+    title: 'imagem12',
+    },
 ];
