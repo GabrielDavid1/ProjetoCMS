@@ -36,7 +36,7 @@
     "apexcharts": "^3.35.0",
     "formik": "^2.2.5",
     "framer-motion": "4.1.17",
-    "next": "10.0.3",
+    "next": "^12.1.6",
     "next-images": "^1.8.4",
     "nookies": "^2.5.2",
     "react": "17.0.1",

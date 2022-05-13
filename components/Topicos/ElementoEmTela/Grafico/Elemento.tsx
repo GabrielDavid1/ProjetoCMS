@@ -33,7 +33,7 @@ interface Props {
 const Chart = dynamic(() => import('react-apexcharts'), {
     ssr:false
 });
-
+// eslint-disable-next-line react/display-name
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
    id, 
    width,

@@ -27,7 +27,7 @@ interface Props {
     estado: boolean;
     setEstado: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
+// eslint-disable-next-line react/display-name
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
    id, 
    width,
@@ -105,7 +105,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
           transform={"translate(0px, 0px)"}
         >
           <SelectElemento
-              visibilidade={visibilidade}
+              visibilidade={true}
               refLeft={refLeft} 
               refTop={refTop}
               refRight={refRight}

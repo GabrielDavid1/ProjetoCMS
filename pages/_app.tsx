@@ -17,7 +17,7 @@ import { EventProvider } from '../contexts/useEvent';
 /* Estilos */
 import '../styles/globals.scss';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
@@ -46,4 +46,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default App;

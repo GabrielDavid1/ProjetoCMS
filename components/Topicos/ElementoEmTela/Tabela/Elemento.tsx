@@ -20,7 +20,7 @@ interface Props {
     id: string;
     config?: Config;
 }
-
+// eslint-disable-next-line react/display-name
 export const Elemento = forwardRef<HTMLDivElement,  Props>(({ 
    id, 
    config,

@@ -41,8 +41,8 @@ export function BotoesInferiores ({ nomePagina }:Props) {
     return (
         <> 
           <Button variant="contained" style={{ backgroundColor:'white', color:'#1976d2'}} onClick={() => plataformaBotoes(1)}>  Grupo        </Button>
-          <Button variant="contained" style={{ backgroundColor:'white', color:'#1976d2'}} onClick={() => onToggleMarcarTudo()}> Marcar Tudo  </Button> 
-          <Button variant="contained" style={{ backgroundColor:'white', color:'#1976d2'}} onClick={() => plataformaBotoes(2)}>  Deletar Tudo </Button> 
+          <Button variant="contained" style={{ backgroundColor:'white', color:'#1976d2'}} onClick={() => onToggleMarcarTudo()}> Marca Tudo  </Button> 
+          <Button variant="contained" style={{ backgroundColor:'white', color:'#1976d2'}} onClick={() => plataformaBotoes(2)}>  Deleta Tudo </Button> 
         </>
     )
 }

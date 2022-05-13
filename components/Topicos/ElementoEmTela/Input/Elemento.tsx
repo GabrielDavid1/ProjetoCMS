@@ -31,7 +31,7 @@ interface Props {
     estado: boolean;
     setEstado: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
+// eslint-disable-next-line react/display-name
 export const Elemento = forwardRef<HTMLDivElement,  Props>(( { 
    id, 
    width,

@@ -16,7 +16,7 @@ interface Props {
     id: string;
     config?: Config;
 }
-
+// eslint-disable-next-line react/display-name
 export const Elemento = forwardRef<HTMLDivElement, Props>(( { id, config }, ref ) => {
   const { setIdTotal, configuracoes, setConfiguracoes, statusEdicao } = useConfig();
   const { ativarToggleLateral, adicionaGrupo } = useList();
