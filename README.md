@@ -24,7 +24,7 @@ em fim concluir esse que pra mim foi um grande desafio ao longo desses 2 meses d
 Rodar o servidor
 ```bash
 npm run dev
-# or
+# ou
 yarn dev
 ```
 Abra em [http://localhost:3000](http://localhost:3000) 
