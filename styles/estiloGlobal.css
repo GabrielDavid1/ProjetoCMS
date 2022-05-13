@@ -1,0 +1,942 @@
+body {
+    background-color: #c5c5c5;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    user-select: none;
+}
+*::-webkit-scrollbar {
+    width: 0px;
+    background-color: #c5c5c5;
+}
+div#ModalInicial {
+    width: 100%;
+    height: 50%;
+    top: 20%;
+}
+div#ModalInicial .MuiBackdrop-root.css-sox5kk-MuiBackdrop-root {
+    background: #000 d6;
+}
+div#ModalInicial .MuiBox-root.css-z6lcql {
+    gap: 10px;
+    width: 32%;
+    position: absolute;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 43rem;
+    background-color: #fff;
+    box-shadow: 0px 11px 15px -7px #000, 0px 24px 38px 3px #000, 0px 9px 46px 8px #000;
+    padding: 0px;
+    border: 0px;
+}
+div#ModalInicial .MuiBox-root.css-z6lcql p#transition-modal-description {
+    padding: 18px;
+    font-size: 2rem;
+}
+div#ModalInicial .MuiBox-root.css-z6lcql img {
+    width: 20rem;
+    height: 15rem;
+}
+div#ModalInicial .MuiBox-root.css-z6lcql:focus {
+    outline: none;
+}
+.MuiBox-root.css-1wnsr1i {
+    width: 35%;
+    height: 46%;
+    left: 100%;
+}
+.MuiBox-root.css-1wnsr1i button {
+    width: 99%;
+    padding: 10px;
+    border: 1px solid #1976d2;
+    border-radius: 2px;
+    height: 40px;
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 18px;
+}
+.MuiBox-root.css-1wnsr1i button:nth-child(4) {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #f11a38;
+    border-radius: 2px;
+    height: 40px;
+    color: #f11a38;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 10px;
+}
+.MuiBox-root.css-1wnsr1i button:nth-child(4):hover {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #f11a38;
+    border-radius: 2px;
+    height: 40px;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    background: #f11a38;
+    margin-top: 10px;
+}
+.MuiBox-root.css-1wnsr1i ul li.MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+    padding: 3px;
+}
+#paginaInicial {
+    display: flex;
+    flex-direction: column;
+    height: 46rem;
+    margin-top: 3rem;
+}
+#paginaInicial .blocoTitulo {
+    text-align: center;
+}
+#paginaInicial .blocoTitulo p {
+    flex: 1 1;
+    flex-grow: 1;
+    color: #2a3966;
+    font-family: sans-serif;
+    font-weight: initial;
+    line-height: 64px;
+    font-size: 2rem;
+}
+#paginaInicial .blocoTitulo h1 {
+    color: #2a3966;
+    font-family: sans-serif;
+}
+#paginaInicial footer.AreaRodape {
+    background: #f1f3f4;
+    min-height: 100%;
+    text-align: center;
+    z-index: 10;
+}
+#paginaInicial footer.AreaRodape .iconesRodape {
+    display: inline-flex;
+    gap: 15px;
+    cursor: pointer;
+}
+#paginaInicial footer.AreaRodape .iconesRodape svg {
+    width: 1.3em;
+    height: 1.3em;
+}
+.AreaIniciar {
+    background: white;
+    height: 22rem;
+    padding: 10px;
+    min-height: 23rem;
+}
+.AreaProjeto {
+    background: #f1f3f4;
+    height: 100%;
+    min-height: 25rem;
+}
+.AreaProjeto .MuiBox-root.css-rj4plr {
+    width: 50%;
+    height: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+header[data-id="menuInicial"] {
+    width: 20%;
+}
+span.MuiSpeedDialIcon-root.css-ohncnb-MuiSpeedDialIcon-root {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+#modal-evento {
+    width: 124rem;
+    margin-left: -77rem;
+    height: 44rem;
+    margin-top: 94px;
+}
+#modal-evento button:nth-child(1):hover {
+    color: white;
+}
+#modal-evento button:nth-child(2):hover {
+    color: #1976d2;
+}
+.css-wdpr0q-MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-endAdornment {
+    display: none;
+}
+.MuiFormControl-root.MuiFormControl-fullWidth.css-q8hpuo-MuiFormControl-root {
+    height: 62px;
+}
+.MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root {
+    height: 60px;
+}
+.MuiDrawer-paper {
+    overflow-x: hidden;
+}
+header.MuiPaper-root.MuiAppBar-root.MuiAppBar-positionFixed.MuiAppBar-colorPrimary.makeStyles-appBar-2.mui-fixed.MuiPaper-elevation4.MuiAppBar-colorPrimary {
+    color: black;
+    background-color: white;
+}
+.makeStyles-appBarShift-33 {
+    width: calc(100% - 62px);
+    transition: margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms, width 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    margin-left: 240px;
+}
+main.makeStyles-content-9 {
+    padding: 24px;
+    flex-grow: 1;
+    transition: margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+    margin-left: -81px;
+    background-color: #c5c5c5;
+}
+main.makeStyles-content-9 .container {
+    background: #c5c5c5;
+    height: 93%;
+    border-radius: 2px;
+    margin-left: 80px;
+}
+main.makeStyles-content-9 .container input {
+    background-color: #f2f2f2;
+    padding: 3px;
+    border: 1px solid #1976d2;
+    color: #333;
+}
+main.makeStyles-content-9 .container input:focus {
+    box-shadow: 1px #1976d2;
+    outline: 0;
+}
+main.makeStyles-content-9 .container #imagem button {
+    width: 114px;
+    padding: 10px;
+    border: 1px solid #1976d2;
+    border-radius: 2px;
+    height: 40px;
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 18px;
+}
+main.makeStyles-content-9 .container .resizeable .nullo {
+    cursor: pointer;
+}
+main.makeStyles-content-9 .container .resizeable .resizer {
+    position: absolute;
+    background-image: linear-gradient(to right, #1976d2 50%, #1976d2, #306ba5);
+}
+main.makeStyles-content-9 .container .resizeable .resizer-r {
+    cursor: col-resize;
+    height: 20px;
+    right: -8px;
+    top: 58px;
+    width: 20px;
+    z-index: 10;
+}
+main.makeStyles-content-9 .container .resizeable .resizer-t {
+    cursor: row-resize;
+    height: 20px;
+    left: 63px;
+    top: -10px;
+    width: 20px;
+    z-index: 10;
+}
+main.makeStyles-content-9 .container .resizeable .resizer-b {
+    cursor: row-resize;
+    height: 20px;
+    left: 58px;
+    bottom: -10px;
+    width: 20px;
+    z-index: 10;
+}
+main.makeStyles-content-9 .container .resizeable .resizer-l {
+    cursor: col-resize;
+    height: 20px;
+    left: -8px;
+    top: 59px;
+    width: 20px;
+    z-index: 10;
+}
+main.makeStyles-content-9 .container .resizeable .resizer-rd {
+    height: 100%;
+    right: 0;
+    top: 0;
+    width: 4px;
+}
+main.makeStyles-content-9 .container .resizeable .resizer-td {
+    height: 4px;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+main.makeStyles-content-9 .container .resizeable .resizer-bd {
+    height: 4px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+main.makeStyles-content-9 .container .resizeable .resizer-ld {
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 4px;
+}
+main.makeStyles-content-9 {
+    height: 400rem;
+    min-height: 100%;
+}
+main.makeStyles-content-9.makeStyles-contentShift-10 {
+    padding: 24px;
+    flex-grow: 1;
+    transition: margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+    margin-left: auto;
+    height: 400rem;
+    min-height: 100%;
+}
+.MuiBox-root.css-1dyuqpd {
+    margin-top: 24rem;
+    position: absolute;
+    z-index: 5;
+}
+button.MuiButtonBase-root.MuiFab-root.MuiFab-circular.MuiFab-sizeLarge.MuiFab-primary.MuiSpeedDial-fab.css-118zhtq-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+    background: white;
+    border-radius: 100px;
+}
+button.MuiButtonBase-root.MuiFab-root.MuiFab-circular.MuiFab-sizeSmall.MuiFab-default.MuiSpeedDialAction-fab.css-1e2cad8-MuiButtonBase-root-MuiFab-root-MuiSpeedDialAction-fab {
+    background: white;
+}
+.MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters {
+    justify-content: space-around;
+    height: 0px;
+}
+.MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters h6.MuiTypography-root.MuiTypography-h6.MuiTypography-noWrap {
+    width: 100%;
+}
+.MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters .css-96uuyl {
+    width: 50rem;
+    left: 35rem;
+}
+.MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters .MuiBox-root.css-i9gxme {
+    position: absolute;
+    right: 55rem;
+}
+.MuiToolbar-root.MuiToolbar-regular.MuiToolbar-gutters .MuiBox-root.css-i9gxme .MuiBox-root.css-1guk29 {
+    position: absolute;
+    left: 98rem;
+}
+.MuiPaper-root.MuiAppBar-root.MuiAppBar-positionFixed.MuiAppBar-colorPrimary.makeStyles-appBar-2.makeStyles-appBarShift-3.mui-fixed.MuiPaper-elevation4 {
+    width: calc(100% - 62px);
+    transition: margin 225ms cubic-bezier(0, 0, 0.2, 1) 0ms, width 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    margin-left: 240px;
+}
+.MuiDrawer-root.MuiDrawer-docked.makeStyles-drawer-6 {
+    width: 0px;
+}
+a.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button {
+    height: 70px;
+}
+.MuiTooltip-tooltip.MuiTooltip-tooltipPlacementRight.css-ja5taz-MuiTooltip-tooltip {
+    font-size: 1rem;
+}
+.MuiPaper-root.MuiDrawer-paper.makeStyles-drawerPaper-7.MuiDrawer-paperAnchorLeft.MuiDrawer-paperAnchorDockedLeft.MuiPaper-elevation0 {
+    width: 62px;
+}
+.bottomClose {
+    position: absolute;
+    bottom: 0;
+}
+.makeStyles-appBar-3 {
+    z-index: 10;
+}
+.config {
+    width: 300px;
+    background: white;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+    margin-top: 62px;
+    height: 48rem;
+    padding-top: 1px;
+    margin-left: -1px;
+    border-bottom: 2px solid #e0e0e0;
+    max-height: 49rem;
+    transition: 0.5s;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.config .blocoEventos .subTituloEventos {
+    color: #727272;
+    font-family: sans-serif;
+    text-align: center;
+    border-bottom: 1px solid #dfdcdc;
+}
+.config .blocoEventos .blocoBotoesEvento {
+    border-top: 1px solid #dfdcdc;
+}
+.config .blocoEventos .blocoOutrosEventos {
+    height: 27.3rem;
+}
+.config .bloco {
+    margin-left: 16px;
+    width: 271px;
+}
+.config .bloco .especifico {
+    position: absolute;
+    top: 80px;
+    z-index: 0;
+}
+.config .conteudo .mensagemVazia {
+    text-align: center;
+    margin: 10px;
+    position: absolute;
+    top: 18rem;
+}
+.config .conteudo .blocoTopo {
+    border-top: 2px solid #e0e0e0;
+    padding-top: 10px;
+}
+.config .conteudo .chrome-picker {
+    min-width: 275px;
+    margin-left: 4%;
+}
+.config .conteudo input[type="color"] {
+    width: 90%;
+    margin-left: 15px;
+    height: 150px;
+    border: 1px solid black;
+    background: white;
+}
+.config .conteudo hr.MuiDivider-root {
+    background: #e1e1e1;
+    margin-top: 16px;
+}
+.config .conteudo .areaConfig {
+    width: 297px;
+}
+.config .conteudo .areaConfig ul {
+    margin-left: -39px;
+    margin-top: -16px;
+    display: flex;
+    flex-direction: column;
+}
+.config .conteudo .areaConfig ul li {
+    width: 400px;
+    list-style: none;
+    padding: 12px;
+    border-bottom: 2px solid #e0e0e0;
+}
+.config .conteudo .areaConfig ul li .blocoLinhas {
+    display: flex;
+    flex-direction: column;
+    margin-top: -15px;
+}
+.config .conteudo .areaConfig ul li .blocoLinhas input {
+    width: 272px;
+    height: 30px;
+}
+.config .conteudo .areaConfig ul li .blocoPropriedades {
+    margin-left: 10px;
+}
+.config .conteudo .areaConfig ul li .blocoPropriedades .blocoPropriedades-item {
+    display: flex;
+    gap: 6px;
+}
+.config .conteudo .areaConfig ul li .blocoPropriedades .blocoPropriedades-item input {
+    height: 20px;
+}
+.config .conteudo .areaConfig ul li .botoesValor {
+    display: flex;
+    margin-top: 8px;
+    margin-left: -10.8rem;
+}
+.config .conteudo .areaConfig ul li .botoesValor button {
+    width: 114px;
+    padding: 10px;
+    border: 1px solid #1976d2;
+    border-radius: 2px;
+    height: 30px;
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 12px;
+}
+.config .conteudo .areaConfig ul li .botaoImagem {
+    display: flex;
+    margin-top: 8px;
+    margin-left: -0.3rem;
+}
+.config .conteudo .areaConfig ul li .botaoImagem button {
+    width: 114px;
+    padding: 10px;
+    border: 1px solid #1976d2;
+    border-radius: 2px;
+    height: 30px;
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 12px;
+}
+.config .conteudo .areaConfig ul li .controleBotoes .MuiBox-root.css-if4l1g button:nth-child(1) {
+    margin-left: 0rem;
+}
+.config .conteudo .areaConfig ul li .controleBotoes .MuiBox-root.css-if4l1g button:nth-child(2) {
+    margin-left: 0rem;
+}
+.config .conteudo .areaConfig ul li .controleBotoes .MuiBox-root.css-if4l1g button:nth-child(3) {
+    margin-left: 0rem;
+}
+.config .conteudo .areaConfig ul li .controleBotoes .MuiBox-root.css-if4l1g button:nth-child(4) {
+    margin-left: 0rem;
+}
+.config .conteudo .areaConfig ul li .controleBotoes .MuiBox-root.css-if4l1g button:nth-child(5) {
+    margin-left: 0rem;
+}
+.config .conteudo .areaConfig ul li p {
+    font-weight: 700;
+}
+.config .conteudo .areaConfig ul li input {
+    width: 60px;
+    margin: 2px;
+}
+.config .conteudo .areaConfig ul li.camada {
+    display: inline-flex;
+}
+.config .conteudo .areaConfig ul li.camada input {
+    margin-top: 18px;
+    width: 20px;
+    height: 20px;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) {
+    opacity: 0.8;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .corrige {
+    margin-top: -25px;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .corrige button {
+    margin-left: 14.7rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) button.botaoEspecifico {
+    margin-left: 7.3rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .botaoSolo {
+    display: flex;
+    margin-top: 8px;
+    margin-left: -10.6rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .botaoSolo button {
+    width: 114px;
+    padding: 10px;
+    border: 1px solid #1976d2;
+    border-radius: 2px;
+    height: 30px;
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 12px;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) b, .config .conteudo .areaConfig ul li:nth-child(n + 2) p {
+    font-weight: 400;
+    color: gray;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) button {
+    margin-left: 12rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoBorda {
+    display: inline-flex;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoBorda .MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+    height: 24px;
+    width: 100px;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoBorda [type="color"] {
+    width: 20%;
+    margin: 2px;
+    height: 33px;
+    border: none;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoBorda button {
+    margin-left: auto;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoBorda button svg {
+    height: 37px;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoBorda .MuiFormControl-root.MuiFormControl-fullWidth.css-q8hpuo-MuiFormControl-root {
+    width: 10px;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoTextArea .controleFonteBotao {
+    display: inline-flex;
+    width: 200px;
+    position: absolute;
+    top: 31.2em;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2) .blocoTextArea .controleFonteBotao [type="color"] {
+    width: 20%;
+    margin: 2px;
+    height: 40px;
+    border: none;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .blocoBorda {
+    display: list-item;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .blocoBorda .controleFonteBotao {
+    display: table-header-group;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .blocoBorda .controleFonteBotao input[type=color] {
+    height: 30px;
+    width: 40px;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .blocoBorda .controleFonteBotao input {
+    width: 120px;
+    height: 30px;
+    float: left;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .tracejado {
+    margin-top: -25px;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .tracejado button {
+    margin-left: 14.7rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) button {
+    margin-left: 7.5rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .blocoSombra {
+    display: inline-flex;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) button {
+    margin-left: 7.5rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(3) .MuiFormControl-root.css-1srskm5-MuiFormControl-root {
+    display: inline-flex;
+    flex-direction: inherit;
+}
+.config .conteudo .areaConfig ul li:nth-child(4) button {
+    margin-left: 7.4rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover {
+    opacity: 1;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover .corrige button {
+    margin-left: 14.7rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover button.botaoEspecifico {
+    margin-left: 7.3rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover b, .config .conteudo .areaConfig ul li:nth-child(n + 2):hover p {
+    font-weight: 400;
+    color: black;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover button {
+    margin-left: 12rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover button svg {
+    color: black;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover .blocoBorda [type="color"] {
+    width: 20%;
+    margin: 2px;
+    height: 33px;
+    border: none;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover .blocoBorda button {
+    margin-left: auto;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):hover .blocoBorda button svg {
+    color: rgba(0, 0, 0, 0.26);
+    height: 37px;
+}
+.config .conteudo .areaConfig ul li:nth-child(3):hover button {
+    margin-left: 7.5rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(4):hover button {
+    margin-left: 7.4rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within {
+    opacity: 1;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within .corrige button {
+    margin-left: 14.7rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within button.botaoEspecifico {
+    margin-left: 7.3rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within b, .config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within p {
+    font-weight: 400;
+    color: black;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within button {
+    margin-left: 12rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within button svg {
+    color: black;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within .blocoBorda [type="color"] {
+    width: 20%;
+    margin: 2px;
+    height: 33px;
+    border: none;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within .blocoBorda button {
+    margin-left: auto;
+}
+.config .conteudo .areaConfig ul li:nth-child(n + 2):focus-within .blocoBorda button svg {
+    color: rgba(0, 0, 0, 0.26);
+    height: 37px;
+}
+.config .conteudo .areaConfig ul li:nth-child(3):focus-within button {
+    margin-left: 7.5rem;
+}
+.config .conteudo .areaConfig ul li:nth-child(4):focus-within button {
+    margin-left: 7.4rem;
+}
+.config .todo {
+    height: 34.9rem;
+    max-height: 31rem;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.config .todo .MuiTreeItem-label {
+    padding: 2px;
+}
+.config .todo nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root .bloco {
+    display: flex;
+}
+.config .todo nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root #edit {
+    width: 10px;
+    background: none;
+}
+.config .todo nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root #edit:hover {
+    width: 10px;
+    background: none;
+}
+.config .todo nav.MuiList-root.MuiList-padding.css-odthku-MuiList-root:hover {
+    background: #787878 2e;
+    padding: 12px;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+}
+.config .todo .MuiListItemButton-root.MuiListItemButton-gutters.MuiButtonBase-root.css-cvhtoe-MuiButtonBase-root-MuiListItemButton-root span.MuiTypography-root.MuiTypography-body1.MuiListItemText-primary.css-10hburv-MuiTypography-root {
+    font-weight: 500;
+}
+.config .todo nav.react-contextmenu {
+    position: fixed;
+    width: 200px;
+    left: 0;
+    top: calc(100% + 10px);
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 10px 0;
+    z-index: 99;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+.config .todo .react-contextmenu .react-contextmenu-item:hover {
+    background: #ccc;
+}
+.config .todo .react-contextmenu-item:hover:not(.react-contextmenu-item--disabled) {
+    background-color: #f1f1f1;
+}
+.config .todo .react-contextmenu .react-contextmenu-item {
+    font-size: 14px;
+    display: block;
+    text-decoration: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+    position: relative;
+    margin-bottom: 2px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    outline: none;
+}
+.config .todo .react-contextmenu-item span {
+    margin-left: 10px;
+}
+.config .todo .react-contextmenu-item svg {
+    font-size: 14px;
+}
+.config .todo .react-contextmenu-item .remover {
+    color: red;
+}
+.config .todo .react-contextmenu-item .addgrupo {
+    color: rebeccapurple;
+}
+.config .todo .react-contextmenu-item .renomear {
+    color: #18111f;
+}
+.config .todo::-webkit-scrollbar {
+    width: 1px;
+}
+.config .todo::-webkit-scrollbar-track {
+    background: #8c8fee;
+   /* color of the tracking area */
+}
+.config .todo::-webkit-scrollbar-thumb {
+    background-color: white;
+   /* color of the scroll thumb */
+    border-radius: 20px;
+   /* roundness of the scroll thumb */
+    border: 1px solid #8c8fee;
+   /* creates padding around scroll thumb */
+}
+.config nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root {
+    padding: 0;
+}
+.config nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root .MuiListItemButton-root.MuiListItemButton-gutters.MuiButtonBase-root.css-cvhtoe-MuiButtonBase-root-MuiListItemButton-root {
+    padding: 12px;
+    background: white;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+}
+.config nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root .MuiListItemButton-root.MuiListItemButton-gutters.MuiButtonBase-root.css-cvhtoe-MuiButtonBase-root-MuiListItemButton-root:focus {
+    background: #2b7c87 26;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+}
+.config nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root .MuiListItemButton-root.MuiListItemButton-gutters.MuiButtonBase-root.css-cvhtoe-MuiButtonBase-root-MuiListItemButton-root:focus-within {
+    background: #2b7c87 26;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+}
+.config nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root nav.MuiList-root.MuiList-padding.css-odthku-MuiList-root:focus-within {
+    background: #2b7c87 26;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+}
+.config nav.MuiList-root.MuiList-padding.css-3y9sq1-MuiList-root .MuiList-root.css-1mk9mw3-MuiList-root:hover {
+    background: #787878 2e;
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+}
+.config hr {
+    margin-top: -9px;
+}
+.config .topics {
+    width: 300px;
+    height: 115px;
+    margin-top: 12px;
+    border-bottom: 2px solid #e0e0e0;
+}
+.config .topics .opcoes {
+    margin-left: 7px;
+    position: absolute;
+    bottom: 9px;
+}
+.config .topics .opcoes button {
+    padding: 10px;
+    border: 1px solid #1976d2;
+    border-radius: 2px;
+    height: 30px;
+    color: #1976d2;
+    font-weight: 700;
+    font-size: 12px;
+}
+.config .topics .opcoes button:hover {
+    padding: 10px;
+    border: 1px solid #1976d2;
+    border-radius: 2px;
+    height: 30px;
+    color: white;
+    font-weight: 700;
+}
+.config .topics .control {
+    display: flex;
+    background: white;
+    flex-wrap: wrap;
+    margin-left: 18px;
+    gap: 4px;
+}
+.config .topics .control button {
+    padding: 10px;
+    background: #1976d2;
+    color: white;
+}
+.config .topics .control button svg {
+    color: white;
+}
+.config .topics h2 {
+    position: absolute;
+    right: 1rem;
+    top: 3rem;
+}
+.config h2 {
+    text-align: center;
+    color: #282828;
+    font-weight: 300;
+}
+.config .container-config {
+    background-color: #333;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+.config .draggable {
+    padding: 1rem;
+    background-color: white;
+    border: 1px solid black;
+    cursor: move;
+}
+.config .draggable.dragging {
+    opacity: 0.5;
+}
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper .MuiList-padding {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+.profile-area {
+    display: flex;
+    margin-top: -6px;
+}
+.profile-area p {
+    width: 200px;
+}
+.profile-area a {
+    height: 70px;
+    width: 150px;
+    margin-top: 7px;
+}
+.profile-area .MuiAvatar-root.MuiAvatar-circular.MuiAvatar-colorDefault.css-2s90m6-MuiAvatar-root {
+    margin-top: 22px;
+    margin-right: -5px;
+}
+@media only screen and (max-width: 1700px) {
+    .config {
+        height: 47.3rem;
+   }
+}
+@media (min-height: 440px) {
+    .AreaProjeto {
+        background: #f1f3f4;
+        min-height: 15vh;
+   }
+}
+@media (min-height: 600px) {
+    .AreaProjeto {
+        background: #f1f3f4;
+        min-height: 10vh;
+   }
+    footer.AreaRodape {
+        margin-top: 4rem;
+        padding: 4rem;
+   }
+}
+@media (min-height: 658px) {
+    .AreaProjeto {
+        background: #f1f3f4;
+        min-height: 45rem;
+        display: block;
+   }
+    footer.AreaRodape {
+        margin-top: -41rem;
+        padding: 4rem;
+   }
+}

@@ -105,7 +105,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
           transform={"translate(0px, 0px)"}
         >
           <SelectElemento
-              visibilidade={true}
+              visibilidade={visibilidade}
               refLeft={refLeft} 
               refTop={refTop}
               refRight={refRight}

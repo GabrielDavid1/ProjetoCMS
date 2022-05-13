@@ -15,7 +15,7 @@ import { CacheProvider } from '../contexts/useCache';
 import { EventProvider } from '../contexts/useEvent';
 
 /* Estilos */
-import '../styles/globals.scss';
+import '../styles/estiloGlobal.css';
 
 function App({ Component, pageProps }: AppProps) {
 
