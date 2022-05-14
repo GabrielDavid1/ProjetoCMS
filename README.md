@@ -36,7 +36,7 @@ yarn dev
 ```
 Abra em [http://localhost:3000](http://localhost:3000) 
 
-## 🕹 [Documentação]
+## 📚 [Documentação]
 
 Algumas tipagemns foram adaptadas para poder utilizar com outras bibliotecas e evitar
 conflitos com typescript, por isso mistura de português com inglês.
