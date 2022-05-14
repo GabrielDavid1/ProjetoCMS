@@ -5,7 +5,7 @@ pode gerar bugs de estilização, para ter a versão mais "pura" e ou fique com 
 foram feitas algumas funcionalidades do sistema caso tu seja dev, baixe o repositório em sua 
 máquina ou veja a documentação abaixo ☟
 
-### Projeto CMS 
+### 🎫Projeto CMS 
 Após terminar o modulo de react que fiz no meu curso, resolvi planejar e botar em prática
 uma grande aplicação, um sistema para poder manipular objetos e formar interações ( como 
 se fosse um tcc). Não consigo nem descrever o tamanho do aprendizado que eu tive fazendo esse
