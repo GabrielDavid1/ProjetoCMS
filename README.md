@@ -1,3 +1,10 @@
+
+## ❗AVISO
+Após o deploy houve conflitos com uso de certos frameworks na vercel que para algumas pessoas
+pode gerar bugs de estilização, para ter a versão mais "pura" e ou fique com dúvidas de como
+foram feitas algumas funcionalidades do sistema caso tu seja dev, baixe o repositório em sua 
+máquina ou veja a documentação abaixo ☟
+
 ### Projeto CMS 
 Após terminar o modulo de react que fiz no meu curso, resolvi planejar e botar em prática
 uma grande aplicação, um sistema para poder manipular objetos e formar interações ( como 
