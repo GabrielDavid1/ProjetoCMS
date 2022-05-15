@@ -194,8 +194,10 @@ export function ListProvider({ children }: Props) {
           setNomesAgrupados([...nomesAgrupados]);
 
           let indexTooltip = nomeTooltip.findIndex(elemento => elemento === nodes.children[index].name );
-          nomeTooltip.splice(indexTooltip, 1);
-          setNomeTooltip([...nomeTooltip]);
+          if (indexTooltip !== -1) {
+            nomeTooltip.splice(indexTooltip, 1);
+            setNomeTooltip([...nomeTooltip]);
+          }
         }
 
         /* Remover do grupo */
