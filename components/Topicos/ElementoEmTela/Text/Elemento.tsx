@@ -55,7 +55,6 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( { id, config }, ref 
   >  
     <div>
       <Paragrafo 
-          className="resizeable"  
           ref={ref} 
           onClick={(e) => (statusEdicao) && trocarLateral(e.detail)}
           display="none"

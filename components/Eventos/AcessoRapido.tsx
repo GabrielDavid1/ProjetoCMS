@@ -14,7 +14,6 @@ import { Edge } from 'react-flow-renderer';
 import { DadoEvtProps } from '../../Importacoes/Tipagens/Tipagem';
   
 const icon = <AppsIcon />;
-
 interface Propriedades {
     nome: string[];
     edges: Edge[];
@@ -32,8 +31,8 @@ export function AcessoRapido({
    setDadoEvt,
    setStatusModal,
    setStatusQuery,
-}:Propriedades) { 
-   function setarModal(source: string, target:string, idTooltip: number) {
+}:Propriedades) {   
+  function setarModal(source: string, target:string, idTooltip: number) {
         let grupoEstatico:string[] = [];
         edges.map(elemento => (elemento.source === source) && grupoEstatico.push(elemento.target));
     

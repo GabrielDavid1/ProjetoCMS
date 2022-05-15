@@ -103,7 +103,7 @@ export const Elemento = forwardRef<HTMLDivElement,  Props>(( {
           opacity={config?.opacity}
           zIndex={config?.zIndex}
           transform={"translate(0px, 0px)"}
-        >
+        > 
           <SelectElemento
               visibilidade={visibilidade}
               refLeft={refLeft} 

@@ -88,7 +88,7 @@ export default function ModalEvento({
   setNomeTooltip,
   statusQuery,
 }: propriedade) {
-  const { list } = useList();
+  const { nomesAgrupados } = useList();
   const { deletarQuery,
           queryEvento, setQueryEvento,
           initialEdges, setInitialEdges } = useEvent();  
@@ -155,8 +155,6 @@ export default function ModalEvento({
     }
 
     if(activeStep === 4) {
-        nomeTooltip.push(DadosEstaticos[DadosEstaticos.length-1].nome);
-        setNomeTooltip([...nomeTooltip]);
         let id_1 = (paramQuery.param1.id !== undefined) 
                       ? paramQuery.param1.id 
                       : DadosEstaticos[0].idElemento;
@@ -205,32 +203,24 @@ export default function ModalEvento({
   };
 
   function addDadosEstaticos (id: string) {
-    const regex = new RegExp(id, 'gi');
+    let buscaElemento:any = nomesAgrupados.find(elemento => elemento.id === id);
     DadosEstaticos.push({
        idElemento: id,
        idBotao: dadoEvento?.idBotao,
-       nome: list[0].children.filter(param => regex.test(param.id))[0].name,
+       nome: buscaElemento.nome,
     });
     setDadosEstaticos([...DadosEstaticos]);
   }
 
-  function carregarTooltips () {
-    nomeTooltip = [];
-    queryEvento.filter(elemento => elemento.idBotao !== '').map(function(item){
-         let nome = list[0].children.find(elemento => elemento.id === item.acao.id)?.name;
-         nomeTooltip.push((nome !== undefined) ? nome : '')
-    });
-    setNomeTooltip([...nomeTooltip]);
-  }
-
   useEffect(() => {
     setDadosEstaticos([{ idElemento: '', idBotao: '', nome: 'Vazio' }]);
-    carregarTooltips();
     if(statusModal) { 
       let id   = (dadoEvento?.idOutro !== undefined) ? dadoEvento.idOutro : '0.73';
-      let nome = list[0].children.find(elemento => elemento.id === id)?.name;
+      let nome = dadoEvento?.nomeAlvo;
 
-      setDadosAlvo({id: id, nome: (nome !== undefined) ? nome : 'Vazio'});
+      let buscaElemento:any = nomesAgrupados.find(elemento => elemento.id === id); 
+
+      setDadosAlvo({id: id, nome: (nome !== undefined) ? nome : buscaElemento.nome});
   
       dadoEvento?.relacionados.forEach((dado) => {
          addDadosEstaticos(dado)       
@@ -241,8 +231,9 @@ export default function ModalEvento({
   function removerElementoAcessoRapido () {
     let retorno = queryEvento.find(elemento => (elemento.acao.id === dadoEvento?.idOutro && elemento.idBotao === dadoEvento?.idBotao));
     if (dadoEvento?.idTooltip !== undefined && retorno?.ativado === true) {
-     
-        nomeTooltip.splice(dadoEvento.idTooltip, 1);
+
+        let indexTooltip = nomeTooltip.findIndex(elemento => elemento === dadosAlvo.nome );
+        nomeTooltip.splice(indexTooltip, 1);
         setNomeTooltip([...nomeTooltip]);
       
         let indexEdge = edges.findIndex(elemento => elemento.target === retorno?.acao.id && elemento.source === retorno?.idBotao)

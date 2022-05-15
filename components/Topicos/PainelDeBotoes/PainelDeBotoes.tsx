@@ -21,7 +21,7 @@ type Props = {
 export function PainelDeBotoes ({ nomePagina }:Props) {
     const { idTotal, list, setList, 
             tamanho, setTamanho, setSelected,
-            adicionaGrupo, copiaGrupo 
+            adicionaGrupo, copiaGrupo, nomesAgrupados, setNomesAgrupados,
           } = useList();
     const { addConfig } = useConfig();
 
@@ -35,6 +35,10 @@ export function PainelDeBotoes ({ nomePagina }:Props) {
       });
       setList({...list});
       addConfig(String(id), type, '0', nomePagina);
+
+      nomesAgrupados.push({id: String(id), nome: name});
+      setNomesAgrupados([...nomesAgrupados]);
+
       setTamanho(id);
 
       if (adicionaGrupo === false) setSelected([]);
@@ -60,6 +64,10 @@ export function PainelDeBotoes ({ nomePagina }:Props) {
           });
           setList({...list});
           addConfig(String(id), type, idTotal, nomePagina);
+
+          nomesAgrupados.push({id: String(id), nome: nome, evt: undefined});
+          setNomesAgrupados([...nomesAgrupados]);
+
           setTamanho(id);
       }
       if (adicionaGrupo === false) setSelected([]);

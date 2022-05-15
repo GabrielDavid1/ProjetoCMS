@@ -24,7 +24,7 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
           onNodesChange, setInitialEdges, 
           nomeTooltip, setNomeTooltip,
         } = useEvent();
-  const { list, retornarNome } = useList();
+  const { nomesAgrupados } = useList();
 
   const [dadoEvt, setDadoEvt] = useState<DadoEvtProps>();
   const [statusModal, setStatusModal] = useState(false);
@@ -45,21 +45,27 @@ function PadraoConteudoEventos ({ nomePagina }:Props)  {
        edges.map(elemento => (elemento.source === edges.slice(-1)[0].source) && grupoEstatico.push(elemento.target));
       
        /* Constroi um array para aparecer no tooltip do componente (AcessoRapido) */
-       let nome = retornarNome(edges.slice(-1)[0].target, list[0]);
-           nomeTooltip.push(nome);
+       let buscarElemento:any = nomesAgrupados.find(elemento => elemento.id === edges.slice(-1)[0].target)
+           nomeTooltip.push(buscarElemento.nome);
            setNomeTooltip(nomeTooltip);
 
        /* Forma os dados que vão servir para mostragem em tela no modal */
        let copia = Object.assign({}, dadoEvt);
            copia = { idBotao: edges.slice(-1)[0].source,
                      idOutro: edges.slice(-1)[0].target,
-                     nomeAlvo:nome, 
+                     nomeAlvo:buscarElemento.nome, 
                      relacionados: grupoEstatico };
        setDadoEvt(copia);
        setStatusModal(true);
        setStatusQuery(false);
     }
   }, [edges]);
+
+  useEffect(() => {
+    if(edges.length !== initialEdges.length) {  
+       setEdges(initialEdges);
+    }
+  }, [initialEdges]); 
 
   return (
     <ReactFlow

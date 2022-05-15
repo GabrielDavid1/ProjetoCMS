@@ -39,7 +39,7 @@ export default function Parametros ({
   paramQuery,
   setParamQuery,
 }:Props) {
-    const [value, setValue] = React.useState<string | null>(tiposTamanho[0]);
+    const [value, setValue] = React.useState<string | null>(tiposTamanho[1]);
     const [inputValue, setInputValue] = React.useState('');
 
     const handleChange = (event: SelectChangeEvent, newValue: string | null) => {

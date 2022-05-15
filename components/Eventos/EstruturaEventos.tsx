@@ -29,9 +29,9 @@ type Props = {
 }
 
 export default function EstruturaEventos ({ nomePagina }:Props) {
-    const { list } = useList();
+    const { list, nomesAgrupados } = useList();
     const { retornarTipoElemento } = useConfig();
-    const { initialNodes, setInitialNodes } = useEvent();
+    const { initialNodes, setInitialNodes, nomeTooltip } = useEvent();
 
     const [expanded, setExpanded] = React.useState<string[]>(['root']);
     const [selected, setSelected] = React.useState<string[]>([]);
@@ -56,7 +56,7 @@ export default function EstruturaEventos ({ nomePagina }:Props) {
     };
 
     function plataformaBotoes (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) {
-        if (event.detail === 2 && id !== 'root') {
+        if (event.detail === 2 && id !== 'root' && nodes.children.length === 0) {
             setInitialNodes([...initialNodes,
               { id: id,
                 data: { label: nodes.name }, 
@@ -67,7 +67,7 @@ export default function EstruturaEventos ({ nomePagina }:Props) {
     }
 
     function plataformaOutros (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) {
-        if (event.detail === 2 && id !== 'root') {
+        if (event.detail === 2 && id !== 'root' && nodes.children.length === 0) {
             setInitialNodes([...initialNodes,
               { id: id,
                 data: { label: nodes.name }, 
@@ -78,7 +78,11 @@ export default function EstruturaEventos ({ nomePagina }:Props) {
 
     /************************************************** [SUB COMPONENTES] ***************************************************************/
     const renderTreeBotoes = (nodes:List) => (      
-      ((nodes !== undefined && nodes.tipoCache === nomePagina && retornarTipoElemento(nodes.id) === 'Botao' && nodes?.evt !== undefined) || nodes.id === 'root') ? (    
+      ((nodes !== undefined && nodes.tipoCache === nomePagina && 
+        retornarTipoElemento(nodes.id) === 'Botao' && 
+        nomesAgrupados.find(elemento => elemento.id === nodes.id)?.evt !== undefined) 
+        || nodes.id === 'root') ? ( 
+
         <TreeItem onClick={(e) => plataformaBotoes(e, nodes.id, nodes)} key={nodes.id} nodeId={nodes.id} label={nodes.name}>
           {
             Array.isArray(nodes.children)

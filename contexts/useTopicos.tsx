@@ -7,11 +7,18 @@ import { useEvent } from './useEvent';
 
 /* Tipagem */
 import { List } from '../Importacoes/Tipagens/Tipagem';
+import { Event } from '../Importacoes/Tipagens/Tipagem';
 
 type lateral = {
   principal: boolean;
   configs: boolean;
   eventos: boolean;
+}
+
+type NomesAgrupadosProps = {
+  id: string;
+  nome: string;
+  evt?: Event;
 }
 
 interface ListContextValue {
@@ -23,6 +30,8 @@ interface ListContextValue {
 
   nomeAlterado: string;
   nomeSelecionado: string;
+
+  nomesAgrupados: NomesAgrupadosProps[];
 
   selectedAll: boolean;
   grupo: boolean;
@@ -38,13 +47,14 @@ interface ListContextValue {
   setIdTotal: (data: string) => void;
 
   setList: (data: List[]) => void;
-  removerDaLista: ( id: string, nodes:List ) => void;
+  removerDaLista: ( id: string, nodes:List, tipo:string ) => void;
   renomearElemento: ( id: string, nodes:List, nome:string ) => void;
   buscarElemento: ( id: string, nodes:List ) => void;
 
   retornarNome: ( id: string, nodes:List ) => string;
 
   setNomeSelecionado: (data: string) => void;
+  setNomesAgrupados: (data: NomesAgrupadosProps[]) => void;
   
   setGrupo: (data: boolean) => void;
   setCopiaGrupo: (data: List[]) => void;
@@ -93,6 +103,8 @@ const listInitial: ListContextValue = {
   nomeAlterado: '',
   nomeSelecionado: '',
 
+  nomesAgrupados: [],
+
   grupo: false,
   copiaGrupo: [{
     id: '0',
@@ -116,6 +128,7 @@ const listInitial: ListContextValue = {
   buscarElemento: data => {},
 
   setNomeSelecionado: data => {},
+  setNomesAgrupados: data => {},
 
   retornarNome: data => "",
 
@@ -139,38 +152,51 @@ const ListContext = React.createContext<ListContextValue>(listInitial);
 
 export function ListProvider({ children }: Props) {
   let nomeAlterado = '';
-  const [idTotal, setIdTotal] = React.useState<string>(listInitial.idTotal);
-  const [nomeSelecionado, setNomeSelecionado] = React.useState('');
-  const [list, setList] = React.useState<List[]>([listInitial.list[0]]);
-  const [toggleLateral, setToggleLateral] = React.useState(listInitial.toggleLateral);
+  const [grupo, setGrupo] = React.useState(false);
+  const [tamanho, setTamanho] = React.useState(0);
+  const [selected, setSelected] = React.useState<string[]>([]);
+  const [nomesAgrupados, setNomesAgrupados] = React.useState<NomesAgrupadosProps[]>([]);
   const [copiaGrupo, setCopiaGrupo] = React.useState<List[]>([]);
   const [adicionaGrupo, setAdicionaGrupo] = React.useState(false);
-  const [grupo, setGrupo] = React.useState(false);
-  const [selected, setSelected] = React.useState<string[]>([]);
+  const [nomeSelecionado, setNomeSelecionado] = React.useState('');
+  const [list, setList] = React.useState<List[]>([listInitial.list[0]]);
+  const [idTotal, setIdTotal] = React.useState<string>(listInitial.idTotal);
   const [selectedAll, setSelectedAll] = React.useState(listInitial.selectedAll);
+  const [toggleLateral, setToggleLateral] = React.useState(listInitial.toggleLateral);
   const [expanded, setExpanded] = React.useState<string[]>([listInitial.expanded[0]]);
-  const [tamanho, setTamanho] = React.useState(0);
 
   const { renomearNode, setQuantidadeEventos, 
           removeEvento, setQueryEvento,
           setInitialEdges, setInitialNodes,
+          setNomeTooltip, nomeTooltip,
         } = useEvent();
   const { configuracoes, removerDeGrupo, 
-          removerConfigs, buscarConfigs 
+          removerConfigs 
         } = useConfig();
 
   /********************* Lista de Tópicos *******************/
-  const removerDaLista = ( id: string, nodes:List ) => {
+  const removerDaLista = ( id: string, nodes:List, tipo = '' as string ) => {
     let copiaExpanded = expanded;
     let index = nodes.children.findIndex(elemento => elemento.id === id);
 
     if (index === -1) {
         Array.isArray(nodes.children)
-          ? nodes.children.map((node) => removerDaLista(id, node))
+          ? nodes.children.map((node) => removerDaLista(id, node, tipo))
           : null  
     } else {      
         /* Remover do Evento */
         removeEvento(id, 'tipo');
+
+        /* Remover do Tooltip */
+        if (tipo !== 'evento') {
+          let indexNomesAgrupados:any = nomesAgrupados.findIndex(elemento => elemento.id === nodes.children[index].id );
+          nomesAgrupados.splice(indexNomesAgrupados, 1);
+          setNomesAgrupados([...nomesAgrupados]);
+
+          let indexTooltip = nomeTooltip.findIndex(elemento => elemento === nodes.children[index].name );
+          nomeTooltip.splice(indexTooltip, 1);
+          setNomeTooltip([...nomeTooltip]);
+        }
 
         /* Remover do grupo */
         removerDeGrupo(nodes.children[index].id, nodes.children[index].children.length);
@@ -200,6 +226,11 @@ export function ListProvider({ children }: Props) {
           : null  
     } else {
         renomearNode(nodes.children[index].id, name);
+
+        let nomeAgrupado:any = nomesAgrupados.find(elemento => elemento.id === nodes.children[index].id);
+        nomeAgrupado.nome = name;
+        setNomesAgrupados([...nomesAgrupados]);
+
         nodes.children[index].name = name;
         setList({...list});
         setNomeSelecionado(name);
@@ -209,7 +240,6 @@ export function ListProvider({ children }: Props) {
 
   function buscarElemento ( id: string, nodes:List) {
     let index = nodes.children.findIndex(elemento => elemento.id === id);
-
     if (index === -1) {
         Array.isArray(nodes.children)
           ? nodes.children.map((node) => buscarElemento(id, node))
@@ -221,7 +251,6 @@ export function ListProvider({ children }: Props) {
 
   function retornarNome (id: string, nodes:List) {
     let index = nodes.children.findIndex(elemento => elemento.id === id);
-
     if (index === -1) {
         Array.isArray(nodes.children)
           ? nodes.children.map((node) => retornarNome(id, node))
@@ -250,6 +279,8 @@ export function ListProvider({ children }: Props) {
         setQueryEvento([]);
         setInitialEdges([]);
         setInitialNodes([]);
+        setNomesAgrupados([]);
+        setNomeTooltip([]);
     }
   }
 
@@ -301,7 +332,7 @@ export function ListProvider({ children }: Props) {
     <ListContext.Provider 
       value={{
         nomeAlterado, renomearElemento,
-        idTotal, setIdTotal,
+        idTotal, setIdTotal, 
         nomeSelecionado, setNomeSelecionado,
         list, setList, removerDaLista,
         toggleLateral,ativarToggleLateral,
@@ -315,6 +346,7 @@ export function ListProvider({ children }: Props) {
         onToggleMarcarTudo,
         expanded, setExpanded,
         buscarElemento, retornarNome,
+        nomesAgrupados, setNomesAgrupados,
       }}
     >
       {children}
@@ -341,6 +373,7 @@ export function useList() {
       onToggleMarcarTudo,
       expanded, setExpanded,
       buscarElemento, retornarNome,
+      nomesAgrupados, setNomesAgrupados,
     } = context;
     
     return { 
@@ -359,5 +392,6 @@ export function useList() {
       onToggleMarcarTudo,
       expanded, setExpanded, 
       buscarElemento, retornarNome,
+      nomesAgrupados, setNomesAgrupados,
     };
 }

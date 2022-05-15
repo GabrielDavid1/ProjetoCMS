@@ -10,7 +10,7 @@ import { useCache } from './useCache';
 
 /* Nookies */
 import { setCookie } from 'nookies';
-import Link from '@mui/material/Link';
+
 /* Tipagens */
 import { Config } from '../Importacoes/Tipagens/Tipagem';
 
@@ -196,10 +196,12 @@ export function EventProvider({ children }: Props) {
             setQueryEvento([...queryEvento]);
         } else if (index_2 === -1) {
             index_2 = initialEdges.findIndex(elemento => elemento.target === id);
-            initialEdges.splice(index_2, 1);    
-            setInitialEdges([...initialEdges]);   
-            queryEvento.splice(index_2, 1);
-            setQueryEvento([...queryEvento]);         
+            if(index_2 !== -1) {
+               initialEdges.splice(index_2, 1);    
+               setInitialEdges([...initialEdges]);   
+               queryEvento.splice(index_2, 1);
+               setQueryEvento([...queryEvento]); 
+            }        
         }
     }
 
@@ -221,8 +223,10 @@ export function EventProvider({ children }: Props) {
         let id_1 = elemento?.condicao.par1.replace(/\D+/g, ""); 
         let param_1 = elemento?.condicao.par1.replace(/-/g , "");
 
-        let config_1:any = resto.find(elemento => elemento.id === id_1 && id_1 !== '')
-        let resultado_1 = parametros(id_1, param_1, config_1.config);
+        let config_1:any = resto.find(elemento => elemento.id === id_1 && id_1 !== '');
+        let resultado_1 = (config_1 !== undefined) 
+                             ? parametros(id_1, param_1, config_1.config) 
+                             : 'Vazio';
 
         let cond = elemento?.condicao.par2;
 
@@ -230,7 +234,9 @@ export function EventProvider({ children }: Props) {
         let param_2 = elemento?.condicao.par3.replace(/-/g , "");
 
         let config_2:any = resto.find(elemento => elemento.id === id_2 && id_2 !== '');
-        let resultado_2  = (config_2 !== undefined) ? parametros(id_2, param_2, config_2.config) : 'vazio';
+        let resultado_2  = (config_2 !== undefined)
+                              ? parametros(id_2, param_2, config_2.config) 
+                              : 'vazio';
 
         if (condicao(resultado_1, cond, resultado_2)) {
             setarConfig(elemento?.acao.id, elemento?.acao.tipo, resto, elemento?.acao.alterado);

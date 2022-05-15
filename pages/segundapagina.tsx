@@ -16,7 +16,7 @@ import TemplatePrincipal from '../components/TemplatePrincipal/ConteudoPrincipal
 export default function segundapagina() {
   
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { list, ativarToggleLateral, tamanho } = useList();
+  const { list, ativarToggleLateral, tamanho, nomesAgrupados } = useList();
    // eslint-disable-next-line react-hooks/rules-of-hooks
   const { configuracoes } = useConfig();
    // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -54,6 +54,10 @@ export default function segundapagina() {
         path: '/', 
       });
       setCookie(null, 'INITIAL_EDGES', JSON.stringify(initialEdges), 
+      { maxAge: 86400 * 7,
+        path: '/', 
+      });
+      setCookie(null, 'NOMES_AGRUPADOS', JSON.stringify(nomesAgrupados), 
       { maxAge: 86400 * 7,
         path: '/', 
       });

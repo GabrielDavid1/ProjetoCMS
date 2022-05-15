@@ -31,11 +31,11 @@ export function Botao () {
     const [tiposBotao, setTiposBotao] = useState({ status: false, svg: 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z' });
   
     const { quantidadeEventos, setQuantidadeEventos, removeEvento } = useEvent();
-    const { ativarToggleLateral, list, setList, buscarElemento } = useList();
+    const { ativarToggleLateral, list, setList, nomesAgrupados, setNomesAgrupados } = useList();
     const { idTotal, buscarConfigs, configuracoes, setConfiguracoes } = useConfig();
 
     let elementoGuardado:any = buscarConfigs(idTotal);
-    let listaBuscado: any = buscarElemento(idTotal, list[0]);
+    let listaBuscado: any = nomesAgrupados.find(elemento => elemento.id === idTotal);
 
     const handleChange = (event: SelectChangeEvent) => {
       event.preventDefault();
@@ -123,12 +123,12 @@ export function Botao () {
               acao: "vazio",
            }
            listaBuscado.evt = evento;
-           setList({...list});
+           setNomesAgrupados([...nomesAgrupados]);
            ativarToggleLateral('eventos');
         } else {
            setQuantidadeEventos(quantidadeEventos-1);            
-           delete listaBuscado.evt;
-           setList({...list});
+           listaBuscado.evt = undefined;
+           setNomesAgrupados([...nomesAgrupados]);
            removeEvento(idTotal, 'tipos');
            ativarToggleLateral('configs');
         }
@@ -225,7 +225,10 @@ export function Botao () {
                 }}
                 onClick={acionarEventos}
               > 
-                { (listaBuscado.evt === undefined) ? "Adicionar Evento" : "Remover Evento" }
+                { (listaBuscado.evt === undefined && listaBuscado !== undefined) 
+                      ? "Adicionar Evento" 
+                      : "Remover Evento"
+                }
               </Button>
             </li>
           </ul>

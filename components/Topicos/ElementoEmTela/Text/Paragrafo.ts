@@ -6,6 +6,8 @@ import { Config } from '../../../../Importacoes/Tipagens/Tipagem';
 
 const Paragrafo = styled.div<Config>`
       display: block;
+      width:0;
+      height:0;
       color: ${(p) => p.bgColor}; 
       font-size: ${(p) => p.fontSize}; 
       font-family: ${(p) => p.fontFamily};  

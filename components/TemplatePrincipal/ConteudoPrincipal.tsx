@@ -80,6 +80,7 @@ export default function ConteudoPrincipal(props:any) {
           list, setList, 
           tamanho, setTamanho ,
           ativarToggleLateral,
+          nomesAgrupados, setNomesAgrupados,
         } = useList();
   
   useEffect(() => {
@@ -92,6 +93,7 @@ export default function ConteudoPrincipal(props:any) {
         setInitialEdges(JSON.parse(nookies.get().INITIAL_EDGES));
         setNomeTooltip(JSON.parse(nookies.get().NOME_TOOLTIP));
         setQueryEvento(JSON.parse(nookies.get().QUERY_EVENTO));
+        setNomesAgrupados(JSON.parse(nookies.get().NOMES_AGRUPADOS));
         setQuantidadeEventos(JSON.parse(nookies.get().QUANTIDADE_EVENTOS));
     } else {
         setCookie(null, 'LISTA', JSON.stringify([
@@ -138,6 +140,11 @@ export default function ConteudoPrincipal(props:any) {
         { maxAge: 86400 * 7,
           path: '/', 
         });
+
+        setCookie(null, 'NOMES_AGRUPADOS', JSON.stringify([]), 
+        { maxAge: 86400 * 7,
+          path: '/', 
+        }); 
 
         setCookie(null, 'INITIAL_NODES', JSON.stringify([]), 
         { maxAge: 86400 * 7,
@@ -232,7 +239,12 @@ export default function ConteudoPrincipal(props:any) {
     { maxAge: 86400 * 7,
       path: '/', 
     });
+    
     setCookie(null, 'INITIAL_EDGES', JSON.stringify(initialEdges), 
+    { maxAge: 86400 * 7,
+      path: '/', 
+    });
+    setCookie(null, 'NOMES_AGRUPADOS', JSON.stringify(nomesAgrupados), 
     { maxAge: 86400 * 7,
       path: '/', 
     });
@@ -406,6 +418,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
       NOME_TOOLTIP:cookies.NOME_TOOLTIP,
       QUERY_EVENTO:cookies.QUERY_EVENTO,
       QUANTIDADE_EVENTOS:cookies.QUANTIDADE_EVENTOS,
+      NOMES_AGRUPADOS:cookies.NOMES_AGRUPADOS,
     },
   }
 }
