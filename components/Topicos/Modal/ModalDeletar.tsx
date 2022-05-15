@@ -21,7 +21,7 @@ export const ModalDeletar = (() => {
     const { removerConfigs, setIdTotal } = useConfig();
 
     const plataforma = () => {
-          removerDaLista(idTotal,list[0]);
+          removerDaLista(idTotal,list[0], '');
           removerConfigs(idTotal);
           handleClose2();
           setIdTotal('');
