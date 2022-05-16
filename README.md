@@ -27,7 +27,6 @@ em fim concluir esse que pra mim foi um grande desafio ao longo desses 2 meses d
 - Lógica E-C-A
 
 ## 🚀 Começando
-
 Rodar o servidor
 ```bash
 npm run dev
