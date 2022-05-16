@@ -41,7 +41,6 @@ import EstruturaEventos from '../Eventos/EstruturaEventos';
 import { useList } from '../../contexts/useTopicos';
 import { useConfig } from '../../contexts/useConfig';
 import { useCache } from '../../contexts/useCache';
-import { useEvent } from '../../contexts/useEvent';
 
 /* Funções */
 import { useStyles } from '../../Importacoes/Funcoes/Funcoes';
@@ -63,126 +62,19 @@ export default function ConteudoPrincipal(props:any) {
 
   const [open, setOpen] = useState(true);
   const [statusConfig, setStatusConfig] = useState(true);
-
   const { configPagina, setConfigPagina  } = useCache();
-  const { setInitialNodes, setInitialEdges,
-          setNomeTooltip,  setQueryEvento,
-          initialNodes, initialEdges,
-          nomeTooltip, queryEvento,
-          quantidadeEventos, setQuantidadeEventos,
-        } = useEvent();
+  const { toggleLateral, setList, ativarToggleLateral } = useList();
+  const { setConfiguracoes, statusEdicao, setStatusEdicao } = useConfig();
 
-  const { configuracoes, setConfiguracoes, 
-          statusEdicao, setStatusEdicao
-        } = useConfig();
-
-  const { toggleLateral, 
-          list, setList, 
-          tamanho, setTamanho ,
-          ativarToggleLateral,
-          nomesAgrupados, setNomesAgrupados,
-        } = useList();
-  
   useEffect(() => {
-    if (nookies.get().LISTA !== undefined) {
-        setList(JSON.parse(nookies.get().LISTA));
-        setConfiguracoes(JSON.parse(nookies.get().CONFIG));
-        setTamanho(JSON.parse(nookies.get().TAMANHO));
+    if (nookies.get().CONFIGPAGINA !== undefined) {
         setConfigPagina(JSON.parse(nookies.get().CONFIGPAGINA));
-        setInitialNodes(JSON.parse(nookies.get().INITIAL_NODES));
-        setInitialEdges(JSON.parse(nookies.get().INITIAL_EDGES));
-        setNomeTooltip(JSON.parse(nookies.get().NOME_TOOLTIP));
-        setQueryEvento(JSON.parse(nookies.get().QUERY_EVENTO));
-        setNomesAgrupados(JSON.parse(nookies.get().NOMES_AGRUPADOS));
-        setQuantidadeEventos(JSON.parse(nookies.get().QUANTIDADE_EVENTOS));
     } else {
-        setCookie(null, 'LISTA', JSON.stringify([
-          { id: 'root', name: "Sua árvore de tópicos adicionados",
-            children: [{ 
-                id: '0.1',
-                name: '',
-                children: [],
-              }, 
-            ]
-          },
-        ]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });
-
-        setCookie(null, 'CONFIG', JSON.stringify([
-          { id: '0.1', type: 'padrao', idGrupo: '0',
-            config: {
-              width: "0px",
-              height: "0px",
-              bgColor: "white",
-              pxBorder: "0px",
-              typeBorder: "1",
-              colorBorder: "#rrggbb",
-              boxShadow: "0px 0px 0px", 
-              borderRadius: "0px",
-            }
-           }]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });
-
         setCookie(null, 'CONFIGPAGINA', JSON.stringify([
           { identificador: '1', nomePagina: 'Primeira Página', iconeId: '1' },
           { identificador: '2', nomePagina: 'Segunda Página',  iconeId: '2' },
           { identificador: '3', nomePagina: 'Terceira Página', iconeId: '2'},
         ]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });
-
-        setCookie(null, 'TAMANHO', JSON.stringify(0), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });
-
-        setCookie(null, 'NOMES_AGRUPADOS', JSON.stringify([]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        }); 
-
-        setCookie(null, 'INITIAL_NODES', JSON.stringify([]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });    
-
-        setCookie(null, 'INITIAL_EDGES', JSON.stringify([]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });    
-
-        setCookie(null, 'NOME_TOOLTIP', JSON.stringify([]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });  
-        
-        setCookie(null, 'QUERY_EVENTO', JSON.stringify([
-          {
-            idBotao: '',
-            evento:  '',
-            condicao: {
-                par1: '',
-                par2: '',
-                par3: '',
-            },
-            acao: {
-                id: '',
-                tipo: '',
-                alterado: '',
-            },
-            ativado: true,
-          },
-        ]), 
-        { maxAge: 86400 * 7,
-          path: '/', 
-        });
-        
-        setCookie(null, 'QUANTIDADE_EVENTOS', JSON.stringify(0), 
         { maxAge: 86400 * 7,
           path: '/', 
         });
@@ -219,43 +111,7 @@ export default function ConteudoPrincipal(props:any) {
   };
 
   function salvarConfiguracoes (rota: string) {
-    setCookie(null, 'LISTA', JSON.stringify(list), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'CONFIG', JSON.stringify(configuracoes), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'TAMANHO', JSON.stringify(tamanho), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
     setCookie(null, 'CONFIGPAGINA', JSON.stringify(configPagina), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'INITIAL_NODES', JSON.stringify(initialNodes), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'INITIAL_EDGES', JSON.stringify(initialEdges), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'NOMES_AGRUPADOS', JSON.stringify(nomesAgrupados), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'NOME_TOOLTIP', JSON.stringify(nomeTooltip), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'QUERY_EVENTO', JSON.stringify(queryEvento), 
-    { maxAge: 86400 * 7,
-      path: '/', 
-    });
-    setCookie(null, 'QUANTIDADE_EVENTOS', JSON.stringify(quantidadeEventos), 
     { maxAge: 86400 * 7,
       path: '/', 
     });
@@ -409,16 +265,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
   return {
     props: {
       msg: '[SERVER]: Concluido',
-      LISTA:cookies.LISTA,
-      CONFIG:cookies.CONFIG,
-      TAMANHO:cookies.TAMANHO,
       CONFIGPAGINA:cookies.CONFIGPAGINA,
-      INITIAL_NODES:cookies.INITIAL_NODES,
-      INITIAL_EDGES:cookies.INITIAL_EDGES,
-      NOME_TOOLTIP:cookies.NOME_TOOLTIP,
-      QUERY_EVENTO:cookies.QUERY_EVENTO,
-      QUANTIDADE_EVENTOS:cookies.QUANTIDADE_EVENTOS,
-      NOMES_AGRUPADOS:cookies.NOMES_AGRUPADOS,
     },
   }
 }
