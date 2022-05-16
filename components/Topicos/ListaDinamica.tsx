@@ -38,7 +38,7 @@ export function ListaDinamica ({ nomePagina }:Props) {
          selected, setSelected,
          expanded, setExpanded
     } = useList();
-    const { addConfigNoGrupo, setarIdConfig } = useConfig();
+    const { addConfigNoGrupo, setarIdConfig, configuracoes } = useConfig();
 
     const handleToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
         setExpanded(nodeIds);
@@ -86,6 +86,7 @@ export function ListaDinamica ({ nomePagina }:Props) {
     }
 
     const plataforma = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, id: string, nodes:List) => {
+        console.log(configuracoes)
         let copiaExpanded = expanded;
         setNomeSelecionado(nodes.id);
         if (adicionaGrupo && id !== selected[0] && id !== 'root') {

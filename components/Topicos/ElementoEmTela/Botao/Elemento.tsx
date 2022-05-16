@@ -65,22 +65,24 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( {
   }
 
   const trocarLateral = (parametro: number) => {
-    if (config !== undefined) {
-        plataformaEvento(id, configuracoes);
-    }
-    if (parametro === 2) {
-        setIdTotal('');
-        ativarToggleLateral('principal');
-    } else if(parametro === 1 && config !== undefined) {
-        setIdTotal(id);
-        addElementoNoGrupo();
-        setConfiguracoes(
-          configuracoes.map(el => (el.id === id && el.config !== undefined
-              ? {...el, config: 
-                {...el.config, width:width, height:height}}
-              : el
-          ))
-        ) 
+    plataformaEvento(id, configuracoes);
+    if (statusEdicao) {
+      if (parametro === 2) {
+          setIdTotal('');
+          ativarToggleLateral('principal');
+      } else if(parametro === 1 && config !== undefined) {
+          setIdTotal(id);
+          addElementoNoGrupo();
+          setConfiguracoes(
+            configuracoes.map(el => (el.id === id && el.config !== undefined
+                ? {...el, config: 
+                  {...el.config, width:width, height:height}}
+                : el
+            ))
+          ) 
+      }
+    } else {
+      setConfiguracoes([...configuracoes]);
     }
   }
 
@@ -106,7 +108,7 @@ export const Elemento = forwardRef<HTMLDivElement, Props>(( {
         className="resizeable" 
         onMouseOver={() => setVisibilidade(true)} 
         onMouseOut={() => setVisibilidade(false)}
-        onClick={(e) => (statusEdicao) && trocarLateral(e.detail)}
+        onClick={(e) => trocarLateral(e.detail)}
         width={config?.width}
         height={config?.height}
         top={config?.top}

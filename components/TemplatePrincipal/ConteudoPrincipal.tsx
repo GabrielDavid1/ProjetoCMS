@@ -239,7 +239,6 @@ export default function ConteudoPrincipal(props:any) {
     { maxAge: 86400 * 7,
       path: '/', 
     });
-    
     setCookie(null, 'INITIAL_EDGES', JSON.stringify(initialEdges), 
     { maxAge: 86400 * 7,
       path: '/', 
@@ -263,6 +262,7 @@ export default function ConteudoPrincipal(props:any) {
     ativarToggleLateral('principal');
     Router.push(rota);
   }
+
   return (
     <div className={classes.root}>
       <AppBar
