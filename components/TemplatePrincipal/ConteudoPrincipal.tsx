@@ -155,7 +155,6 @@ export default function ConteudoPrincipal(props:any) {
               >
                Página principal
               </ListItem>
-             <Avatar alt="Gabriel David" /> 
           </div>
         </Toolbar>
       </AppBar>

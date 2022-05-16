@@ -230,9 +230,12 @@ export function ListProvider({ children }: Props) {
         renomearNode(nodes.children[index].id, name);
 
         let nomeAgrupado:any = nomesAgrupados.find(elemento => elemento.id === nodes.children[index].id);
-        nomeAgrupado.nome = name;
-        setNomesAgrupados([...nomesAgrupados]);
 
+        if(nodes.children[index].children.length === 0) {
+          nomeAgrupado.nome = name;
+          setNomesAgrupados([...nomesAgrupados]);
+        }
+        
         nodes.children[index].name = name;
         setList({...list});
         setNomeSelecionado(name);
